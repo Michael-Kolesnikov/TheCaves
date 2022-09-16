@@ -9,7 +9,7 @@ public class Move : MonoBehaviour
     public CharacterController characterController;
 
 
-    private float gravity = -9.81f * 3f;
+    private float gravity = -9.81f;
     private Vector3 velocity;
     private float jumpHeight = 1f;
     GroundCheck check;
