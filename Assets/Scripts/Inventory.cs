@@ -15,12 +15,15 @@ public class Inventory : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.I))
         {
-            if(isOpened) UIPanel.SetActive(false);
-            else UIPanel.SetActive(true);
-
-
+            UIPanel.SetActive(isOpened);
+            CursorChangeState(isOpened);
 
             isOpened = !isOpened;
+        }
+        void CursorChangeState(bool state)
+        {
+            Cursor.lockState = state ? CursorLockMode.None : CursorLockMode.Locked;
+            Cursor.visible = state;
         }
     }
 }
