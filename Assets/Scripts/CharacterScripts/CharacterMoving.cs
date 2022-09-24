@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CharacterMoving : MonoBehaviour
@@ -12,6 +9,7 @@ public class CharacterMoving : MonoBehaviour
     public float moveSpeed = 5f;
     private float gravity = -19.62f;
     private float jumpHeight = 1f;
+    public static bool isMove = true;
 
     public KeyCode runningKey = KeyCode.LeftShift;
 
@@ -22,6 +20,7 @@ public class CharacterMoving : MonoBehaviour
     }
     void Update()
     {
+        if (!isMove) return;
         float characterSpeed =  moveSpeed;
         velocity.y += gravity * Time.deltaTime;
 

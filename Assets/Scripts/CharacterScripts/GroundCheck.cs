@@ -1,14 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-
 public class GroundCheck : MonoBehaviour
 {
 
-    //создать сферу которая проверяет с чем столкнулась
     public bool isGrounded ;
     public Transform groundCheck;
-    private float groundDistance = 0.4f;
+    private float groundDistance = 0.2f;
     public LayerMask groundLayerMask;
 
 

@@ -456,6 +456,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4560859686677245017, guid: 8d29ce591a2a13149af62037f1c0e442, type: 3}
+      propertyPath: m_Size.y
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4560859686677245019, guid: 8d29ce591a2a13149af62037f1c0e442, type: 3}
       propertyPath: m_RootOrder
       value: 4

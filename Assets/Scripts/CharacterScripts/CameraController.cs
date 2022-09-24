@@ -1,6 +1,3 @@
-using System.Reflection;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraController : MonoBehaviour
@@ -9,7 +6,7 @@ public class CameraController : MonoBehaviour
     Transform character;
     public float mouseSensitivity = 300f;
     private float xRotation = 0f;
-
+    public static bool isMove = true;
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
@@ -17,6 +14,7 @@ public class CameraController : MonoBehaviour
 
     void Update()
     {
+        if (!isMove) return;
         float MouseX = Input.GetAxisRaw("Mouse X") * mouseSensitivity * Time.deltaTime;
         float MouseY = Input.GetAxisRaw("Mouse Y") * mouseSensitivity * Time.deltaTime;
 
