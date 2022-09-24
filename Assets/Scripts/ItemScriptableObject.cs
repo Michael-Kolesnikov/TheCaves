@@ -8,11 +8,12 @@ public enum ItemType
     Construction,
 }
     
-public class ItemScriptableObject : MonoBehaviour
+public class ItemScriptableObject : ScriptableObject
 {
     public GameObject item;
     public string itemname;
     public string description;
     public Sprite icon;
     public int maxAmount;
+    private int _ID;
 }

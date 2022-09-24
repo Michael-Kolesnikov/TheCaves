@@ -1,8 +1,5 @@
 using UnityEngine;
-//[CreateAssetMenu(fileName = "Default",menuName ="Inventory/Item/Default")]
+[CreateAssetMenu(fileName = "Default",menuName ="Inventory/Item/Default")]
 public class DefaultItem : ItemScriptableObject
 {
-    public int id;
-
-
 }

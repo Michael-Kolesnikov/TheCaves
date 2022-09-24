@@ -1,9 +1,11 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class InventoryController : MonoBehaviour
 {
     private bool isOpened = false;
     public GameObject UIPanel;
+    //public List<T> itemList = new List<T>();
     void Start()
     {
         UIPanel.SetActive(false);
