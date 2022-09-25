@@ -5,7 +5,7 @@ public class InventoryController : MonoBehaviour
 {
     private bool isOpened = false;
     public GameObject UIPanel;
-    //public List<T> itemList = new List<T>();
+    public List<InventorySlot> itemList = new List<InventorySlot>();
     void Start()
     {
         UIPanel.SetActive(false);
@@ -21,6 +21,12 @@ public class InventoryController : MonoBehaviour
             CursorChangeState(state);
             CharacterMoving.isMove = !state;
             CameraController.isMove = !state;
+        }
+
+        if(Input.GetKeyDown(KeyCode.E))
+        {
+            Ray hit;
+            Physics.Raycast(hit);
         }
 
     }
