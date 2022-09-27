@@ -25,6 +25,7 @@ public class CharacterMoving : MonoBehaviour
         velocity.y += gravity * Time.deltaTime;
 
         Vector3 move = Input.GetAxis("Horizontal") * transform.right + Input.GetAxis("Vertical") * transform.forward;
+        //Run
         if (Input.GetKey(runningKey))
         {
             characterSpeed = runSpeed;
@@ -33,7 +34,7 @@ public class CharacterMoving : MonoBehaviour
         characterController.Move(move * characterSpeed * Time.deltaTime);
 
 
-
+        //Jump
         if (Input.GetButton("Jump") && check.isGrounded)
         {
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);

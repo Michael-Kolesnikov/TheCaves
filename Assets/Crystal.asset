@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e875f98f25af9e4da21c50737ee0d58, type: 3}
   m_Name: Crystal
   m_EditorClassIdentifier: 
-  item: {fileID: 919132149155446097, guid: 802312b09efde134092eb9f081c09e4d, type: 3}
-  itemname: Crystal
+  itemName: "\u041A\u0440\u0438\u0441\u0442\u0430\u043B\u043B"
   description: "\u041A\u0440\u0438\u0441\u0442\u0430\u043B\u043B, \u043E\u0442\u043F\u0430\u043B\u0438\u0440\u043E\u0432\u0430\u043D\u043D\u044B\u0439
     \u0434\u0432\u0430\u0440\u0444\u043E\u043C\u0438"
   icon: {fileID: 21300000, guid: c74985b7555f1c647ac9048a6d256d91, type: 3}
-  maxAmount: 0
+  itemType: 0
+  maxAmount: 10
+  prefabItem: {fileID: 919132149155446097, guid: 802312b09efde134092eb9f081c09e4d, type: 3}

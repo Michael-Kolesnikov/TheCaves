@@ -10,10 +10,11 @@ public enum ItemType
     
 public class ItemScriptableObject : ScriptableObject
 {
-    public GameObject item;
-    public string itemname;
+    public string itemName;
     public string description;
     public Sprite icon;
+    public ItemType itemType;
     public int maxAmount;
+    public GameObject prefabItem;
     private int _ID;
 }
