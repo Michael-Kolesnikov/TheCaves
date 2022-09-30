@@ -13,7 +13,6 @@ public class InventorySlot : MonoBehaviour
     public TMP_Text itemAmountText;
     private void Start()
     {
-
         GetComponent<Image>().sprite = defaultIcon;
     }
     public void SetIcon(Sprite spriteIcon)

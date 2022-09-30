@@ -36,8 +36,6 @@ public class InventoryController : MonoBehaviour
         }
         Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
 
-
-        // уничтожение подобранных предметов
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, reachDistance))
         {
@@ -48,7 +46,10 @@ public class InventoryController : MonoBehaviour
                     var item = hit.collider.gameObject.GetComponent<Item>();
                     AddItemToInventory(item.itemScriptableObject, item.amount);
                     Destroy(hit.collider.gameObject);
-
+                }
+                else
+                {
+                    Debug.Log("WTC");
                 }
             }
             

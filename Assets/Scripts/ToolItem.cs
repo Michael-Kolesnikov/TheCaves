@@ -1,8 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-
-public class ToolItem : ScriptableObject
+[CreateAssetMenu(fileName = "Tool", menuName = "Inventory/Item/Tool")]
+public class ToolItem : ItemScriptableObject
 {
     public int durability;
+
 }
