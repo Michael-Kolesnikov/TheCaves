@@ -25,7 +25,6 @@ public class InventoryController : MonoBehaviour
 
     void Update()
     {
-        Cursor.visible = true;
         if (Input.GetKeyDown(KeyCode.I))
         {
             isOpened = !isOpened;
@@ -85,5 +84,6 @@ public class InventoryController : MonoBehaviour
     private void CursorChangeState(bool state)
     {
         Cursor.lockState = state ? CursorLockMode.None : CursorLockMode.Locked;
+        Cursor.visible = state;
     }
 }
