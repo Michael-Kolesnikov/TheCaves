@@ -4,4 +4,5 @@ using UnityEngine;
 public class WeaponItem : MonoBehaviour
 {
     public int damage;
+    public int durability;
 }
