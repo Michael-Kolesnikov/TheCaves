@@ -11,8 +11,6 @@ public class InventoryController : MonoBehaviour
     Camera mainCamera;
     float reachDistance = 3f;
 
-
-    public GameObject spawn;
     void Start()
     {
         mainCamera = Camera.main;
@@ -25,7 +23,7 @@ public class InventoryController : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.I))
+        if (Input.GetKeyDown(KeyCode.I))    
         {
             isOpened = !isOpened;
             bool state = isOpened;
