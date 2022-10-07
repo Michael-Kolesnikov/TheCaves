@@ -19,7 +19,7 @@ public class CharacterMoving : MonoBehaviour
     {
         check = GetComponentInChildren<GroundCheck>();
         player = GetComponentInParent<Player>();
-        runSpeed = moveSpeed * 2.15f;
+        runSpeed = moveSpeed * 1.15f;
     }
     void Update()
     {
@@ -32,7 +32,7 @@ public class CharacterMoving : MonoBehaviour
         if (Input.GetKey(runningKey) && canRun)
         {
             characterSpeed = runSpeed;
-            player.DecreaseStamina(10f * Time.deltaTime);
+            player.DecreaseStamina(0.2f);
         }
         move = Vector3.ClampMagnitude(move, moveSpeed);
         characterController.Move(move * characterSpeed * Time.deltaTime);
@@ -51,6 +51,5 @@ public class CharacterMoving : MonoBehaviour
         characterController.Move(velocity * Time.deltaTime);
 
         canRun = !(player.CurrentStamina == 0);
-        Debug.Log(canRun);
     }
 }

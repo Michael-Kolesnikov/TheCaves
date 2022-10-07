@@ -13,18 +13,43 @@ public class Player : MonoBehaviour
         get { return _currentHealth; }
         set
         {
-            _currentHealth= Math.Max(value,0);
+            _currentHealth= Math.Max(value,minHealth);
         }
     }
     public float maxStamina = 100f;
-    public float minStamina = 100f;
+    public float minStamina = 0;
+
+    public float staminaRecoveryPerSecond = 1f;
+
     public float _currentStamina;
     public float CurrentStamina
     {
         get { return _currentStamina; }
         set
         {
-            _currentStamina= Math.Max(value,0);
+            if(value > maxStamina)
+                _currentStamina = maxStamina;
+            else
+                _currentStamina = Math.Max(value, minStamina);
+            
+        }
+    }
+    private float _currentFood;
+    public float CurrentFood
+    {
+        get { return _currentFood; }
+        set
+        {
+            _currentFood = Mathf.Max(value, 0);
+        }
+    }
+    private float _currentWater;
+    public float CurrentWater
+    {
+        get { return _currentWater; }
+        set
+        {
+            _currentWater = Mathf.Max(value, 0);
         }
     }
     void Start()
@@ -34,7 +59,7 @@ public class Player : MonoBehaviour
     }
     private void Update()
     {
-        Debug.Log(CurrentHealth);
+        StartCoroutine(RecoveryStamina());
     }
     public void TakeDamage(float damage) 
     {
@@ -44,4 +69,10 @@ public class Player : MonoBehaviour
     {
         CurrentStamina -= deltaStamina;
     }
+    public IEnumerator RecoveryStamina()
+    {
+        yield return new WaitForSeconds(1);
+        CurrentStamina += 0.07f;
+    }
+ 
 }
