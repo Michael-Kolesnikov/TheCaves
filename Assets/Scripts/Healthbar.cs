@@ -7,19 +7,17 @@ public class Healthbar : MonoBehaviour
     public Gradient gradient;
     public Image fill;
     public Player player;
+    
+    private void Update()
+    {
+        if (Input.GetButtonDown("Jump"))
+            player.TakeDamage(10f);
+        setHealth(player.CurrentHealth);
+    }
     public void setHealth(float health)
     {
         healthbarSlider.value = health;
         fill.color = gradient.Evaluate(healthbarSlider.normalizedValue);
     }
-    private void Start()
-    {
-
-    }
-    private void Update()
-    {
-        if (Input.GetButtonDown("Jump"))
-            player.TakeDamage(10f);
-        setHealth(player.currentHealth);
-    }
 }
+

@@ -45,10 +45,6 @@ public class InventoryController : MonoBehaviour
                     AddItemToInventory(item.itemScriptableObject, item.amount);
                     Destroy(hit.collider.gameObject);
                 }
-                else
-                {
-                    Debug.Log("WTC");
-                }
             }
             
         }

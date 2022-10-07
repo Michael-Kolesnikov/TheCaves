@@ -10,13 +10,16 @@ public class CharacterMoving : MonoBehaviour
     private float gravity = -19.62f;
     private float jumpHeight = 1f;
     public static bool isMove = true;
+    public bool canRun;
+    Player player;
 
     public KeyCode runningKey = KeyCode.LeftShift;
 
     private void Start()
     {
         check = GetComponentInChildren<GroundCheck>();
-        runSpeed = moveSpeed * 1.15f;
+        player = GetComponentInParent<Player>();
+        runSpeed = moveSpeed * 2.15f;
     }
     void Update()
     {
@@ -26,9 +29,10 @@ public class CharacterMoving : MonoBehaviour
 
         Vector3 move = Input.GetAxis("Horizontal") * transform.right + Input.GetAxis("Vertical") * transform.forward;
         //Run
-        if (Input.GetKey(runningKey))
+        if (Input.GetKey(runningKey) && canRun)
         {
             characterSpeed = runSpeed;
+            player.DecreaseStamina(10f * Time.deltaTime);
         }
         move = Vector3.ClampMagnitude(move, moveSpeed);
         characterController.Move(move * characterSpeed * Time.deltaTime);
@@ -45,5 +49,8 @@ public class CharacterMoving : MonoBehaviour
         }
 
         characterController.Move(velocity * Time.deltaTime);
+
+        canRun = !(player.CurrentStamina == 0);
+        Debug.Log(canRun);
     }
 }
