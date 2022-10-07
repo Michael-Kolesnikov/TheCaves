@@ -3,15 +3,15 @@ using UnityEngine;
 public class CharacterMoving : MonoBehaviour
 {
     public CharacterController characterController;
+    Player player;
     GroundCheck check;
-    private Vector3 velocity;
-    private float runSpeed;
+    private Vector3 _velocity;
+    private float _runSpeed;
     public float moveSpeed = 5f;
     private float gravity = -19.62f;
     private float jumpHeight = 1f;
     public static bool isMove = true;
     public bool canRun;
-    Player player;
 
     public KeyCode runningKey = KeyCode.LeftShift;
 
@@ -19,37 +19,46 @@ public class CharacterMoving : MonoBehaviour
     {
         check = GetComponentInChildren<GroundCheck>();
         player = GetComponentInParent<Player>();
-        runSpeed = moveSpeed * 1.15f;
+        _runSpeed = moveSpeed * 1.15f;
     }
     void Update()
     {
-        if (!isMove) return;
-        float characterSpeed =  moveSpeed;
-        velocity.y += gravity * Time.deltaTime;
-
+        if (!isMove)
+            return;
+        Run();
+        Jump();
+        VelocityMove();
+        ChangeRunningState();
+    }
+    private void Run()
+    {
+        float characterSpeed = moveSpeed;
         Vector3 move = Input.GetAxis("Horizontal") * transform.right + Input.GetAxis("Vertical") * transform.forward;
-        //Run
+
         if (Input.GetKey(runningKey) && canRun)
         {
-            characterSpeed = runSpeed;
+            characterSpeed = _runSpeed;
             player.DecreaseStamina(0.2f);
         }
         move = Vector3.ClampMagnitude(move, moveSpeed);
         characterController.Move(move * characterSpeed * Time.deltaTime);
-
-
-        //Jump
+    }
+    private void Jump()
+    {
         if (Input.GetButton("Jump") && check.isGrounded)
         {
-            velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+            _velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
         }
-        if (check.isGrounded && velocity.y < 0)
-        {
-            velocity.y = 0f;
-        }
-
-        characterController.Move(velocity * Time.deltaTime);
-
-        canRun = !(player.CurrentStamina == 0);
+    }
+    private void VelocityMove()
+    {
+        _velocity.y += gravity * Time.deltaTime;
+        if (check.isGrounded && _velocity.y < 0)
+            _velocity.y = 0f;
+        characterController.Move(_velocity * Time.deltaTime);
+    }
+    private void ChangeRunningState()
+    {
+        canRun = player.CurrentStamina <=0 ? false : true;
     }
 }
