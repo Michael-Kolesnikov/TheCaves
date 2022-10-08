@@ -7,6 +7,7 @@ public class PlayerIndicators : MonoBehaviour
     public Slider staminaBarSlider;
     public Slider foodBarSlider;
     public Slider waterBarSlider;
+
     public Player player;
     public Gradient healthBarGradient;
     public Image healthBarFill;
