@@ -51,7 +51,7 @@ public class InventoryController : MonoBehaviour
 
     }
 
-    private void AddItemToInventory(ItemScriptableObject itemScriptableObject, int amount)
+    public void AddItemToInventory(ItemScriptableObject itemScriptableObject, int amount)
     {
         foreach(InventorySlot slot in itemList)
         {
