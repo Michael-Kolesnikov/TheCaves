@@ -10,6 +10,7 @@ public class DragDropItem : MonoBehaviour
     InventorySlot currentSlot;
     Image currentSlotItem;
     public Image followMouseItemSprite;
+    bool isDraging;
     void Start()
     {
         inventoryController = GetComponent<InventoryController>();    
@@ -26,33 +27,21 @@ public class DragDropItem : MonoBehaviour
             if (currentSlot && !currentSlot.GetComponent<InventorySlot>().isEmpty)
             {
                 followMouseItemSprite.color = new Color(255,255,255,255);
-                followMouseItemSprite.sprite = currentSlot.GetComponent<InventorySlot>().currentItem.icon; 
+                //followMouseItemSprite.sprite = currentSlot.GetComponent<InventorySlot>().currentItem.icon; 
                 followMouseItemSprite.transform.position = Input.mousePosition;
+                isDraging = true;
 
             }
         }
-        if (Input.GetMouseButtonUp(0))
+        if (Input.GetMouseButtonUp(0) && isDraging)
         {
-            var newSlot = GetItemSlotUnderMouse()?.GetComponent<InventorySlot>();
-            if(newSlot)
-            {
-                if(newSlot.isEmpty)
-                {
-                    newSlot.isEmpty = false;
-                    newSlot.SetIcon(followMouseItemSprite.sprite);
-                    newSlot.itemAmountText.text = currentSlot.itemAmountText.text;
-                    newSlot.currentItem = currentSlot.currentItem;
-                    currentSlot.ClearSlot();
-                }
-                else
-                {
-                    newSlot.Swap(newSlot, currentSlot);
-                }
-                
-            }
-                followMouseItemSprite.color = new Color(0, 0, 0, 0);
-                followMouseItemSprite.sprite = null;
+            
+
+            followMouseItemSprite.color = new Color(0, 0, 0, 0);
+            followMouseItemSprite.sprite = null;
+            isDraging = false;
         }
+
     }
 
     private GameObject GetItemSlotUnderMouse()

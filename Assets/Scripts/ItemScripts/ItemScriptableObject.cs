@@ -16,5 +16,4 @@ public class ItemScriptableObject : ScriptableObject
     public ItemType itemType;
     public int maxAmount;
     public GameObject prefabItem;
-    private int _ID;
 }

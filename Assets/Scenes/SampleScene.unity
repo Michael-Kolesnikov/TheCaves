@@ -3440,7 +3440,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemScriptableObject: {fileID: 11400000, guid: 1441910c7eee70041a1942b5edac2f14, type: 2}
-  amount: 1
 --- !u!1 &1120542645 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 9131545756006519915, guid: 9fb1f65503a8a344abdd90a6054fdba3, type: 3}
@@ -3857,7 +3856,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   UIPanel: {fileID: 1582047534}
   InventoryPanel: {fileID: 1783285866}
-  itemList: []
+  slots: []
 --- !u!114 &1255942541
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5379,6 +5378,10 @@ PrefabInstance:
     - target: {fileID: 9166559771122825513, guid: a5c7163ec43747548b7630329b40e529, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9166559771122825514, guid: a5c7163ec43747548b7630329b40e529, type: 3}
+      propertyPath: amount
+      value: 1002
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a5c7163ec43747548b7630329b40e529, type: 3}
