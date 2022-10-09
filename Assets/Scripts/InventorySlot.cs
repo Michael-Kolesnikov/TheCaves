@@ -13,14 +13,14 @@ public class InventorySlot : MonoBehaviour
 
     public Sprite spriteIcon;
     public TMP_Text itemAmountText;
-    public void SetItem(ItemScriptableObject item)
+    public void SetItem(ItemScriptableObject item,int amount)
     {
         if (!isEmpty)
             return;
         this.item = item;
+        this.amount = amount;
         capacity = item.maxAmountInStack;
         spriteIcon = item.spriteIcon;
-        amount = item.amount;
         GetComponent<Image>().sprite = spriteIcon;
         SetTextAmount(amount);
     }

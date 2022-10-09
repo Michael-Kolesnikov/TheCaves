@@ -40,7 +40,7 @@ public class InventoryController : MonoBehaviour
 
         if (slotTo.isEmpty)
         {
-            slotTo.SetItem(slotFrom.item);
+            //slotTo.SetItem(slotFrom.item);
             slotFrom.Clear();
         }
         //slotTo.item.amount += amountToAdd;
@@ -102,11 +102,11 @@ public class InventoryController : MonoBehaviour
         int amountToAdd = enoughSpaceForItemAmount ? item.amount : item.maxItemsInInventorySlot - slot.amount;
         var amountLeft = item.amount - amountToAdd;
         if (slot.isEmpty)
-            slot.SetItem(item.itemScriptableObject);
+            slot.SetItem(item.itemScriptableObject,amountToAdd);
         else
         {
-            item.amount += amountToAdd;
-            slot.SetTextAmount(item.amount);
+            slot.amount += amountToAdd;
+            slot.SetTextAmount(slot.amount);
         }
 
         if (amountLeft <= 0)
