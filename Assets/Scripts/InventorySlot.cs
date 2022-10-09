@@ -1,20 +1,20 @@
 
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class InventorySlot : MonoBehaviour, IInventorySlot
+public class InventorySlot : MonoBehaviour
 {
     public bool isFull => !isEmpty && (amount == capacity);
 
     public bool isEmpty => item == null;
 
-    public IInventoryItem item { get; private set; }
 
     public int amount => isEmpty ? 0 : item.amount;
-
+    public Item item;
     public int capacity { get; private set; }
-    public void SetItem(IInventoryItem item)
+    public void SetItem(Item item)
     {
         if (!isEmpty)
             return;

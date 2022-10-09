@@ -1,15 +1,9 @@
+using System;
 using UnityEngine;
 
-public class Item : MonoBehaviour, IInventoryItem   
+public class Item : MonoBehaviour 
 {
     public ItemScriptableObject itemScriptableObject;
-
-    public bool isEquipped { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
-
-    public int maxItemsInInventorySlot => itemScriptableObject.maxAmount;
+    public int maxItemsInInventorySlot => itemScriptableObject.maxAmountInStack;
     public int amount { get; set; }
-    public IInventoryItem Clone()
-    {
-        return null;
-    }
 }

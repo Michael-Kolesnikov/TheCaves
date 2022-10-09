@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System;
 
-public class InventoryController : MonoBehaviour, IInventory
+public class InventoryController : MonoBehaviour
 {
     private bool isOpened = false;
     public GameObject UIPanel;
@@ -24,9 +24,14 @@ public class InventoryController : MonoBehaviour, IInventory
             slots.Add(InventoryPanel.GetChild(i).GetComponent<InventorySlot>());
         }
     }
-    public void TransferFromSlotToSlot( IInventorySlot slotFrom,IInventorySlot slotTo)
+    public void TransferFromSlotToSlot( InventorySlot slotFrom, InventorySlot slotTo)
     {
-
+        if (slotFrom.isEmpty)
+            return;
+        if (slotTo.isFull)
+            return;
+        if (!slotTo.isEmpty && slotFrom.itemType != slotTo.itemType)
+            return;
     }
     void Update()
     {
@@ -63,18 +68,19 @@ public class InventoryController : MonoBehaviour, IInventory
         Cursor.visible = state;
     }
 
-    public bool TryToAdd(IInventoryItem item)
+    public bool TryToAdd(Item item)
     {
-        var slotWithSameItemButNotEmpty = slots.Find(slot => !slot.isEmpty && !slot.isFull);
+        var slotWithSameItemButNotEmpty = slots.Find(slot => !slot.isEmpty && !slot.isFull && slot.id == item.id);
+
         if (slotWithSameItemButNotEmpty != null)
-            return TryAddToSlot(slotWithSameItemButNotEmpty,item);
+            return TryAddItemToSlot(slotWithSameItemButNotEmpty,item);
         var emptySlot = slots.Find(slot => slot.isEmpty);
         if (emptySlot != null)
-            return TryAddToSlot(emptySlot, item);
+            return TryAddItemToSlot(emptySlot, item);
         return false;
     }
 
-    private bool TryAddToSlot(InventorySlot slot, IInventoryItem item)
+    private bool TryAddItemToSlot(InventorySlot slot, Item item)
     {
         var filled = slot.amount + item.amount <= item.maxItemsInInventorySlot;
         var amountToAdd = filled ? item.amount : item.maxItemsInInventorySlot - slot.amount;

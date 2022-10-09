@@ -12,8 +12,9 @@ public class ItemScriptableObject : ScriptableObject
 {
     public string itemName;
     public string description;
-    public Sprite icon;
     public ItemType itemType;
-    public int maxAmount;
+    public int id { get; private set; }
     public GameObject prefabItem;
+    public Sprite icon;
+    public int maxAmountInStack;
 }
