@@ -3,23 +3,26 @@ using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-
 public class InventorySlot : MonoBehaviour
 {
     public bool isFull => !isEmpty && (amount == capacity);
-
     public bool isEmpty => item == null;
-
-
-    public int amount => isEmpty ? 0 : item.amount;
-    public Item item;
+    public int amount;
+    public ItemScriptableObject item;
     public int capacity { get; private set; }
-    public void SetItem(Item item)
+
+    public Sprite spriteIcon;
+    public TMP_Text itemAmountText;
+    public void SetItem(ItemScriptableObject item)
     {
         if (!isEmpty)
             return;
         this.item = item;
-        this.capacity = item.maxItemsInInventorySlot;
+        capacity = item.maxAmountInStack;
+        spriteIcon = item.spriteIcon;
+        amount = item.amount;
+        GetComponent<Image>().sprite = spriteIcon;
+        SetTextAmount(amount);
     }
     public void Clear()
     {
@@ -28,6 +31,9 @@ public class InventorySlot : MonoBehaviour
         item = null;
         capacity = 0;
     }
+    public void SetTextAmount(int amount)
+    {
+        itemAmountText.text = amount.ToString();
 
-    
+    }
 }

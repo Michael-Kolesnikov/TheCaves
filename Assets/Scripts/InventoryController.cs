@@ -13,12 +13,12 @@ public class InventoryController : MonoBehaviour
     float reachDistance = 3f;
     public int capacity { get; set; }
 
-    public bool isFull => slots.All(slot => slot.isFull);
-
     void Start()
     {
         mainCamera = Camera.main;
         UIPanel.SetActive(false);
+
+        ///Add Slots to inventory
         for(int i = 0; i< InventoryPanel.childCount; i++)
         {
             slots.Add(InventoryPanel.GetChild(i).GetComponent<InventorySlot>());
@@ -30,11 +30,29 @@ public class InventoryController : MonoBehaviour
             return;
         if (slotTo.isFull)
             return;
-        if (!slotTo.isEmpty && slotFrom.itemType != slotTo.itemType)
+        if (!slotTo.isEmpty && slotFrom.item.id != slotTo.item.id)
             return;
+
+        int slotCapacity = slotFrom.capacity;
+        var filled = slotFrom.amount + slotTo.amount <= slotCapacity;
+        int amountToAdd = filled ? slotFrom.amount : slotCapacity - slotTo.amount;
+        var amountLeft = slotFrom.amount - amountToAdd;
+
+        if (slotTo.isEmpty)
+        {
+            slotTo.SetItem(slotFrom.item);
+            slotFrom.Clear();
+        }
+        //slotTo.item.amount += amountToAdd;
+        if (filled)
+            slotFrom.Clear();
+        //else
+            //slotFrom.item.amount = amountLeft;
+
     }
     void Update()
     {
+        /// Open inventory when pressing "I"
         if (Input.GetKeyDown(KeyCode.I))    
         {
             isOpened = !isOpened;
@@ -44,8 +62,8 @@ public class InventoryController : MonoBehaviour
             CharacterMoving.isMove = !state;
             CameraController.isMove = !state;
         }
+        /// Pick up item 
         Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
-
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, reachDistance))
         {
@@ -54,13 +72,11 @@ public class InventoryController : MonoBehaviour
                 if (hit.collider?.gameObject.GetComponent<Item>() != null)
                 {
                     var item = hit.collider.gameObject.GetComponent<Item>();
-                    TryToAdd(item);
+                    TryToAddItem(item);
                     Destroy(hit.collider.gameObject);
                 }
             }
-            
         }
-
     }
     private void CursorChangeState(bool state)
     {
@@ -68,9 +84,9 @@ public class InventoryController : MonoBehaviour
         Cursor.visible = state;
     }
 
-    public bool TryToAdd(Item item)
+    public bool TryToAddItem(Item item)
     {
-        var slotWithSameItemButNotEmpty = slots.Find(slot => !slot.isEmpty && !slot.isFull && slot.id == item.id);
+        var slotWithSameItemButNotEmpty = slots.Find(slot => !slot.isEmpty && !slot.isFull && slot.item.id == item.id);
 
         if (slotWithSameItemButNotEmpty != null)
             return TryAddItemToSlot(slotWithSameItemButNotEmpty,item);
@@ -82,20 +98,22 @@ public class InventoryController : MonoBehaviour
 
     private bool TryAddItemToSlot(InventorySlot slot, Item item)
     {
-        var filled = slot.amount + item.amount <= item.maxItemsInInventorySlot;
-        var amountToAdd = filled ? item.amount : item.maxItemsInInventorySlot - slot.amount;
+        bool enoughSpaceForItemAmount = slot.amount + item.amount <= item.maxItemsInInventorySlot;
+        int amountToAdd = enoughSpaceForItemAmount ? item.amount : item.maxItemsInInventorySlot - slot.amount;
         var amountLeft = item.amount - amountToAdd;
-        var clonedItem = item; /// ????
-        clonedItem.amount = amountToAdd;
-
         if (slot.isEmpty)
-            slot.SetItem(clonedItem);
+            slot.SetItem(item.itemScriptableObject);
         else
-            slot.item.amount += amountToAdd;
+        {
+            item.amount += amountToAdd;
+            slot.SetTextAmount(item.amount);
+        }
+
         if (amountLeft <= 0)
             return true;
+
         item.amount = amountLeft;
-        return TryToAdd(item);
+        return TryToAddItem(item);
     }
 
     public bool TryToRemove(int amount = 1)

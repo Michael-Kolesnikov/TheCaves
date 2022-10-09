@@ -15,7 +15,9 @@ MonoBehaviour:
   itemName: "\u041A\u0440\u0438\u0441\u0442\u0430\u043B\u043B"
   description: "\u041A\u0440\u0438\u0441\u0442\u0430\u043B\u043B, \u043E\u0442\u043F\u0430\u043B\u0438\u0440\u043E\u0432\u0430\u043D\u043D\u044B\u0439
     \u0434\u0432\u0430\u0440\u0444\u043E\u043C\u0438"
-  icon: {fileID: 21300000, guid: c74985b7555f1c647ac9048a6d256d91, type: 3}
   itemType: 0
-  maxAmount: 10
-  prefabItem: {fileID: 919132149155446097, guid: 802312b09efde134092eb9f081c09e4d, type: 3}
+  maxAmountInStack: 5
+  amount: 1
+  _id: 2
+  _prefab: {fileID: 9166559771122825509, guid: a5c7163ec43747548b7630329b40e529, type: 3}
+  _spriteIcon: {fileID: 21300000, guid: c74985b7555f1c647ac9048a6d256d91, type: 3}

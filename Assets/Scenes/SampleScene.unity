@@ -588,7 +588,6 @@ GameObject:
   - component: {fileID: 261408511}
   - component: {fileID: 261408510}
   - component: {fileID: 261408509}
-  - component: {fileID: 261408508}
   m_Layer: 5
   m_Name: WaterBar
   m_TagString: Untagged
@@ -618,18 +617,6 @@ RectTransform:
   m_AnchoredPosition: {x: 130, y: -30}
   m_SizeDelta: {x: -340, y: -80}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &261408508
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 261408506}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ee26f247e5bb1a49bda0c23e207d0d7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &261408509
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1174,7 +1161,6 @@ GameObject:
   - component: {fileID: 421754413}
   - component: {fileID: 421754412}
   - component: {fileID: 421754411}
-  - component: {fileID: 421754410}
   m_Layer: 5
   m_Name: FoodBar
   m_TagString: Untagged
@@ -1204,18 +1190,6 @@ RectTransform:
   m_AnchoredPosition: {x: 130, y: 30}
   m_SizeDelta: {x: -340, y: -80}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &421754410
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 421754408}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 41f676edabd4e6a4492eb80558860299, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &421754411
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1879,7 +1853,6 @@ GameObject:
   - component: {fileID: 631984835}
   - component: {fileID: 631984834}
   - component: {fileID: 631984833}
-  - component: {fileID: 631984836}
   m_Layer: 5
   m_Name: StaminaBar
   m_TagString: Untagged
@@ -1998,18 +1971,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 631984831}
   m_CullTransparentMesh: 1
---- !u!114 &631984836
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 631984831}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a00ba44f63e90a94a9ce6116ada7c4dc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &638891611
 GameObject:
   m_ObjectHideFlags: 0
@@ -3291,7 +3252,6 @@ GameObject:
   - component: {fileID: 1022424786}
   - component: {fileID: 1022424785}
   - component: {fileID: 1022424784}
-  - component: {fileID: 1022424783}
   m_Layer: 5
   m_Name: HealthBar
   m_TagString: Untagged
@@ -3321,18 +3281,6 @@ RectTransform:
   m_AnchoredPosition: {x: -70, y: 30}
   m_SizeDelta: {x: -160, y: -80}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1022424783
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1022424781}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d2977982824fe8498e8eaa3bdf2ffb4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1022424784
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3440,6 +3388,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemScriptableObject: {fileID: 11400000, guid: 1441910c7eee70041a1942b5edac2f14, type: 2}
+  amount: 1
 --- !u!1 &1120542645 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 9131545756006519915, guid: 9fb1f65503a8a344abdd90a6054fdba3, type: 3}
@@ -3886,7 +3835,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a97f579a5f89dc641a15c548c5ff542c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  followMouseItemSprite: {fileID: 1805111609}
+  slot: {fileID: 0}
 --- !u!1 &1284416160
 GameObject:
   m_ObjectHideFlags: 0
@@ -5381,7 +5330,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9166559771122825514, guid: a5c7163ec43747548b7630329b40e529, type: 3}
       propertyPath: amount
-      value: 1002
+      value: 12
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a5c7163ec43747548b7630329b40e529, type: 3}
