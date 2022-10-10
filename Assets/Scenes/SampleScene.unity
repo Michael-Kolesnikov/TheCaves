@@ -3803,8 +3803,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e08a20d91803a3449905e76a5546034, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UIPanel: {fileID: 1582047534}
+  UIInventoryPanel: {fileID: 1582047534}
   InventoryPanel: {fileID: 1783285866}
+  canvas: {fileID: 1255942539}
   slots: []
 --- !u!114 &1255942541
 MonoBehaviour:
@@ -4791,7 +4792,7 @@ GameObject:
   - component: {fileID: 1582047537}
   - component: {fileID: 1582047536}
   m_Layer: 5
-  m_Name: UIPanel
+  m_Name: UIInventoryPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5294,11 +5295,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9166559771122825513, guid: a5c7163ec43747548b7630329b40e529, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5.57
+      value: -0.14
       objectReference: {fileID: 0}
     - target: {fileID: 9166559771122825513, guid: a5c7163ec43747548b7630329b40e529, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.24
+      value: -5.73
       objectReference: {fileID: 0}
     - target: {fileID: 9166559771122825513, guid: a5c7163ec43747548b7630329b40e529, type: 3}
       propertyPath: m_LocalRotation.w

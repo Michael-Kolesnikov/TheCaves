@@ -12,8 +12,8 @@ public class PlayerIndicators : MonoBehaviour
     public Gradient healthBarGradient;
     public Image healthBarFill;
 
-    public float secondToEmptyFood = 30f;
-    public float secondToEmptyWater = 15f;
+    public float secondToEmptyFood = 120000f;
+    public float secondToEmptyWater = 120000f;
 
     void Start()
     {

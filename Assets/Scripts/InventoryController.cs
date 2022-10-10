@@ -1,13 +1,15 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine.UI;
 using System;
 
 public class InventoryController : MonoBehaviour
 {
     private bool isOpened = false;
-    public GameObject UIPanel;
+    public GameObject UIInventoryPanel;
     public Transform InventoryPanel;
+    public Transform canvas;
     public List<InventorySlot> slots = new List<InventorySlot>();
     Camera mainCamera;
     float reachDistance = 3f;
@@ -16,7 +18,7 @@ public class InventoryController : MonoBehaviour
     void Start()
     {
         mainCamera = Camera.main;
-        UIPanel.SetActive(false);
+        UIInventoryPanel.SetActive(false);
 
         ///Add Slots to inventory
         for(int i = 0; i< InventoryPanel.childCount; i++)
@@ -57,8 +59,7 @@ public class InventoryController : MonoBehaviour
         {
             isOpened = !isOpened;
             bool state = isOpened;
-            UIPanel.SetActive(state);
-            CursorChangeState(state);
+            SetActiveHudElements(state);
             CharacterMoving.isMove = !state;
             CameraController.isMove = !state;
         }
@@ -77,6 +78,22 @@ public class InventoryController : MonoBehaviour
                 }
             }
         }
+    }
+    private void SetActiveHudElements(bool state)
+    {
+        for (var i = 0; i < canvas.childCount; i++)
+        {
+            if (canvas.GetChild(i).gameObject != UIInventoryPanel.gameObject)
+            {
+                if (canvas.GetChild(i).GetComponent<Image>() != null)
+                    canvas.GetChild(i).GetComponent<Image>()?.gameObject.SetActive(!state);
+            }
+            else
+                canvas.GetChild(i).GetComponent<Image>()?.gameObject.SetActive(state);
+
+        }
+        CursorChangeState(state);
+
     }
     private void CursorChangeState(bool state)
     {
