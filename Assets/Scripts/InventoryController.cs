@@ -1,20 +1,19 @@
 using UnityEngine;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine.UI;
-using System;
 
 public class InventoryController : MonoBehaviour
 {
     private bool isOpened = false;
     public GameObject UIInventoryPanel;
     public Transform InventoryPanel;
+    public Transform HotBarPanel;
     public Transform canvas;
     public List<InventorySlot> slots = new List<InventorySlot>();
+    public List<InventorySlot> hotbarSlots = new List<InventorySlot>();
     Camera mainCamera;
     float reachDistance = 3f;
     public int capacity { get; set; }
-
     void Start()
     {
         mainCamera = Camera.main;
@@ -24,6 +23,10 @@ public class InventoryController : MonoBehaviour
         for(int i = 0; i< InventoryPanel.childCount; i++)
         {
             slots.Add(InventoryPanel.GetChild(i).GetComponent<InventorySlot>());
+        }
+        for (int i = 0; i < HotBarPanel.childCount; i++)
+        {
+            hotbarSlots.Add(HotBarPanel.GetChild(i).GetComponent<InventorySlot>());
         }
     }
     public void TransferFromSlotToSlot( InventorySlot slotFrom, InventorySlot slotTo)
@@ -74,11 +77,24 @@ public class InventoryController : MonoBehaviour
                 {
                     var item = hit.collider.gameObject.GetComponent<Item>();
                     TryToAddItem(item);
+                    RefreshHotBatUI();
                     Destroy(hit.collider.gameObject);
                 }
             }
         }
     }
+
+    private void RefreshHotBatUI()
+    {
+        for (int i = 0; i < HotBarPanel.childCount; i++)
+        {
+            hotbarSlots[i].spriteIcon = slots[i]?.spriteIcon;
+            hotbarSlots[i].GetComponent<Image>().sprite = slots[i]?.spriteIcon;
+            if(slots[i].amount != 0)
+                hotbarSlots[i].SetTextAmount(slots[i].amount);
+        }
+    }
+
     private void SetActiveHudElements(bool state)
     {
         for (var i = 0; i < canvas.childCount; i++)
@@ -90,17 +106,14 @@ public class InventoryController : MonoBehaviour
             }
             else
                 canvas.GetChild(i).GetComponent<Image>()?.gameObject.SetActive(state);
-
         }
         CursorChangeState(state);
-
     }
     private void CursorChangeState(bool state)
     {
         Cursor.lockState = state ? CursorLockMode.None : CursorLockMode.Locked;
         Cursor.visible = state;
     }
-
     public bool TryToAddItem(Item item)
     {
         var slotWithSameItemButNotEmpty = slots.Find(slot => !slot.isEmpty && !slot.isFull && slot.item.id == item.id);
@@ -112,7 +125,6 @@ public class InventoryController : MonoBehaviour
             return TryAddItemToSlot(emptySlot, item);
         return false;
     }
-
     private bool TryAddItemToSlot(InventorySlot slot, Item item)
     {
         bool enoughSpaceForItemAmount = slot.amount + item.amount <= item.maxItemsInInventorySlot;
@@ -137,6 +149,4 @@ public class InventoryController : MonoBehaviour
     {
         return false;
     }
-
-    
 }

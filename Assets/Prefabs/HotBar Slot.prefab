@@ -148,7 +148,7 @@ GameObject:
   - component: {fileID: 5462800664469185799}
   - component: {fileID: 551147128670475788}
   m_Layer: 5
-  m_Name: Slot
+  m_Name: HotBar Slot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
