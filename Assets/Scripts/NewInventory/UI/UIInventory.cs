@@ -12,15 +12,24 @@ public class UIInventory : MonoBehaviour
     public Transform InventoryPanel;
     public Transform canvas;
     private bool isOpened = false;
+    private List<UIInventorySlot> uiInventorySlot;
     private void Awake()
     {
-        inventory = new Inventory(24);
         
     }
     private void Start()
     {
+        inventory = new Inventory(24);
+        inventory.OnInventoryStateChangeEvent += OnInventoryStateChange;
+        uiInventorySlot = new List<UIInventorySlot>();
+
         mainCamera = Camera.main;
         UIInventoryPanel.SetActive(false);
+        for(var i = 0; i < InventoryPanel.childCount;i++)
+        {
+            uiInventorySlot.Add(InventoryPanel.GetChild(i).GetComponent<UIInventorySlot>());
+        }
+        SetupInventoryUI();
     }
     private void Update()
     {
@@ -68,5 +77,20 @@ public class UIInventory : MonoBehaviour
     {
         Cursor.lockState = state ? CursorLockMode.None : CursorLockMode.Locked;
         Cursor.visible = state;
+    }
+    private void OnInventoryStateChange()
+    {
+        foreach (var slot in uiInventorySlot)
+            slot.Refresh();
+    }
+    private void SetupInventoryUI()
+    {
+        for(var i = 0; i< inventory.capacity; i++)
+        {
+            var slot = inventory.slots[i];
+            var uiSlot = uiInventorySlot[i];
+            uiSlot.SetSlot(slot);
+            uiSlot.Refresh();
+        }
     }
 }

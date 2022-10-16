@@ -1,9 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class Inventory
 {
+    public event Action<object, InventoryItem, int> OnInventoryItemAddedEvent;
+    public event Action OnInventoryStateChangeEvent;
+
     public List<InventorySlot> slots;
     public int capacity { get; set; }
     public Inventory(int capacity)
@@ -58,7 +62,7 @@ public class Inventory
             slot.SetItem(item.itemScriptableObject, amountToAdd);
         else
             slot.amount += amountToAdd;
-
+        OnInventoryStateChangeEvent?.Invoke();
         if (amountLeft <= 0)
             return true;
 

@@ -6,18 +6,26 @@ using UnityEngine.UI;
 
 public class UIInventoryItem : MonoBehaviour
 {
-    public Image imageIcon;
-    public TMP_Text textAmount;
+    [SerializeField] private Image _imageIcon;
+    [SerializeField] private TMP_Text _textAmount;
 
-    InventoryItem inventoryItem;
+    public ItemScriptableObject inventoryItem;
     
-    public void Refresh()
+    public void Refresh(InventorySlot slot)
     {
+        if(slot.isEmpty)
+        {
+            Clean();
+            return;
+        }
 
+        inventoryItem = slot.item;
+        _imageIcon.sprite = inventoryItem.spriteIcon;
+        _textAmount.text = inventoryItem.amount == 0 ? "" : inventoryItem.amount.ToString();
     }
     public void Clean()
     {
-        imageIcon = default;
-        textAmount.text = default;
+        _imageIcon = default;
+        _textAmount.text = default;
     }
 }

@@ -12,10 +12,16 @@ public class UIInventorySlot : MonoBehaviour , IDropHandler
     public void OnDrop(PointerEventData eventData)
     {
         throw new System.NotImplementedException();
+        Refresh();
     }
+    public void SetSlot(InventorySlot slot)
+    {
+        this.slot = slot;
+    }
+
     public void Refresh()
     {
         if(_uiInventoryItem != null)
-            _uiInventoryItem.Refresh();
+            _uiInventoryItem.Refresh(slot);
     }
 }
