@@ -29,7 +29,7 @@ public class InventoryController : MonoBehaviour
             hotbarSlots.Add(HotBarPanel.GetChild(i).GetComponent<InventorySlot>());
         }
     }
-    public void TransferFromSlotToSlot( InventorySlot slotFrom, InventorySlot slotTo)
+    public void TransferFromSlotToSlot(InventorySlot slotFrom, InventorySlot slotTo)
     {
         if (slotFrom.isEmpty)
             return;
@@ -45,15 +45,14 @@ public class InventoryController : MonoBehaviour
 
         if (slotTo.isEmpty)
         {
-            //slotTo.SetItem(slotFrom.item);
+            slotTo.SetItem(slotFrom.item, slotFrom.amount);
             slotFrom.Clear();
         }
-        //slotTo.item.amount += amountToAdd;
+        slotTo.amount += amountToAdd;
         if (filled)
             slotFrom.Clear();
-        //else
-            //slotFrom.item.amount = amountLeft;
-
+        else
+            slotFrom.amount = amountLeft;
     }
     void Update()
     {

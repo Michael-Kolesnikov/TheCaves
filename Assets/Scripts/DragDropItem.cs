@@ -9,12 +9,12 @@ public class DragDropItem : MonoBehaviour, IDropHandler, IDragHandler, IBeginDra
     public InventorySlot slot;
     private RectTransform _RectTransform;
 
-    private void Start()
+    private void Await()
     {
         _RectTransform = GetComponent<RectTransform>();
     }
     public void OnBeginDrag(PointerEventData eventData)
-    {
+    {   
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -24,7 +24,11 @@ public class DragDropItem : MonoBehaviour, IDropHandler, IDragHandler, IBeginDra
 
     public void OnDrop(PointerEventData eventData)
     {
+        var otherItem = eventData.pointerDrag.GetComponent<InventorySlot>();
+        
+        
     }
+    
 
     public void OnEndDrag(PointerEventData eventData)
     {

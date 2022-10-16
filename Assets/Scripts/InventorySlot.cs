@@ -7,7 +7,19 @@ public class InventorySlot : MonoBehaviour
 {
     public bool isFull => !isEmpty && (amount == capacity);
     public bool isEmpty => item == null;
-    public int amount;
+    private int _amount;
+    public int amount
+    {
+        get
+        {
+            return _amount;
+        }
+        set
+        {
+            _amount = value;
+            SetTextAmount(value);
+        }
+    }
     public ItemScriptableObject item;
     public int capacity { get; private set; }
 

@@ -7852,6 +7852,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1783285866}
     m_Modifications:
+    - target: {fileID: 551147128670475788, guid: ee76e2996c6a66b43a40dd8d3c72d096, type: 3}
+      propertyPath: spriteIcon
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 5462800664469185797, guid: ee76e2996c6a66b43a40dd8d3c72d096, type: 3}
       propertyPath: m_Name
       value: Slot
@@ -7940,6 +7944,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5462800664469185799, guid: ee76e2996c6a66b43a40dd8d3c72d096, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 10915, guid: 0000000000000000f000000000000000, type: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ee76e2996c6a66b43a40dd8d3c72d096, type: 3}
 --- !u!1001 &8533792316208501660
