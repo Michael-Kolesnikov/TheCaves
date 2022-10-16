@@ -1,18 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class UIInventorySlot : MonoBehaviour
+public class UIInventorySlot : MonoBehaviour , IDropHandler
 {
-    // Start is called before the first frame update
-    void Start()
+    InventorySlot slot;
+    private UIInventoryItem _uiInventoryItem;
+    UIInventory uiInventory;
+    
+    public void OnDrop(PointerEventData eventData)
     {
-        
+        throw new System.NotImplementedException();
     }
-
-    // Update is called once per frame
-    void Update()
+    public void Refresh()
     {
-        
+        if(_uiInventoryItem != null)
+            _uiInventoryItem.Refresh();
     }
 }

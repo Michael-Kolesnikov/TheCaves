@@ -3,12 +3,12 @@ using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-public class InventorySlot : MonoBehaviour
+public class InventorySlotOld : MonoBehaviour
 {
     public bool isFull => !isEmpty && (amount == capacity);
     public bool isEmpty => item == null;
     private int _amount;
-    public int amount
+    public int amount //UI
     {
         get
         {
@@ -23,8 +23,8 @@ public class InventorySlot : MonoBehaviour
     public ItemScriptableObject item;
     public int capacity { get; private set; }
 
-    public Sprite spriteIcon;
-    public TMP_Text itemAmountText;
+    public Sprite spriteIcon; //UI
+    public TMP_Text itemAmountText; //UI
     public void SetItem(ItemScriptableObject item,int amount)
     {
         if (!isEmpty)
@@ -43,7 +43,7 @@ public class InventorySlot : MonoBehaviour
         item = null;
         capacity = 0;
     }
-    public void SetTextAmount(int amount)
+    public void SetTextAmount(int amount) //UI
     {
         itemAmountText.text = amount.ToString();
 

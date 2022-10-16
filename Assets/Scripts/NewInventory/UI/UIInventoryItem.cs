@@ -1,18 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIInventoryItem : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public Image imageIcon;
+    public TMP_Text textAmount;
 
-    // Update is called once per frame
-    void Update()
+    InventoryItem inventoryItem;
+    
+    public void Refresh()
     {
-        
+
+    }
+    public void Clean()
+    {
+        imageIcon = default;
+        textAmount.text = default;
     }
 }

@@ -11,11 +11,12 @@ public class InventoryController : MonoBehaviour
     public Transform canvas;
     public List<InventorySlot> slots = new List<InventorySlot>();
     public List<InventorySlot> hotbarSlots = new List<InventorySlot>();
-    Camera mainCamera;
-    float reachDistance = 3f;
+    Camera mainCamera; //UI
+    float reachDistance = 3f; //UI
     public int capacity { get; set; }
-    void Start()
+    void Start() //UI
     {
+        
         mainCamera = Camera.main;
         UIInventoryPanel.SetActive(false);
 
@@ -29,7 +30,7 @@ public class InventoryController : MonoBehaviour
             hotbarSlots.Add(HotBarPanel.GetChild(i).GetComponent<InventorySlot>());
         }
     }
-    public void TransferFromSlotToSlot(InventorySlot slotFrom, InventorySlot slotTo)
+    public void TransferFromSlotToSlot(InventorySlotOld slotFrom, InventorySlotOld slotTo)
     {
         if (slotFrom.isEmpty)
             return;
@@ -54,7 +55,7 @@ public class InventoryController : MonoBehaviour
         else
             slotFrom.amount = amountLeft;
     }
-    void Update()
+    void Update() //UI
     {
         /// Open inventory when pressing "I"
         if (Input.GetKeyDown(KeyCode.I))    
@@ -75,7 +76,7 @@ public class InventoryController : MonoBehaviour
                 if (hit.collider?.gameObject.GetComponent<Item>() != null)
                 {
                     var item = hit.collider.gameObject.GetComponent<Item>();
-                    TryToAddItem(item);
+                    //TryToAddItem(item);
                     RefreshHotBatUI();
                     Destroy(hit.collider.gameObject);
                 }
@@ -83,18 +84,18 @@ public class InventoryController : MonoBehaviour
         }
     }
 
-    private void RefreshHotBatUI()
+    private void RefreshHotBatUI() //UI
     {
         for (int i = 0; i < HotBarPanel.childCount; i++)
         {
-            hotbarSlots[i].spriteIcon = slots[i]?.spriteIcon;
-            hotbarSlots[i].GetComponent<Image>().sprite = slots[i]?.spriteIcon;
-            if(slots[i].amount != 0)
-                hotbarSlots[i].SetTextAmount(slots[i].amount);
+            //hotbarSlots[i].spriteIcon = slots[i]?.spriteIcon;
+            //hotbarSlots[i].GetComponent<Image>().sprite = slots[i]?.spriteIcon;
+            //if(slots[i].amount != 0)
+            //    hotbarSlots[i].SetTextAmount(slots[i].amount);
         }
     }
 
-    private void SetActiveHudElements(bool state)
+    private void SetActiveHudElements(bool state) //UI
     {
         for (var i = 0; i < canvas.childCount; i++)
         {
@@ -108,44 +109,11 @@ public class InventoryController : MonoBehaviour
         }
         CursorChangeState(state);
     }
-    private void CursorChangeState(bool state)
+    private void CursorChangeState(bool state) //UI
     {
         Cursor.lockState = state ? CursorLockMode.None : CursorLockMode.Locked;
         Cursor.visible = state;
     }
-    public bool TryToAddItem(Item item)
-    {
-        var slotWithSameItemButNotEmpty = slots.Find(slot => !slot.isEmpty && !slot.isFull && slot.item.id == item.id);
-
-        if (slotWithSameItemButNotEmpty != null)
-            return TryAddItemToSlot(slotWithSameItemButNotEmpty,item);
-        var emptySlot = slots.Find(slot => slot.isEmpty);
-        if (emptySlot != null)
-            return TryAddItemToSlot(emptySlot, item);
-        return false;
-    }
-    private bool TryAddItemToSlot(InventorySlot slot, Item item)
-    {
-        bool enoughSpaceForItemAmount = slot.amount + item.amount <= item.maxItemsInInventorySlot;
-        int amountToAdd = enoughSpaceForItemAmount ? item.amount : item.maxItemsInInventorySlot - slot.amount;
-        var amountLeft = item.amount - amountToAdd;
-        if (slot.isEmpty)
-            slot.SetItem(item.itemScriptableObject,amountToAdd);
-        else
-        {
-            slot.amount += amountToAdd;
-            slot.SetTextAmount(slot.amount);
-        }
-
-        if (amountLeft <= 0)
-            return true;
-
-        item.amount = amountLeft;
-        return TryToAddItem(item);
-    }
-
-    public bool TryToRemove(int amount = 1)
-    {
-        return false;
-    }
+    
+    
 }

@@ -4,15 +4,16 @@ using UnityEngine;
 
 public class InventoryItem : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public ItemScriptableObject itemScriptableObject;
+    public int maxItemsInInventorySlot => itemScriptableObject.maxAmountInStack;
+    public int id => itemScriptableObject.id;
 
-    // Update is called once per frame
-    void Update()
+    public int amount;
+    public InventoryItem Clone()
     {
-        
+        var clone = new InventoryItem();
+        clone.itemScriptableObject = itemScriptableObject;
+        clone.amount = amount;
+        return clone;
     }
 }

@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 9166559771122825513}
   - component: {fileID: 9166559771122825512}
   - component: {fileID: 9166559771122825515}
-  - component: {fileID: 9166559771122825514}
   - component: {fileID: 2388473212900528167}
+  - component: {fileID: -3220028462677255150}
   m_Layer: 0
   m_Name: crystal
   m_TagString: Untagged
@@ -30,6 +30,7 @@ Transform:
   m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
   m_LocalPosition: {x: 0.6906793, y: 2.27, z: -2.48}
   m_LocalScale: {x: 100, y: 100, z: 100}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -53,6 +54,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -83,20 +85,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &9166559771122825514
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9166559771122825509}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5b67c360ed5886340aef6e0d27414a6e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemScriptableObject: {fileID: 11400000, guid: 1441910c7eee70041a1942b5edac2f14, type: 2}
-  amount: 1
 --- !u!65 &2388473212900528167
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -110,3 +98,17 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.023218082, y: 0.019999996, z: 0.06761716}
   m_Center: {x: -0.00021896604, y: 0, z: -0.0051248567}
+--- !u!114 &-3220028462677255150
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9166559771122825509}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eca530ad963e2a44abd0fb245a13d9c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemScriptableObject: {fileID: 11400000, guid: 1441910c7eee70041a1942b5edac2f14, type: 2}
+  amount: 4

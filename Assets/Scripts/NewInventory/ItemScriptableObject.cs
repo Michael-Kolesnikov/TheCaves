@@ -2,17 +2,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ItemScriptableObject : MonoBehaviour
+public enum ItemType
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    Default,
+    Tool,
+    Weapon,
+    Food,
+    Construction,
+}
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+public class ItemScriptableObject : ScriptableObject
+{
+    public string itemName;
+    public string description;
+    public ItemType itemType;
+    public int maxAmountInStack;
+    public int amount = 1;
+    [SerializeField] private int _id;
+    [SerializeField] private GameObject _prefab;
+    [SerializeField] private Sprite _spriteIcon;
+    public int id => _id;
+    public GameObject prefab => _prefab;
+    public Sprite spriteIcon => _spriteIcon;
+
 }
