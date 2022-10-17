@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InventorySlot 
+public class InventorySlot
 {
     public bool isFull => !isEmpty && (amount == capacity);
     public bool isEmpty => item == null;
@@ -21,9 +21,10 @@ public class InventorySlot
     }
     public void Clear()
     {
-        if (!isEmpty)
+        if (isEmpty)
             return;
         item = null;
         capacity = 0;
+        amount = 0;
     }
 }

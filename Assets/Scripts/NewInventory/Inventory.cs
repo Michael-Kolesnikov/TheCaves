@@ -36,7 +36,8 @@ public class Inventory
             slotTo.SetItem(slotFrom.item, slotFrom.amount);
             slotFrom.Clear();
         }
-        slotTo.amount += amountToAdd;
+        else
+            slotTo.amount += amountToAdd;
         if (filled)
             slotFrom.Clear();
         else

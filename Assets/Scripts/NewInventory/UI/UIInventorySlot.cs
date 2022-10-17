@@ -5,23 +5,36 @@ using UnityEngine.EventSystems;
 
 public class UIInventorySlot : MonoBehaviour , IDropHandler
 {
-    InventorySlot slot;
+    private InventorySlot slot;
     private UIInventoryItem _uiInventoryItem;
-    UIInventory uiInventory;
-    
+    private UIInventory _uiInventory;
     public void OnDrop(PointerEventData eventData)
     {
-        throw new System.NotImplementedException();
+        var otherItem = eventData.pointerDrag.GetComponent<UIInventoryItem>();
+        var otherSlotUI = otherItem.GetComponentInParent<UIInventorySlot>();
+        var otherSlot = otherSlotUI.slot;
+        var inventory = _uiInventory.inventory;
+        inventory.TransferFromSlotToSlot(otherSlot, slot);
         Refresh();
+        otherSlotUI.Refresh();
     }
     public void SetSlot(InventorySlot slot)
     {
         this.slot = slot;
     }
-
+    public void SetUIItem(UIInventoryItem item)
+    {
+        _uiInventoryItem = item;
+    }
+    public void SetInventory(UIInventory uiInventory)
+    {
+        _uiInventory = uiInventory;
+    }
     public void Refresh()
     {
-        if(_uiInventoryItem != null)
+        if(slot != null)
             _uiInventoryItem.Refresh(slot);
     }
+
+    
 }

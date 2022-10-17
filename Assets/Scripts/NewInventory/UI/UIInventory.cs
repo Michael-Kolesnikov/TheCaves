@@ -13,10 +13,6 @@ public class UIInventory : MonoBehaviour
     public Transform canvas;
     private bool isOpened = false;
     private List<UIInventorySlot> uiInventorySlot;
-    private void Awake()
-    {
-        
-    }
     private void Start()
     {
         inventory = new Inventory(24);
@@ -28,6 +24,7 @@ public class UIInventory : MonoBehaviour
         for(var i = 0; i < InventoryPanel.childCount;i++)
         {
             uiInventorySlot.Add(InventoryPanel.GetChild(i).GetComponent<UIInventorySlot>());
+            uiInventorySlot[i].SetUIItem(uiInventorySlot[i].GetComponentInChildren<UIInventoryItem>());
         }
         SetupInventoryUI();
     }
@@ -90,7 +87,9 @@ public class UIInventory : MonoBehaviour
             var slot = inventory.slots[i];
             var uiSlot = uiInventorySlot[i];
             uiSlot.SetSlot(slot);
+            uiSlot.SetInventory(this);
             uiSlot.Refresh();
+
         }
     }
 }
