@@ -21,27 +21,35 @@ public class Inventory
     {
         if (slotFrom.isEmpty)
             return;
-        if (slotTo.isFull)
-            return;
-        if (!slotTo.isEmpty && slotFrom.item.id != slotTo.item.id)
-            return;
-
-        int slotCapacity = slotFrom.capacity;
-        var filled = slotFrom.amount + slotTo.amount <= slotCapacity;
-        int amountToAdd = filled ? slotFrom.amount : slotCapacity - slotTo.amount;
-        var amountLeft = slotFrom.amount - amountToAdd;
-
-        if (slotTo.isEmpty)
+        if (slotFrom.item.id.Equals(slotTo.item?.id) || slotTo.isEmpty)
         {
-            slotTo.SetItem(slotFrom.item, slotFrom.amount);
-            slotFrom.Clear();
+            if (slotTo.isFull)
+                return;
+            int slotCapacity = slotFrom.capacity;
+            var filled = slotFrom.amount + slotTo.amount <= slotCapacity;
+            int amountToAdd = filled ? slotFrom.amount : slotCapacity - slotTo.amount;
+            var amountLeft = slotFrom.amount - amountToAdd;
+
+            if (slotTo.isEmpty)
+            {
+                slotTo.SetItem(slotFrom.item, slotFrom.amount);
+                slotFrom.Clear();
+            }
+            else
+                slotTo.amount += amountToAdd;
+            if (filled)
+                slotFrom.Clear();
+            else
+                slotFrom.amount = amountLeft;
         }
         else
-            slotTo.amount += amountToAdd;
-        if (filled)
-            slotFrom.Clear();
-        else
-            slotFrom.amount = amountLeft;
+        {
+            var cloneSlot = slotTo.Clone();
+            slotTo.ReplaceItem(slotFrom.item, slotFrom.amount);
+            slotFrom.ReplaceItem(cloneSlot.item, cloneSlot.amount);
+            
+        }
+        
     }
     public bool TryToAddItem(InventoryItem item)
     {

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -19,6 +20,12 @@ public class InventorySlot
         this.amount = amount;
         capacity = item.maxAmountInStack;
     }
+    public void ReplaceItem(ItemScriptableObject item, int amount)
+    {
+        this.item = item;
+        this.amount = amount;
+        capacity = item.maxAmountInStack;
+    }
     public void Clear()
     {
         if (isEmpty)
@@ -26,5 +33,14 @@ public class InventorySlot
         item = null;
         capacity = 0;
         amount = 0;
+    }
+
+    public InventorySlot Clone()
+    {
+        InventorySlot clone = new();
+        clone.item = item;
+        clone.capacity = capacity;
+        clone.amount = amount;
+        return clone;
     }
 }
