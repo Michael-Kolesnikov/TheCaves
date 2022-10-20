@@ -49,6 +49,7 @@ public class Inventory
             slotFrom.ReplaceItem(cloneSlot.item, cloneSlot.amount);
             
         }
+        OnInventoryStateChangeEvent?.Invoke();
         
     }
     public bool TryToAddItem(InventoryItem item)

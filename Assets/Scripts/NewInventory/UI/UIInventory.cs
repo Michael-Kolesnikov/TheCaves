@@ -10,6 +10,8 @@ public class UIInventory : MonoBehaviour
     float reachDistance = 3f;
     public GameObject UIInventoryPanel;
     public Transform InventoryPanel;
+    public Transform HotBarPanel;
+    private UIHotBar _hotbar;
     public Transform canvas;
     private bool isOpened = false;
     private List<UIInventorySlot> uiInventorySlot;
@@ -27,6 +29,9 @@ public class UIInventory : MonoBehaviour
             uiInventorySlot[i].SetUIItem(uiInventorySlot[i].GetComponentInChildren<UIInventoryItem>());
         }
         SetupInventoryUI();
+
+        _hotbar = HotBarPanel.GetComponent<UIHotBar>();
+        _hotbar.SetupUIHotBarSlots();
     }
     private void Update()
     {
