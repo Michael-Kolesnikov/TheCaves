@@ -10,7 +10,28 @@ public class UIHotBar : MonoBehaviour
     private UIHotBarSlot _currentScroolSlot;
     List<UIHotBarSlot> slots;
     public Transform hotBarPanel;
-    int index;
+    int IndexCurrentSlot
+    {
+        get
+        {
+            return _indexCurrentSlot;
+        }
+        set
+        {
+            if(value < slots.Count && value >= 0)
+                _indexCurrentSlot = value;
+            else
+            {
+                if (value >= slots.Count)
+                    _indexCurrentSlot = 0;
+                else
+                    _indexCurrentSlot = slots.Count - 1;
+            }
+            
+                
+        }
+    }
+    int _indexCurrentSlot;
     public void SetupUIHotBarSlots()
     {
         var x = canvas.GetComponent<UIInventory>();
@@ -31,14 +52,14 @@ public class UIHotBar : MonoBehaviour
         if (Input.GetAxis("Mouse ScrollWheel") > 0)
         {
             _currentScroolSlot.UnSelect();
-            index = Mathf.Clamp(index+1,0,slots.Count - 1);
-            _currentScroolSlot = slots[index];
+            IndexCurrentSlot++;
+            _currentScroolSlot = slots[IndexCurrentSlot];
         }
         else if (Input.GetAxis("Mouse ScrollWheel") < 0)
         {
             _currentScroolSlot.UnSelect();
-            index = Mathf.Clamp(index - 1, 0, slots.Count - 1);
-            _currentScroolSlot = slots[index];
+            IndexCurrentSlot--;
+            _currentScroolSlot = slots[IndexCurrentSlot];
         }
         _currentScroolSlot.SelectSlot();
     }       
