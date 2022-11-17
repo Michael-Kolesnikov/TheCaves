@@ -10,9 +10,6 @@ public class UIHotBar : MonoBehaviour
     private UIHotBarSlot _currentScroolSlot;
     List<UIHotBarSlot> slots;
     public Transform hotBarPanel;
-    public Transform player;
-
-    public Transform hand;
     int IndexCurrentSlot
     {
         get
@@ -30,6 +27,8 @@ public class UIHotBar : MonoBehaviour
                 else
                     _indexCurrentSlot = slots.Count - 1;
             }
+            
+                
         }
     }
     int _indexCurrentSlot;
@@ -50,36 +49,20 @@ public class UIHotBar : MonoBehaviour
 
     private void Update()
     {
-
         if (Input.GetAxis("Mouse ScrollWheel") > 0)
-            Scrool(1);
+        {
+            _currentScroolSlot.UnSelect();
+            IndexCurrentSlot++;
+            _currentScroolSlot = slots[IndexCurrentSlot];
+        }
         else if (Input.GetAxis("Mouse ScrollWheel") < 0)
-            Scrool(-1);
+        {
+            _currentScroolSlot.UnSelect();
+            IndexCurrentSlot--;
+            _currentScroolSlot = slots[IndexCurrentSlot];
+        }
         _currentScroolSlot.SelectSlot();
     }       
-    private void Scrool(int value)
-    {
-        for(var i = 0; i < hand.childCount;i++)
-        {
-            Destroy(hand.GetChild(i).gameObject);
-        }
-        _currentScroolSlot.UnSelect();
-        if (value > 0)
-            IndexCurrentSlot++;
-        else
-            IndexCurrentSlot--;
-        _currentScroolSlot = slots[IndexCurrentSlot];
-
-        if(_currentScroolSlot?.inventorySlot?.item?.prefab != null)
-        {
-            var item = _currentScroolSlot?.inventorySlot?.item?.prefab;
-            var currentItem = Instantiate(item);
-            currentItem.transform.parent = hand.transform;
-            currentItem.transform.localEulerAngles = new Vector3(0, 180, 90);
-            currentItem.transform.localPosition = Vector3.zero;
-            currentItem.GetComponent<Rigidbody>().isKinematic = true;
-        }
-    }
     private void RefreshHotBarSlots()
     {
         foreach(var slot in slots)
