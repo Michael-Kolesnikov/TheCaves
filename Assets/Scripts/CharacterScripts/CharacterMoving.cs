@@ -46,7 +46,7 @@ public class CharacterMoving : MonoBehaviour
     private void Jump()
     {
         if (Input.GetButton("Jump") && check.isGrounded)
-        {  
+        {
             _velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
         }
     }

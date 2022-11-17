@@ -29,7 +29,6 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0.7, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4560859686677245019}
   m_RootOrder: 0
@@ -98,7 +97,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   character: {fileID: 4560859686677245019}
-  mouseSensitivity: 150
+  mouseSensitivity: 300
 --- !u!1 &4560859686511907873
 GameObject:
   m_ObjectHideFlags: 0
@@ -126,7 +125,6 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4560859686677245019}
   m_RootOrder: 1
@@ -160,7 +158,6 @@ GameObject:
   - component: {fileID: 4560859686677245016}
   - component: {fileID: 4560859686677245018}
   - component: {fileID: 4560859686677245017}
-  - component: {fileID: 1298618479}
   m_Layer: 0
   m_Name: FirstPersonController
   m_TagString: Untagged
@@ -178,7 +175,6 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1.085, y: 0, z: -0.16024649}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4560859686168046506}
   - {fileID: 4560859686511908318}
@@ -199,7 +195,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterController: {fileID: 4560859686677245018}
   moveSpeed: 5
-  canRun: 0
   runningKey: 304
 --- !u!143 &4560859686677245018
 CharacterController:
@@ -230,24 +225,5 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 2, z: 1}
+  m_Size: {x: 1, y: 1.9, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1298618479
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4560859686677245021}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a21fc256fcd079c479de01c3ebbe7d4f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHealth: 100
-  minHealth: 0
-  itemInHand: {fileID: 0}
-  maxStamina: 100
-  minStamina: 0
-  staminaRecoveryPerSecond: 10
-  _currentStamina: 0
