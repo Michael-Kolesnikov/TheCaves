@@ -21,7 +21,7 @@ public class UIInventory : MonoBehaviour
         inventory.OnInventoryStateChangeEvent += OnInventoryStateChange;
         uiInventorySlot = new List<UIInventorySlot>();
 
-        mainCamera = Camera.main;
+        mainCamera = Camera.main;   
         UIInventoryPanel.SetActive(false);
         for(var i = 0; i < InventoryPanel.childCount;i++)
         {
@@ -56,7 +56,6 @@ public class UIInventory : MonoBehaviour
                     inventory.TryToAddItem(item);
                     //RefreshHotBatUI();
                     Destroy(hit.collider.gameObject);
-                    //
                 }
             }
         }

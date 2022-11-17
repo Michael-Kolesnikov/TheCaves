@@ -1,9 +1,5 @@
 fileFormatVersion: 2
-<<<<<<<< HEAD:Assets/Scripts/InventoryController.cs.meta
 guid: 1e08a20d91803a3449905e76a5546034
-========
-guid: e0de79e287950bf479ca1ef18e480898
->>>>>>>> b76475a42beb4c4026bc711d23e6bc865cc4ebd9:Assets/Scripts/DestroyObject.cs.meta
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2

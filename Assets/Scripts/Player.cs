@@ -8,6 +8,7 @@ public class Player : MonoBehaviour
     public float maxHealth = 100f;
     public float minHealth = 0;
     private float _currentHealth;
+    public GameObject itemInHand;
     public float CurrentHealth
     {
         get { return _currentHealth; }

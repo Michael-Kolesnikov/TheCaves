@@ -1,9 +1,5 @@
 fileFormatVersion: 2
-<<<<<<<< HEAD:Assets/Scripts/InventorySlotOld.cs.meta
 guid: 891a3ccfb54cdae48a1472933f4f40a4
-========
-guid: 7a8708ea05b75074787aa52896b12176
->>>>>>>> b76475a42beb4c4026bc711d23e6bc865cc4ebd9:Assets/Scripts/Dig.cs.meta
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
