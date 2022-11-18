@@ -11,7 +11,7 @@ public class CameraController : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.Locked;
     }
-
+     
     void Update()
     {
         if (!isMove) return;
