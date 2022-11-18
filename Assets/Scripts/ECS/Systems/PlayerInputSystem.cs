@@ -10,15 +10,15 @@ sealed class PlayerInputSystem : IEcsRunSystem
     public void Run(EcsSystems systems)
     {
         _world = systems.GetWorld();
-        _directionFilter = _world.Filter<DirectionComponent>().End();
+        _directionFilter = _world.Filter<TransformComponent>().End();
 
         SetDirection();
-        var directions = _world.GetPool<DirectionComponent>();
+        var directions = _world.GetPool<TransformComponent>();
 
         foreach (int entity in _directionFilter)
         {
             ref var directionComponent = ref directions.Get(entity);
-            ref var direction = ref directionComponent.direction;
+            ref var direction = ref directionComponent.position;
             direction.x = moveX;
             direction.z = moveZ;
         }
