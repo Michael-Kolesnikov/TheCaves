@@ -22,9 +22,6 @@ public sealed class EcsGameStartUp : MonoBehaviour
         AddInjections();
         AddSystems();
         AddOneFrames();
-
-
-
     }
     private void Update()
     {
@@ -39,6 +36,8 @@ public sealed class EcsGameStartUp : MonoBehaviour
         _systems
             .Add(new PlayerInputSystem())
             .Add(new MovementSystem())
+            .Add(new PlayerMouseInputSystem())
+            .Add(new CursorLockSystem())
             .Init();
         Debug.Log("systems added");
     }   
