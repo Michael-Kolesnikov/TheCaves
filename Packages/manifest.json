@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "com.leopotam.ecslite": "https://github.com/Leopotam/ecslite.git",
+    "com.leopotam.ecslite": "https://github.com/voody2506/ecslite.git",
     "com.unity.collab-proxy": "1.15.16",
     "com.unity.ide.rider": "3.0.14",
     "com.unity.ide.visualstudio": "2.0.15",
@@ -9,6 +9,7 @@
     "com.unity.textmeshpro": "3.0.6",
     "com.unity.timeline": "1.6.4",
     "com.unity.ugui": "1.0.0",
+    "com.voody.unileo.lite": "https://github.com/voody2506/UniLeo-Lite.git",
     "com.unity.modules.ai": "1.0.0",
     "com.unity.modules.androidjni": "1.0.0",
     "com.unity.modules.animation": "1.0.0",
