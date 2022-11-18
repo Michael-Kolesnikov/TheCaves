@@ -21,8 +21,6 @@ sealed class PlayerInputSystem : IEcsRunSystem
             ref var direction = ref directionComponent.direction;
             direction.x = moveX;
             direction.z = moveZ;
-
-
         }
     }
     private void SetDirection()

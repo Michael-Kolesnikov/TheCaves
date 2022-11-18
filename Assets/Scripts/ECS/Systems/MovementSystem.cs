@@ -5,12 +5,13 @@ sealed class MovementSystem : IEcsRunSystem
 {
     public void Run(EcsSystems system)
     {
-        var _filter = system.GetWorld().Filter<MovableComponent>().Inc<ModelComponent>().Inc<DirectionComponent>().End();
+        var filter = system.GetWorld().Filter<PlayerTag>().Inc<MovableComponent>().Inc<ModelComponent>().Inc<DirectionComponent>().End();
+        
         var movablePool = system.GetWorld().GetPool<MovableComponent>();
         var modelPool = system.GetWorld().GetPool<ModelComponent>();
         var directionPool = system.GetWorld().GetPool<DirectionComponent>();
 
-        foreach (var entity in _filter )
+        foreach (var entity in filter )
         {
             ref var movableComponent = ref movablePool.Get(entity);
             ref var modelComponent = ref modelPool.Get(entity);
