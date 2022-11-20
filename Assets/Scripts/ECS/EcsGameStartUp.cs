@@ -22,7 +22,6 @@ public sealed class EcsGameStartUp : MonoBehaviour
 
         AddInjections();
         AddSystems();
-        AddOneFrames();
     }
     private void Update()
     {
@@ -36,7 +35,8 @@ public sealed class EcsGameStartUp : MonoBehaviour
     {
         _systems
             .Add(new CursorLockSystem())
-            .Add(new PlayerSendJumpEvent()) // work
+            .Add(new PlayerSendJumpEventSystem()) // work
+            .Add(new PlayerSendSprintEventSystem()) // work
             .Add(new GroundCheckSystem()) // work
             .Add(new PlayerInputSystem())
             .Add(new PlayerMouseInputSystem())
@@ -46,13 +46,10 @@ public sealed class EcsGameStartUp : MonoBehaviour
             .Add(new MovementSystem())
             .Add(new TestSystem())
             .DelHere<JumpEvent>()
+            .DelHere<SprintEvent>()
             .Init();
         Debug.Log("systems added");
     }   
-    private void AddOneFrames()
-    {
-
-    }
     private void OnDestroy()
     {
         if (_systems == null) return;

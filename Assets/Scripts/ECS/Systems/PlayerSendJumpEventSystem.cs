@@ -1,6 +1,6 @@
 using UnityEngine;
 using Leopotam.EcsLite;
-public class PlayerSendJumpEvent : IEcsRunSystem
+public class PlayerSendJumpEventSystem : IEcsRunSystem
 {
     public void Run(EcsSystems system)
     {
@@ -8,13 +8,11 @@ public class PlayerSendJumpEvent : IEcsRunSystem
 
         var jumpEventPool = system.GetWorld().GetPool<JumpEvent>();
 
-        if (!Input.GetKey(KeyCode.Space)) return;
-        foreach(var entity in playerFilter)
-        {
-            jumpEventPool.Add(entity);
-            Debug.Log("press space");
 
-        }
+
+        if (!Input.GetKey(KeyCode.Space)) return;
+        foreach (var entity in playerFilter)
+            jumpEventPool.Add(entity);
 
     }
 }
