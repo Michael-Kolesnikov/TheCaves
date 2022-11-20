@@ -25,6 +25,7 @@ sealed class MovementSystem : IEcsRunSystem
             var rawDirection = direction.x * transform.right + direction.z * transform.forward;
 
             var speed = movableComponent.speed;
+            Debug.Log(speed);
             characterController.Move(speed * rawDirection * Time.deltaTime);
 
         }
