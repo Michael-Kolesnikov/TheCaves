@@ -1,4 +1,4 @@
-using UnityEngine;
+    using UnityEngine;
 
 public class GroundCheck : MonoBehaviour
 {
@@ -7,7 +7,6 @@ public class GroundCheck : MonoBehaviour
     public Transform groundCheck;
     private float groundDistance = 0.2f;
     public LayerMask groundLayerMask;
-
 
     void Update()
     {

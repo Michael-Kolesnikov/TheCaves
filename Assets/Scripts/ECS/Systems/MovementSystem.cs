@@ -5,12 +5,11 @@ sealed class MovementSystem : IEcsRunSystem
 {
     public void Run(EcsSystems system)
     {
-        var filter = system.GetWorld().Filter<PlayerTag>().Inc<MovableComponent>().Inc<ModelComponent>().Inc<DirectionComponent>().End();
+        var filter = system.GetWorld().Filter<PlayerTag>().End();
         
         var movablePool = system.GetWorld().GetPool<MovableComponent>();
         var modelPool = system.GetWorld().GetPool<ModelComponent>();
         var directionPool = system.GetWorld().GetPool<DirectionComponent>();
-
         foreach (var entity in filter )
         {
             ref var movableComponent = ref movablePool.Get(entity);
@@ -25,7 +24,10 @@ sealed class MovementSystem : IEcsRunSystem
             var rawDirection = direction.x * transform.right + direction.z * transform.forward;
 
             var speed = movableComponent.speed;
+            var velocity = movableComponent.velocity;
+
             characterController.Move(speed * rawDirection * Time.deltaTime);
+            characterController.Move(velocity * Time.deltaTime);
 
         }
     }

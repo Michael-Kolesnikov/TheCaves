@@ -1,6 +1,7 @@
 using UnityEngine;
 using Leopotam.EcsLite;
 using Voody.UniLeo.Lite;
+using Leopotam.EcsLite.ExtendedSystems;
 public sealed class EcsGameStartUp : MonoBehaviour
 {
     /// <summary>
@@ -34,10 +35,17 @@ public sealed class EcsGameStartUp : MonoBehaviour
     private void AddSystems()
     {
         _systems
-            .Add(new PlayerInputSystem())
-            .Add(new MovementSystem())
-            .Add(new PlayerMouseInputSystem())
             .Add(new CursorLockSystem())
+            .Add(new PlayerSendJumpEvent()) // work
+            .Add(new GroundCheckSystem()) // work
+            .Add(new PlayerInputSystem())
+            .Add(new PlayerMouseInputSystem())
+            .Add(new GravitySystem())
+            .Add(new PlayerInitCharacteristicsSystem())
+            .Add(new PlayerJumpSystem())
+            .Add(new MovementSystem())
+            .Add(new TestSystem())
+            .DelHere<JumpEvent>()
             .Init();
         Debug.Log("systems added");
     }   
