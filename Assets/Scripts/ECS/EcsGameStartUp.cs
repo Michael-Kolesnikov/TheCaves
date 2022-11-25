@@ -45,6 +45,7 @@ public sealed class EcsGameStartUp : MonoBehaviour
             .Add(new PlayerJumpSystem())
             .Add(new MovementSystem())
             .Add(new TestSystem())
+            .Add(new PlayerScroolSystem())
             .DelHere<JumpEvent>()
             .DelHere<SprintEvent>()
             .Init();

@@ -20,12 +20,12 @@ public class PlayerIndicators : MonoBehaviour
     }
     private void Update()
     {
-        if (Input.GetButtonDown("Jump"))
-            player.TakeDamage(10f);
-        setHealth(player.CurrentHealth);
-        SetStamina(player.CurrentStamina);
-        SetFood();
-        SetWater();
+        //if (Input.GetButtonDown("Jump"))
+        //    player.TakeDamage(10f);
+        //setHealth(player.CurrentHealth);
+        //SetStamina(player.CurrentStamina);
+        //SetFood();
+        //SetWater();
         
     }
     public void SetFood()
