@@ -22,7 +22,6 @@ public sealed class PlayerJumpSystem : IEcsRunSystem
             ref var jumpForce = ref jump.force;
 
             if (!groundCheck.isGrounded) continue;
-            Debug.Log(jumpForce * gravity);
             velocity.y = Mathf.Sqrt(jumpForce * -2f * gravity);
 
         }
