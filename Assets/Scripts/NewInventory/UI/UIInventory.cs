@@ -35,14 +35,14 @@ public class UIInventory : MonoBehaviour
     }
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.I))
-        {
-            isOpened = !isOpened;
-            bool state = isOpened;
-            SetActiveHudElements(state);
-            CharacterMoving.isMove = !state;
-            CameraController.isMove = !state;
-        }
+        //if (Input.GetKeyDown(KeyCode.I))
+        //{
+        //    isOpened = !isOpened;
+        //    bool state = isOpened;
+        //    SetActiveHudElements(state);
+        //    CharacterMoving.isMove = !state;
+        //    CameraController.isMove = !state;
+        //}
         /// Pick up item 
         Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;

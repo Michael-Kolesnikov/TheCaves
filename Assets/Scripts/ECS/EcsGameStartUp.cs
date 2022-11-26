@@ -20,32 +20,28 @@ public sealed class EcsGameStartUp : MonoBehaviour
 
         _systems.ConvertScene();
 
-        AddInjections();
         AddSystems();
     }
     private void Update()
     {
         _systems.Run();
     }
-    private void AddInjections()
-    {
-
-    }
     private void AddSystems()
     {
         _systems
-            .Add(new CursorLockSystem())
-            .Add(new PlayerSendJumpEventSystem()) // work
-            .Add(new PlayerSendSprintEventSystem()) // work
-            .Add(new GroundCheckSystem()) // work
+            .Add(new PlayerSendJumpEventSystem())
+            .Add(new PlayerSendSprintEventSystem())
+            .Add(new GroundCheckSystem())
             .Add(new PlayerInputSystem())
             .Add(new PlayerMouseInputSystem())
             .Add(new GravitySystem())
-            .Add(new PlayerInitCharacteristicsSystem())
             .Add(new PlayerJumpSystem())
             .Add(new MovementSystem())
             .Add(new TestSystem())
             .Add(new PlayerScroolSystem())
+            .Add(new PlayerInitInventorySystem())
+            .Add(new PlayerOpenInventorySystem())
+            .Add(new CursorLockSystem())
             .DelHere<JumpEvent>()
             .DelHere<SprintEvent>()
             .Init();

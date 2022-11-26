@@ -17,6 +17,8 @@ sealed class PlayerMouseInputSystem : IEcsRunSystem
         foreach(var entity in filter)
         {
             ref var mouseLookDirection = ref mouseLookDirectionPool.Get(entity);
+            if (!mouseLookDirection.canMove) continue;
+
             mouseLookDirection.direction.x = moveX * mouseLookDirection.mouseSensitivity * Time.deltaTime;
             mouseLookDirection.direction.y = moveY * mouseLookDirection.mouseSensitivity * Time.deltaTime; ;
 

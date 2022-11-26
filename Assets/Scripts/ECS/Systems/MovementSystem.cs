@@ -14,6 +14,8 @@ sealed class MovementSystem : IEcsRunSystem
         foreach (var entity in filter )
         {
             ref var movableComponent = ref movablePool.Get(entity);
+            if (!movableComponent.canMove) continue;
+
             ref var modelComponent = ref modelPool.Get(entity);
             ref var directionComponent = ref directionPool.Get(entity);
             ref var sprintComponent = ref sprintPool.Get(entity);
