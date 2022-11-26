@@ -11,11 +11,13 @@ public class PlayerSendSprintEventSystem : IEcsRunSystem, IEcsInitSystem
             sprintPool.Add(entity);
             ref var sprint = ref sprintPool.Get(entity);
             sprint.accelerationFactor = 1.70f;
+            sprint.decreaseStaminaFactor = 30f;
+            sprint.increaseStaminaFactor = 20f;
         }
     }
     public void Run(EcsSystems system)
     {
-        var playerFilter = system.GetWorld().Filter<PlayerTag>().End();
+        var playerFilter = system.GetWorld().Filter<PlayerTag>().Inc<StaminaComponent>().End();
 
         var sprintEventPool = system.GetWorld().GetPool<SprintEvent>();
         var sprintPool = system.GetWorld().GetPool<SprintComponent>();
@@ -33,7 +35,9 @@ public class PlayerSendSprintEventSystem : IEcsRunSystem, IEcsInitSystem
         {
             sprintEventPool.Add(entity);
             ref var sprint = ref sprintPool.Get(entity);
-            sprint.isRunning = true;
+            ref var stamina = ref system.GetWorld().GetPool<StaminaComponent>().Get(entity);
+            sprint.isRunning = stamina.currentStaminaValue > 0;
+            
         }
     }
 }

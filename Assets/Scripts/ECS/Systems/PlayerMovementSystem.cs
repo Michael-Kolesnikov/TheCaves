@@ -1,7 +1,7 @@
 ﻿using Leopotam.EcsLite;
 using UnityEngine;
 
-sealed class MovementSystem : IEcsRunSystem
+sealed class PlayerMovementSystem : IEcsRunSystem
 {
     public void Run(EcsSystems system)
     {
@@ -28,13 +28,16 @@ sealed class MovementSystem : IEcsRunSystem
             var rawDirection =  direction.x * transform.right + direction.z * transform.forward;
             var accurateDirection = Vector3.ClampMagnitude(rawDirection, 1);
 
-
+            // change speed 
             var speed = sprintComponent.isRunning ? sprintComponent.accelerationFactor * movableComponent.defaultSpeed : movableComponent.defaultSpeed;
+           
             var velocity = movableComponent.velocity;
 
             characterController.Move(accurateDirection * speed * Time.deltaTime);
             characterController.Move(velocity * Time.deltaTime);
-
+            
+            
+            
         }
     }
 }
