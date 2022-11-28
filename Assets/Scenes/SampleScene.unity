@@ -7185,7 +7185,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1255942535}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6744decc8d2d51f47ac62e1d12987703, type: 3}
   m_Name: 
@@ -10357,8 +10357,11 @@ GameObject:
   - component: {fileID: 1787209691}
   - component: {fileID: 1787209692}
   - component: {fileID: 1787209693}
-  - component: {fileID: 1787209694}
   - component: {fileID: 1787209695}
+  - component: {fileID: 1787209694}
+  - component: {fileID: 1787209698}
+  - component: {fileID: 1787209697}
+  - component: {fileID: 1787209696}
   m_Layer: 0
   m_Name: Character
   m_TagString: Untagged
@@ -10569,6 +10572,51 @@ MonoBehaviour:
   value:
     playerInventoryUIPanel: {fileID: 2139302765}
     isInventoryOppened: 0
+--- !u!114 &1787209696
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1787209682}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1c0e3621b985334fb1fcaf1e6e9f7c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  value:
+    healthBar: {fileID: 1022424782}
+    healthSlider: {fileID: 1022424784}
+--- !u!114 &1787209697
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1787209682}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 928fa6cff2d6a5a488530d4ce30da4ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  value:
+    staminaBar: {fileID: 631984832}
+    staminaSlider: {fileID: 631984833}
+--- !u!114 &1787209698
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1787209682}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82c84d37670301b4bba3163561a992e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  value:
+    currentStaminaValue: 100
+    maxStaminaValue: 100
 --- !u!4 &1788922880 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 304d6e120f768dd418f558bd92acb781, type: 3}
@@ -12468,7 +12516,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2139302765
 RectTransform:
   m_ObjectHideFlags: 0

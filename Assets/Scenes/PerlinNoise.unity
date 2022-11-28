@@ -226,12 +226,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 966919607}
-  - component: {fileID: 966919606}
   - component: {fileID: 966919609}
-  - component: {fileID: 966919608}
-  - component: {fileID: 966919610}
   - component: {fileID: 966919611}
+  - component: {fileID: 966919608}
+  - component: {fileID: 966919606}
+  - component: {fileID: 966919610}
   - component: {fileID: 966919612}
+  - component: {fileID: 966919613}
   m_Layer: 0
   m_Name: StartGenerate
   m_TagString: Untagged
@@ -327,11 +328,18 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 966919605}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b6b1054aae923c5428a0fc1be95b8da6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  noiseScale: 0.06
+  width: 128
+  height: 128
+  terrainSurface: 0.19
+  offsetX: 0
+  offsetZ: 0
+  threshold: 0.29
 --- !u!64 &966919611
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -353,7 +361,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 966919605}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7c2be059d3bf19d42aa4b2ca7b7b1db0, type: 3}
   m_Name: 
@@ -365,6 +373,23 @@ MonoBehaviour:
   offSet: 0
   frequency: 3.55
   item: {fileID: 7090911934443571499, guid: 1fca003819218444886416e36e6c029f, type: 3}
+--- !u!114 &966919613
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 966919605}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 586b1944d4895854cb51a6054f1b4bb3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 7090911934443571499, guid: 1fca003819218444886416e36e6c029f, type: 3}
+  noiseScale: 0.11
+  length: 20
+  ignoreValue: 0.56
+  offsetX: 1
 --- !u!1 &1734361927
 GameObject:
   m_ObjectHideFlags: 0
@@ -376,6 +401,7 @@ GameObject:
   - component: {fileID: 1734361930}
   - component: {fileID: 1734361929}
   - component: {fileID: 1734361928}
+  - component: {fileID: 1734361931}
   m_Layer: 0
   m_Name: Camera
   m_TagString: Untagged
@@ -449,6 +475,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 58.274, y: 0, z: 0}
+--- !u!114 &1734361931
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1734361927}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5a473dd5e43d9e4aaf8fed19928bd93, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 10
+  rotationSpeed: 10
+  hideMouse: 1
 --- !u!1001 &9181970706476727251
 PrefabInstance:
   m_ObjectHideFlags: 0

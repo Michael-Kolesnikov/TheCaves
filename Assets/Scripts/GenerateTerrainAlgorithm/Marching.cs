@@ -7,25 +7,44 @@ public class Marching : MonoBehaviour
 
 	MeshFilter meshFilter;
 
-	float terrainSurface = 0.1f;
-	int width = 32;
-	int height = 8;
+	
 	float[,,] terrainMap;
 
+	[SerializeField]
+	float noiseScale = 0.17f;
+	[SerializeField]
+	int width;
+	[SerializeField]
+	int height;
+	[SerializeField]
+	float terrainSurface = 0.5f;
+	[SerializeField]
+	int offsetX;
+	[SerializeField]
+	int offsetZ;
+	[SerializeField]
+	float threshold;
 	List<Vector3> vertices = new List<Vector3>();
 	List<int> triangles = new List<int>();
 
 	private void Start()
 	{
 
-		meshFilter = GetComponent<MeshFilter>();
-		terrainMap = new float[width + 1, height + 1, width + 1];
-		PopulateTerrainMap();
-		CreateMeshData();
+		
 
 	}
+    private void Update()
+    {
+		if(Input.GetKey(KeyCode.Space))
+        {
+			meshFilter = GetComponent<MeshFilter>();
+			terrainMap = new float[width + 1, height + 1, width + 1];
+			PopulateTerrainMap();
+			CreateMeshData();
+		}
+	}
 
-	void CreateMeshData()
+    void CreateMeshData()
 	{
 
 		ClearMeshData();
@@ -64,7 +83,6 @@ public class Marching : MonoBehaviour
 
 		// The data points for terrain are stored at the corners of our "cubes", so the terrainMap needs to be 1 larger
 		// than the width/height of our mesh.
-		var max = 0f;
 		for (int x = 0; x < width + 1; x++)
 		{
 			for (int z = 0; z < width + 1; z++)
@@ -73,17 +91,13 @@ public class Marching : MonoBehaviour
 				{
 
 					// Get a terrain height using regular old Perlin noise.
-					float thisHeight = PerlinNoise3D.GetPerlinNoise3D(new Vector3(x,y,z), 2.31f) *(float)height;//(float)height * Mathf.PerlinNoise((float)x / 16f * 1.5f + 0.001f, (float)z / 16f * 1.5f + 0.001f);
-
-					if (thisHeight < 0)
-						thisHeight = 0f;
-
+					float thisHeight = PERLIN.GetPerlin((x + offsetX) * noiseScale, (y ) * noiseScale , (z + offsetZ) * noiseScale);
 					terrainMap[x, y, z] = thisHeight;
-					max = Mathf.Max(thisHeight, max);
 				}
 			}
 		}
-		Debug.Log(max);
+		offsetX++;
+		offsetZ++;
 	}
 
 	void MarchCube(Vector3 position, float[] cube)
@@ -131,7 +145,7 @@ public class Marching : MonoBehaviour
 		int configurationIndex = 0;
 		for (int i = 0; i < 8; i++)
 		{
-			if (cube[i] > terrainSurface)
+			if ((cube[i] > terrainSurface - threshold) && (cube[i] < terrainSurface + threshold) )
 				configurationIndex |= 1 << i;
 		}
 
@@ -151,6 +165,7 @@ public class Marching : MonoBehaviour
 	{
 
 		Mesh mesh = new Mesh();
+		mesh.indexFormat = UnityEngine.Rendering.IndexFormat.UInt32;
 		mesh.vertices = vertices.ToArray();
 		mesh.triangles = triangles.ToArray();
 		mesh.RecalculateNormals();

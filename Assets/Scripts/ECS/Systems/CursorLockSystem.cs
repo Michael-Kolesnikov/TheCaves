@@ -12,7 +12,7 @@ sealed class CursorLockSystem : IEcsRunSystem
             {
                 Cursor.lockState = CursorLockMode.None;
                 Cursor.visible = true;
-            }
+            } 
             else
             {
                 Cursor.lockState = CursorLockMode.Locked;
