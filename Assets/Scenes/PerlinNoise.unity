@@ -334,8 +334,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   noiseScale: 0.06
-  width: 128
-  height: 128
+  width: 32
+  height: 32
   terrainSurface: 0.19
   offsetX: 0
   offsetZ: 0

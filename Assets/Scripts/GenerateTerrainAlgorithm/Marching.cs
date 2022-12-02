@@ -27,12 +27,6 @@ public class Marching : MonoBehaviour
 	List<Vector3> vertices = new List<Vector3>();
 	List<int> triangles = new List<int>();
 
-	private void Start()
-	{
-
-		
-
-	}
     private void Update()
     {
 		if(Input.GetKey(KeyCode.Space))
@@ -170,7 +164,6 @@ public class Marching : MonoBehaviour
 		mesh.triangles = triangles.ToArray();
 		mesh.RecalculateNormals();
 		meshFilter.mesh = mesh;
-
 	}
 
 	Vector3Int[] CornerTable = new Vector3Int[8] {
