@@ -7,6 +7,7 @@ public sealed class UpdateVisibleChunksSystem : IEcsRunSystem,IEcsInitSystem
 {
     private int _chunksVisibleInViewDistance;
     private GameObject _chunkStorage;
+    List<Chunk> terrainChunksVisibleLastUpdate = new List<Chunk>();
     public void Init(EcsSystems system)
     {
         var filter = system.GetWorld().Filter<PlayerVisibleChunksComponent>().End();
@@ -34,13 +35,25 @@ public sealed class UpdateVisibleChunksSystem : IEcsRunSystem,IEcsInitSystem
 
             _chunksVisibleInViewDistance = Mathf.RoundToInt(playerVisibleChunks.viewDistant / Chunk.CHUNK_WIDTH);
 
-            for(var offsetX = -_chunksVisibleInViewDistance; offsetX <= _chunksVisibleInViewDistance; offsetX++)
+
+            for (int i = 0; i < terrainChunksVisibleLastUpdate.Count; i++)
+            {
+                terrainChunksVisibleLastUpdate[i].gameObject.SetActive(false);
+            }
+            terrainChunksVisibleLastUpdate.Clear();
+
+            for (var offsetX = -_chunksVisibleInViewDistance; offsetX <= _chunksVisibleInViewDistance; offsetX++)
             {
                 for (var offsetZ = -_chunksVisibleInViewDistance; offsetZ <= _chunksVisibleInViewDistance; offsetZ++)
                 {
                     Vector2Int visibleChunkCoord = new(currentChunkCoordX + offsetX, currentChunkCoordZ + offsetZ);
                     if(playerVisibleChunks.chunksDictionary.ContainsKey(visibleChunkCoord))
                     {
+                        float viewerDstFromNearestEdge = Mathf.Sqrt(playerVisibleChunks.chunksDictionary[visibleChunkCoord].bounds.SqrDistance(playerPosition));
+                        bool visible = viewerDstFromNearestEdge <= playerVisibleChunks.viewDistant;
+                        playerVisibleChunks.chunksDictionary[visibleChunkCoord].gameObject.SetActive(visible);
+                        if (playerVisibleChunks.chunksDictionary[visibleChunkCoord].gameObject.activeSelf)
+                            terrainChunksVisibleLastUpdate.Add(playerVisibleChunks.chunksDictionary[visibleChunkCoord]);
                         // в зависимости от того далеко он или нет обновить его(убраь или нет)
                         //UpdateChunk(playerVisibleChunks.chunksDictionary[visibleChunkCoord]);
                     }
@@ -49,6 +62,7 @@ public sealed class UpdateVisibleChunksSystem : IEcsRunSystem,IEcsInitSystem
 
                         GameObject chunk = new GameObject();
                         chunk.AddComponent<Chunk>();
+                        chunk.GetComponent<Chunk>().bounds = new Bounds(new Vector3((currentChunkCoordX + offsetX) * Chunk.CHUNK_WIDTH,0, (currentChunkCoordZ + offsetZ)* Chunk.CHUNK_WIDTH), new Vector3(Chunk.CHUNK_WIDTH,0, Chunk.CHUNK_WIDTH));
                         chunk.transform.parent = _chunkStorage.transform;
                         chunk.AddComponent<MeshFilter>();
                         chunk.AddComponent<MeshCollider>();
@@ -59,9 +73,11 @@ public sealed class UpdateVisibleChunksSystem : IEcsRunSystem,IEcsInitSystem
                         BuildMesh(chunk, visibleChunkCoord);
 
                         var mesh = chunk.GetComponent<MeshFilter>().mesh;
-                        // В КОЛАДЕЙР ДОБАВИТЬ МЕШ ;
+                        mesh.RecalculateBounds();
+                        mesh.RecalculateTangents();
+                        mesh.RecalculateNormals();
                         var col = chunk.GetComponent<MeshCollider>();
-                        col.sharedMesh = mesh;
+                        //col.sharedMesh = mesh;
                         playerVisibleChunks.chunksDictionary.Add(visibleChunkCoord, chunk.GetComponent<Chunk>());
                         
 
@@ -89,10 +105,6 @@ public sealed class UpdateVisibleChunksSystem : IEcsRunSystem,IEcsInitSystem
 
         var terrainMap = new float[Chunk.CHUNK_WIDTH + 1, Chunk.CHUNK_HEIGHT + 1, Chunk.CHUNK_WIDTH + 1];
 
-
-        // The data points for terrain are stored at the corners of our "cubes", so the terrainMap needs to be 1 larger
-        // than the width/height of our mesh.
-        
         for (int x = 0; x < Chunk.CHUNK_WIDTH + 1; x++)
         {
             for (int z = 0; z < Chunk.CHUNK_WIDTH + 1; z++)
@@ -100,14 +112,11 @@ public sealed class UpdateVisibleChunksSystem : IEcsRunSystem,IEcsInitSystem
                 for (int y = 0; y < Chunk.CHUNK_HEIGHT + 1; y++)
                 {
 
-                    // Get a terrain height using regular old Perlin noise.
                     float thisHeight = PERLIN.GetPerlin((x + Chunk.CHUNK_WIDTH * currentChunkPosition.x) * noiseScale, (y) * noiseScale, (z + Chunk.CHUNK_WIDTH * currentChunkPosition.y) * noiseScale);
                     terrainMap[x, y, z] = thisHeight;
                 }
             }
         }
-
-
         for (int x = 0; x < Chunk.CHUNK_WIDTH; x++)
         {
             for (int y = 0; y < Chunk.CHUNK_HEIGHT; y++)
@@ -115,7 +124,6 @@ public sealed class UpdateVisibleChunksSystem : IEcsRunSystem,IEcsInitSystem
                 for (int z = 0; z < Chunk.CHUNK_WIDTH; z++)
                 {
 
-                    // Create an array of floats representing each corner of a cube and get the value from our terrainMap.
                     float[] cube = new float[8];
                     for (int i = 0; i < 8; i++)
                     {
@@ -125,7 +133,6 @@ public sealed class UpdateVisibleChunksSystem : IEcsRunSystem,IEcsInitSystem
 
                     }
 
-                    // Pass the value into our MarchCube function.
                     MarchCube(new Vector3(x + currentChunkPosition.x * Chunk.CHUNK_WIDTH - Chunk.CHUNK_WIDTH / 2, y, z + currentChunkPosition.y * Chunk.CHUNK_WIDTH - Chunk.CHUNK_WIDTH / 2), cube);
 
                 }
@@ -143,35 +150,27 @@ public sealed class UpdateVisibleChunksSystem : IEcsRunSystem,IEcsInitSystem
         void MarchCube(Vector3 position, float[] cube)
         {
 
-            // Get the configuration index of this cube.
             int configIndex = GetCubeConfiguration(cube);
 
-            // If the configuration of this cube is 0 or 255 (completely inside the terrain or completely outside of it) we don't need to do anything.
             if (configIndex == 0 || configIndex == 255)
                 return;
 
-            // Loop through the triangles. There are never more than 5 triangles to a cube and only three vertices to a triangle.
             int edgeIndex = 0;
             for (int i = 0; i < 5; i++)
             {
                 for (int p = 0; p < 3; p++)
                 {
 
-                    // Get the current indice. We increment triangleIndex through each loop.
                     int indice = TriangleTable[configIndex, edgeIndex];
 
-                    // If the current edgeIndex is -1, there are no more indices and we can exit the function.
                     if (indice == -1)
                         return;
 
-                    // Get the vertices for the start and end of this edge.
                     Vector3 vert1 = position + EdgeTable[indice, 0];
                     Vector3 vert2 = position + EdgeTable[indice, 1];
 
-                    // Get the midpoint of this edge.
                     Vector3 vertPosition = (vert1 + vert2) / 2f;
 
-                    // Add to our vertices and triangles list and incremement the edgeIndex.
                     vertices.Add(vertPosition);
                     triangles.Add(vertices.Count - 1);
                     edgeIndex++;
