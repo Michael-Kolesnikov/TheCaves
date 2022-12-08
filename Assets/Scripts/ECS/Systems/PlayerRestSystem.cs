@@ -1,7 +1,7 @@
 using Leopotam.EcsLite;
 using UnityEngine;
 
-public class PlayerRestSystem : IEcsRunSystem
+public sealed class PlayerRestSystem : IEcsRunSystem
 {
    public void Run(EcsSystems system)
     {

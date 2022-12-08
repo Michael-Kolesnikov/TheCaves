@@ -1,7 +1,7 @@
 using Leopotam.EcsLite;
 using UnityEngine;
 
-public class GravitySystem : IEcsRunSystem
+public sealed class GravitySystem : IEcsRunSystem
 {
     public void Run(EcsSystems system)
     {

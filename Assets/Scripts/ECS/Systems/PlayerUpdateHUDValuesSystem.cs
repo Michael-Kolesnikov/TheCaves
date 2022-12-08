@@ -1,7 +1,7 @@
 using Leopotam.EcsLite;
 using UnityEngine;
 
-public class PlayerUpdateHUDValuesSystem : IEcsRunSystem
+public sealed class PlayerUpdateHUDValuesSystem : IEcsRunSystem
 {
     public void Run(EcsSystems system)
     {

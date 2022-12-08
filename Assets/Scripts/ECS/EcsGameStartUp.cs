@@ -7,7 +7,7 @@ public sealed class EcsGameStartUp : MonoBehaviour
     /// <summary>
     /// Contain all entities
     /// </summary>
-    private EcsWorld world;
+    private EcsWorld _world;
     /// <summary>
     /// Contain all sytems
     /// </summary>
@@ -15,11 +15,10 @@ public sealed class EcsGameStartUp : MonoBehaviour
 
     private void Start()
     {
-        world = new EcsWorld();
-        _systems = new EcsSystems(world);
+        _world = new EcsWorld();
+        _systems = new EcsSystems(_world);
 
         _systems.ConvertScene();
-
         AddSystems();
     }
     private void Update()
@@ -44,9 +43,9 @@ public sealed class EcsGameStartUp : MonoBehaviour
             .Add(new FatigueSystem())
             .Add(new PlayerRestSystem())
             .Add(new PlayerUpdateHUDValuesSystem())
-            .Add(new InitChunkStoreSystem())
-            .Add(new UpdateVisibleChunksSystem())
+            .Add(new ChunksGenerationSystem())
             .Add(new TestSystem())
+            .Add(new PlayerDigSystem())
             .DelHere<JumpEvent>()
             .DelHere<SprintEvent>()
             .Init();
@@ -57,7 +56,7 @@ public sealed class EcsGameStartUp : MonoBehaviour
         if (_systems == null) return;
         _systems.Destroy();
         _systems = null;
-        world.Destroy();
-        world = null;
+        _world.Destroy();
+        _world = null;
     }
 }

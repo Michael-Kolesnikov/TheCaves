@@ -1,198 +1,10 @@
-using UnityEngine;
-using Leopotam.EcsLite;
-using System;
+using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 
-public sealed class UpdateVisibleChunksSystem : IEcsRunSystem,IEcsInitSystem
+public static class MarchingCubes
 {
-    private int _chunksVisibleInViewDistance;
-    private GameObject _chunkStorage;
-    List<Chunk> terrainChunksVisibleLastUpdate = new List<Chunk>();
-    public void Init(EcsSystems system)
-    {
-        var filter = system.GetWorld().Filter<PlayerVisibleChunksComponent>().End();
-        foreach(var entity in filter)
-        {
-            ref var playerVisibleChunks = ref system.GetWorld().GetPool<PlayerVisibleChunksComponent>().Get(entity);
-            playerVisibleChunks.visibleChunks = new();
-            playerVisibleChunks.chunksDictionary = new();
-        }
-        //create storage containing all chunks
-        _chunkStorage = new GameObject("Chunk Storage");
-    }
-    public void Run(EcsSystems system)
-    {
-
-        var filter = system.GetWorld().Filter<PlayerTag>().Inc<PlayerVisibleChunksComponent>().End();
-        foreach(var entity in filter)
-        {
-            ref var movable = ref system.GetWorld().GetPool<MovableComponent>().Get(entity);
-            ref var playerVisibleChunks = ref system.GetWorld().GetPool<PlayerVisibleChunksComponent>().Get(entity);
-            var playerPosition = movable.characterController.transform.position;
-
-            int currentChunkCoordX = Mathf.RoundToInt(playerPosition.x / Chunk.CHUNK_WIDTH);
-            int currentChunkCoordZ = Mathf.RoundToInt(playerPosition.z / Chunk.CHUNK_WIDTH);
-
-            _chunksVisibleInViewDistance = Mathf.RoundToInt(playerVisibleChunks.viewDistant / Chunk.CHUNK_WIDTH);
-
-
-            for (int i = 0; i < terrainChunksVisibleLastUpdate.Count; i++)
-            {
-                terrainChunksVisibleLastUpdate[i].gameObject.SetActive(false);
-            }
-            terrainChunksVisibleLastUpdate.Clear();
-
-            for (var offsetX = -_chunksVisibleInViewDistance; offsetX <= _chunksVisibleInViewDistance; offsetX++)
-            {
-                for (var offsetZ = -_chunksVisibleInViewDistance; offsetZ <= _chunksVisibleInViewDistance; offsetZ++)
-                {
-                    Vector2Int visibleChunkCoord = new(currentChunkCoordX + offsetX, currentChunkCoordZ + offsetZ);
-                    if(playerVisibleChunks.chunksDictionary.ContainsKey(visibleChunkCoord))
-                    {
-                        float viewerDstFromNearestEdge = Mathf.Sqrt(playerVisibleChunks.chunksDictionary[visibleChunkCoord].bounds.SqrDistance(playerPosition));
-                        bool visible = viewerDstFromNearestEdge <= playerVisibleChunks.viewDistant;
-                        playerVisibleChunks.chunksDictionary[visibleChunkCoord].gameObject.SetActive(visible);
-                        if (playerVisibleChunks.chunksDictionary[visibleChunkCoord].gameObject.activeSelf)
-                            terrainChunksVisibleLastUpdate.Add(playerVisibleChunks.chunksDictionary[visibleChunkCoord]);
-                        // в зависимости от того далеко он или нет обновить его(убраь или нет)
-                        //UpdateChunk(playerVisibleChunks.chunksDictionary[visibleChunkCoord]);
-                    }
-                    else
-                    {
-
-                        GameObject chunk = new GameObject();
-                        chunk.AddComponent<Chunk>();
-                        chunk.GetComponent<Chunk>().bounds = new Bounds(new Vector3((currentChunkCoordX + offsetX) * Chunk.CHUNK_WIDTH,0, (currentChunkCoordZ + offsetZ)* Chunk.CHUNK_WIDTH), new Vector3(Chunk.CHUNK_WIDTH,0, Chunk.CHUNK_WIDTH));
-                        chunk.transform.parent = _chunkStorage.transform;
-                        chunk.AddComponent<MeshFilter>();
-                        chunk.AddComponent<MeshCollider>();
-                        chunk.AddComponent<MeshRenderer>();
-                        var mat = Resources.Load("TerrainMaterialCave", typeof(Material)) as Material;
-                        chunk.GetComponent<MeshRenderer>().material = mat;
-                        chunk.layer = 6; // Ground
-                        BuildMesh(chunk, visibleChunkCoord);
-
-                        var mesh = chunk.GetComponent<MeshFilter>().mesh;
-                        mesh.RecalculateBounds();
-                        mesh.RecalculateTangents();
-                        mesh.RecalculateNormals();
-                        var col = chunk.GetComponent<MeshCollider>();
-                        //col.sharedMesh = mesh;
-                        playerVisibleChunks.chunksDictionary.Add(visibleChunkCoord, chunk.GetComponent<Chunk>());
-                        
-
-                    }
-
-                }
-            }
-
-            Debug.Log($"Текущие координаты игрока : {playerPosition.x}, {playerPosition.z} Текущий чанк - {currentChunkCoordX}, {currentChunkCoordZ}");
-            Debug.Log($"В словарике загружено {playerVisibleChunks.chunksDictionary.Count} чанков");
-        }
-    }
-    private void UpdateChunk(Chunk chunk)
-    {
-
-    }
-
-    private void BuildMesh(GameObject chunk,Vector2Int currentChunkPosition)
-    {
-        float noiseScale = 0.06f;
-        float terrainSurface = 0.19f;
-        float threshold = 0.29f;
-        List<Vector3> vertices = new List<Vector3>();
-        List<int> triangles = new List<int>();
-
-        var terrainMap = new float[Chunk.CHUNK_WIDTH + 1, Chunk.CHUNK_HEIGHT + 1, Chunk.CHUNK_WIDTH + 1];
-
-        for (int x = 0; x < Chunk.CHUNK_WIDTH + 1; x++)
-        {
-            for (int z = 0; z < Chunk.CHUNK_WIDTH + 1; z++)
-            {
-                for (int y = 0; y < Chunk.CHUNK_HEIGHT + 1; y++)
-                {
-
-                    float thisHeight = PERLIN.GetPerlin((x + Chunk.CHUNK_WIDTH * currentChunkPosition.x) * noiseScale, (y) * noiseScale, (z + Chunk.CHUNK_WIDTH * currentChunkPosition.y) * noiseScale);
-                    terrainMap[x, y, z] = thisHeight;
-                }
-            }
-        }
-        for (int x = 0; x < Chunk.CHUNK_WIDTH; x++)
-        {
-            for (int y = 0; y < Chunk.CHUNK_HEIGHT; y++)
-            {
-                for (int z = 0; z < Chunk.CHUNK_WIDTH; z++)
-                {
-
-                    float[] cube = new float[8];
-                    for (int i = 0; i < 8; i++)
-                    {
-
-                        Vector3Int corner = new Vector3Int(x, y, z) + CornerTable[i];
-                        cube[i] = terrainMap[corner.x, corner.y, corner.z];
-
-                    }
-
-                    MarchCube(new Vector3(x + currentChunkPosition.x * Chunk.CHUNK_WIDTH - Chunk.CHUNK_WIDTH / 2, y, z + currentChunkPosition.y * Chunk.CHUNK_WIDTH - Chunk.CHUNK_WIDTH / 2), cube);
-
-                }
-            }
-        }
-
-        Mesh mesh = new Mesh();
-        mesh.indexFormat = UnityEngine.Rendering.IndexFormat.UInt32;
-        mesh.vertices = vertices.ToArray();
-        mesh.triangles = triangles.ToArray();
-        mesh.RecalculateNormals();
-        mesh.RecalculateBounds();
-        chunk.GetComponent<MeshFilter>().mesh = mesh;
-
-        void MarchCube(Vector3 position, float[] cube)
-        {
-
-            int configIndex = GetCubeConfiguration(cube);
-
-            if (configIndex == 0 || configIndex == 255)
-                return;
-
-            int edgeIndex = 0;
-            for (int i = 0; i < 5; i++)
-            {
-                for (int p = 0; p < 3; p++)
-                {
-
-                    int indice = TriangleTable[configIndex, edgeIndex];
-
-                    if (indice == -1)
-                        return;
-
-                    Vector3 vert1 = position + EdgeTable[indice, 0];
-                    Vector3 vert2 = position + EdgeTable[indice, 1];
-
-                    Vector3 vertPosition = (vert1 + vert2) / 2f;
-
-                    vertices.Add(vertPosition);
-                    triangles.Add(vertices.Count - 1);
-                    edgeIndex++;
-
-                }
-            }
-        }
-
-        int GetCubeConfiguration(float[] cube)
-        {
-            int configurationIndex = 0;
-            for (int i = 0; i < 8; i++)
-            {
-                if ((cube[i] > terrainSurface - threshold) && (cube[i] < terrainSurface + threshold))
-                    configurationIndex |= 1 << i;
-            }
-
-            return configurationIndex;
-
-        }
-    }
-    Vector3Int[] CornerTable = new Vector3Int[8] {
+    private static Vector3Int[] _cubeCornerTable = new Vector3Int[8] {
 
         new Vector3Int(0, 0, 0),
         new Vector3Int(1, 0, 0),
@@ -202,10 +14,8 @@ public sealed class UpdateVisibleChunksSystem : IEcsRunSystem,IEcsInitSystem
         new Vector3Int(1, 0, 1),
         new Vector3Int(1, 1, 1),
         new Vector3Int(0, 1, 1)
-
     };
-
-    Vector3[,] EdgeTable = new Vector3[12, 2] {
+    private static Vector3[,] _cubeEdgeTable = new Vector3[12, 2] {
 
         { new Vector3(0.0f, 0.0f, 0.0f), new Vector3(1.0f, 0.0f, 0.0f) },
         { new Vector3(1.0f, 0.0f, 0.0f), new Vector3(1.0f, 1.0f, 0.0f) },
@@ -221,8 +31,7 @@ public sealed class UpdateVisibleChunksSystem : IEcsRunSystem,IEcsInitSystem
         { new Vector3(0.0f, 1.0f, 0.0f), new Vector3(0.0f, 1.0f, 1.0f) }
 
     };
-
-    private int[,] TriangleTable = new int[,] {
+    private static int[,] _cubeTriangleTable = new int[,] {
 
         {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1},
         {0, 8, 3, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1},
@@ -480,7 +289,50 @@ public sealed class UpdateVisibleChunksSystem : IEcsRunSystem,IEcsInitSystem
         {0, 9, 1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1},
         {0, 3, 8, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1},
         {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1}
-
     };
+    public static float[] GenerateCube(float[,,] surfaceMap, int x, int y, int z)
+    {
+        float[] cube = new float[8];
+        for (int i = 0; i < 8; i++)
+        {
+            Vector3Int corner = new Vector3Int(x, y, z) + _cubeCornerTable[i];
+            cube[i] = surfaceMap[corner.x, corner.y, corner.z];
+        }
+        return cube;
+    }
+    public static void MarchCube(List<Vector3> vertices, List<int> triangles,Vector3 position,float[,,] surfaceMap, float[] cube, float terrainSurface, float threshold)
+    {
 
+        int configIndex = GetCubeConfiguration(cube,terrainSurface,threshold);
+
+        if (configIndex == 0 || configIndex == 255)
+            return;
+
+        int edgeIndex = 0;
+        for (int i = 0; i < 5; i++)
+        {
+            for (int p = 0; p < 3; p++)
+            {
+                int indice = _cubeTriangleTable[configIndex, edgeIndex];
+                if (indice == -1)
+                    return;
+                Vector3 v1 = position + _cubeEdgeTable[indice, 0];
+                Vector3 v2 = position + _cubeEdgeTable[indice, 1];
+                Vector3 vertPosition = (v1 + v2) / 2f;
+                vertices.Add(vertPosition);
+                triangles.Add(vertices.Count - 1);
+                edgeIndex++;
+            }
+        }
+    }
+    private static int GetCubeConfiguration(float[] cube, float terrainSurface, float threshold)
+    {
+        int configurationIndex = 0;
+        for (int i = 0; i < 8; i++)
+        {
+            if ((cube[i] > terrainSurface - threshold) && (cube[i] < terrainSurface + threshold))
+                configurationIndex |= 1 << i;
+        }
+        return configurationIndex;
+    }
 }

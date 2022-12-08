@@ -1,6 +1,6 @@
 using UnityEngine;
 using Leopotam.EcsLite;
-public class PlayerSendSprintEventSystem : IEcsRunSystem, IEcsInitSystem
+public sealed class PlayerSendSprintEventSystem : IEcsRunSystem, IEcsInitSystem
 {
     public void Init(EcsSystems system)
     {

@@ -5,7 +5,6 @@ using System;
 
 public class Inventory
 {
-    public event Action<object, InventoryItem, int> OnInventoryItemAddedEvent;
     public event Action OnInventoryStateChangeEvent;
 
     public List<InventorySlot> slots;

@@ -4,7 +4,7 @@ using Leopotam.EcsLite;
 /// <summary>
 /// рнкэйн дкъ реярхпнбюмхъ дкъ янаябреммнцн хяонкэгнбюмхъ
 /// </summary>
-public class TestSystem : IEcsRunSystem
+public sealed class TestSystem : IEcsRunSystem
 {
     public void Run(EcsSystems system)
     {

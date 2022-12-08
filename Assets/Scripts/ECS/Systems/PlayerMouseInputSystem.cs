@@ -1,6 +1,6 @@
 using Leopotam.EcsLite;
 using UnityEngine;
-sealed class PlayerMouseInputSystem : IEcsRunSystem
+public sealed class PlayerMouseInputSystem : IEcsRunSystem
 {
     private float moveX;
     private float moveY;

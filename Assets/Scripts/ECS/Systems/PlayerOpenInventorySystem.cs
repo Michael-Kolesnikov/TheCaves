@@ -1,6 +1,6 @@
 using Leopotam.EcsLite;
 using UnityEngine;
-public class PlayerOpenInventorySystem : IEcsRunSystem
+public sealed class PlayerOpenInventorySystem : IEcsRunSystem
 {
     public void Run(EcsSystems system)
     {

@@ -1,6 +1,6 @@
 using UnityEngine;
 using Leopotam.EcsLite;
-public class PlayerSendJumpEventSystem : IEcsRunSystem
+public sealed class PlayerSendJumpEventSystem : IEcsRunSystem
 {
     public void Run(EcsSystems system)
     {

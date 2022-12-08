@@ -1,6 +1,6 @@
 ﻿using Leopotam.EcsLite;
 using UnityEngine;
-sealed class PlayerInputSystem : IEcsRunSystem
+public sealed class PlayerInputSystem : IEcsRunSystem
 {
     private EcsFilter _directionFilter = null;
     private EcsWorld _world = null;

@@ -11,20 +11,27 @@ public class Marching : MonoBehaviour
 	float[,,] terrainMap;
 
 	[SerializeField]
-	float noiseScale = 0.17f;
+	float noiseScale;
 	[SerializeField]
 	int width;
 	[SerializeField]
 	int height;
 	[SerializeField]
-	float terrainSurface = 0.5f;
-	[SerializeField]
-	int offsetX;
-	[SerializeField]
-	int offsetZ;
+	float terrainSurface;
 	[SerializeField]
 	float threshold;
-	List<Vector3> vertices = new List<Vector3>();
+	[SerializeField]
+	float lacunarity;
+	[SerializeField]
+	float persistance;
+	[SerializeField]
+	int octaves;
+
+    [SerializeField]
+    int offsetX;
+    [SerializeField]
+    int offsetZ;
+    List<Vector3> vertices = new List<Vector3>();
 	List<int> triangles = new List<int>();
 
     private void Update()
@@ -40,28 +47,19 @@ public class Marching : MonoBehaviour
 
     void CreateMeshData()
 	{
-
 		ClearMeshData();
-
-		// Loop through each "cube" in our terrain.
 		for (int x = 0; x < width; x++)
 		{
 			for (int y = 0; y < height; y++)
 			{
 				for (int z = 0; z < width; z++)
 				{
-
-					// Create an array of floats representing each corner of a cube and get the value from our terrainMap.
 					float[] cube = new float[8];
 					for (int i = 0; i < 8; i++)
 					{
-
 						Vector3Int corner = new Vector3Int(x, y, z) + CornerTable[i];
 						cube[i] = terrainMap[corner.x, corner.y, corner.z];
-
 					}
-
-					// Pass the value into our MarchCube function.
 					MarchCube(new Vector3(x, y, z), cube);
 
 				}
@@ -73,24 +71,41 @@ public class Marching : MonoBehaviour
 	}
 
 	void PopulateTerrainMap()
-	{
-
-		// The data points for terrain are stored at the corners of our "cubes", so the terrainMap needs to be 1 larger
-		// than the width/height of our mesh.
+	{ 
 		for (int x = 0; x < width + 1; x++)
 		{
 			for (int z = 0; z < width + 1; z++)
 			{
 				for (int y = 0; y < height + 1; y++)
 				{
+                    //float amplitude = 1f;
+                    //float frequancy = 1f;
+                    //float noiseHeight = 0f;
+                    //for(var i = 0;i < octaves;i++)
+                    //{
+                    //                   float perlinNoise = PERLIN.GetPerlin((x + offsetX) / noiseScale * frequancy, y / noiseScale * frequancy, (z + offsetZ) / noiseScale * frequancy) * 2 -1;
+                    //                   noiseHeight += perlinNoise * amplitude ;
+                    //	amplitude *= persistance;
+                    //	frequancy *= lacunarity;
+                    //               }
+                    //if (noiseHeight > maxNoiseHeight)
+                    //	maxNoiseHeight = noiseHeight;
+                    //else if (noiseHeight < minNoiseHeight)d
+                    //	minNoiseHeight = noiseHeight;
+                    float perlinNoise = PERLIN.GetPerlin((x + offsetX) * noiseScale, y * noiseScale, (z + offsetZ) * noiseScale) ;
 
-					// Get a terrain height using regular old Perlin noise.
-					float thisHeight = PERLIN.GetPerlin((x + offsetX) * noiseScale, (y ) * noiseScale , (z + offsetZ) * noiseScale);
-					terrainMap[x, y, z] = thisHeight;
-				}
-			}
+                    //terrainMap[x, y, z] = noiseHeight;
+                    terrainMap[x, y, z] = perlinNoise;
+
+
+                }
+            }
 		}
-		offsetX++;
+     //   for (int x = 0; x < width + 1; x++)
+     //       for (int z = 0; z < width + 1; z++)
+     //           for (int y = 0; y < height + 1; y++)
+					//terrainMap[x, y, z] = Mathf.InverseLerp(minNoiseHeight, maxNoiseHeight,terrainMap[x,y,z]);
+        offsetX++;
 		offsetZ++;
 	}
 
@@ -165,7 +180,7 @@ public class Marching : MonoBehaviour
 		mesh.RecalculateNormals();
 		meshFilter.mesh = mesh;
 	}
-
+	//все что ниже скопировано в другой файл
 	Vector3Int[] CornerTable = new Vector3Int[8] {
 
 		new Vector3Int(0, 0, 0),
@@ -454,7 +469,6 @@ public class Marching : MonoBehaviour
 		{0, 9, 1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1},
 		{0, 3, 8, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1},
 		{-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1}
-
 	};
 
 }

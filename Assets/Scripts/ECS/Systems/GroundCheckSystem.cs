@@ -1,7 +1,7 @@
 using Leopotam.EcsLite;
 using UnityEngine;
 
-public class GroundCheckSystem : IEcsRunSystem
+public sealed class GroundCheckSystem : IEcsRunSystem
 {
     public void Run(EcsSystems system)
     {

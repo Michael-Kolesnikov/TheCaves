@@ -1,7 +1,7 @@
 using Leopotam.EcsLite;
 using UnityEngine;
 
-public class PlayerScroolSystem : IEcsRunSystem
+public sealed class PlayerScroolSystem : IEcsRunSystem
 {
     public void Run(EcsSystems system)
     {

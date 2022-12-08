@@ -1,6 +1,6 @@
 using Leopotam.EcsLite;
 using UnityEngine;
-sealed class CursorLockSystem : IEcsRunSystem
+public sealed class CursorLockSystem : IEcsRunSystem
 {
     public void Run(EcsSystems system)
     {

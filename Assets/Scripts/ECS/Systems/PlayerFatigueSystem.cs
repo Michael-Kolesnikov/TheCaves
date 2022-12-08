@@ -1,7 +1,7 @@
 using Leopotam.EcsLite;
 using UnityEngine;
 
-public class FatigueSystem : IEcsRunSystem
+public sealed class FatigueSystem : IEcsRunSystem
 {
     public void Run(EcsSystems system)
     {
