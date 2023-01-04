@@ -1,6 +1,9 @@
 using Leopotam.EcsLite;
 using UnityEngine;
 
+/// <summary>
+/// A system that provides a change in the player's stamina
+/// </summary>
 public sealed class FatigueSystem : IEcsRunSystem
 {
     public void Run(EcsSystems system)

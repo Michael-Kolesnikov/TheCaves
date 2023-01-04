@@ -1,6 +1,9 @@
 ﻿using Leopotam.EcsLite;
 using UnityEngine;
 
+/// <summary>
+/// System for processing character movement
+/// </summary>
 sealed class PlayerMovementSystem : IEcsRunSystem
 {
     public void Run(EcsSystems system)

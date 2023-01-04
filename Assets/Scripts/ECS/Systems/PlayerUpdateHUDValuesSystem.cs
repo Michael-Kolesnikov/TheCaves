@@ -1,6 +1,9 @@
 using Leopotam.EcsLite;
 using UnityEngine;
 
+/// <summary>
+/// system for updating values in the user interface
+/// </summary>
 public sealed class PlayerUpdateHUDValuesSystem : IEcsRunSystem
 {
     public void Run(EcsSystems system)

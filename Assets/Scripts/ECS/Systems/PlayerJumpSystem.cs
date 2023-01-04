@@ -5,7 +5,7 @@ public sealed class PlayerJumpSystem : IEcsRunSystem
 {
     public void Run(EcsSystems system)
     {
-        var jumpFilter = system.GetWorld().Filter<PlayerTag>().Inc<JumpEvent>().Inc<JumpComponent>().End();
+        var jumpFilter = system.GetWorld().Filter<PlayerTag>().Inc<JumpEvent>().Inc<JumpComponent>().Inc<GroundCheckSphereComponent>().Inc<MovableComponent>().End();
         
         var movablePool = system.GetWorld().GetPool<MovableComponent>();
         var groundCheckPool = system.GetWorld().GetPool<GroundCheckSphereComponent>();

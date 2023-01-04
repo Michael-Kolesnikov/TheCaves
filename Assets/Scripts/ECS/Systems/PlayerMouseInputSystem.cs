@@ -1,5 +1,8 @@
 using Leopotam.EcsLite;
 using UnityEngine;
+/// <summary>
+/// system to rotate the camera with the mouse
+/// </summary>
 public sealed class PlayerMouseInputSystem : IEcsRunSystem
 {
     private float moveX;

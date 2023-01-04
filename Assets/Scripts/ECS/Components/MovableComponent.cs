@@ -1,6 +1,5 @@
 using System;
 using UnityEngine;
-using Leopotam.EcsLite;
 
 [Serializable]
 public struct MovableComponent

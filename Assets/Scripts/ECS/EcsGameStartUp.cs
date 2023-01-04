@@ -2,15 +2,12 @@ using UnityEngine;
 using Leopotam.EcsLite;
 using Voody.UniLeo.Lite;
 using Leopotam.EcsLite.ExtendedSystems;
+
 public sealed class EcsGameStartUp : MonoBehaviour
 {
-    /// <summary>
     /// Contain all entities
-    /// </summary>
     private EcsWorld _world;
-    /// <summary>
     /// Contain all sytems
-    /// </summary>
     private EcsSystems _systems;
 
     private void Start()
@@ -44,8 +41,7 @@ public sealed class EcsGameStartUp : MonoBehaviour
             .Add(new PlayerRestSystem())
             .Add(new PlayerUpdateHUDValuesSystem())
             .Add(new ChunksGenerationSystem())
-            .Add(new TestSystem())
-            .Add(new PlayerDigSystem())
+            //.Add(new PlayerDigSystem()) bad works
             .DelHere<JumpEvent>()
             .DelHere<SprintEvent>()
             .Init();

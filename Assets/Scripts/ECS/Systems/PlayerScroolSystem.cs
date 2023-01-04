@@ -1,11 +1,10 @@
 using Leopotam.EcsLite;
 using UnityEngine;
-
 public sealed class PlayerScroolSystem : IEcsRunSystem
 {
     public void Run(EcsSystems system)
     {
-        var playerTagPool = system.GetWorld().Filter<PlayerTag>().End();
+        var playerTagPool = system.GetWorld().Filter<PlayerTag>().Inc<PlayerHotBarComponent>().End();
         var playerHotBarPool = system.GetWorld().GetPool<PlayerHotBarComponent>();
         foreach(var entity in playerTagPool)
         {

@@ -5,7 +5,7 @@ public sealed class PlayerRestSystem : IEcsRunSystem
 {
    public void Run(EcsSystems system)
     {
-        var filter = system.GetWorld().Filter<PlayerTag>().Inc<StaminaComponent>().End();
+        var filter = system.GetWorld().Filter<PlayerTag>().Inc<StaminaComponent>().Inc<SprintComponent>().End();
         foreach(var entity in filter)
         {
             ref var stamina = ref system.GetWorld().GetPool<StaminaComponent>().Get(entity);

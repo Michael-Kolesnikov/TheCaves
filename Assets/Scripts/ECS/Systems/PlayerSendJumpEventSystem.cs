@@ -8,8 +8,6 @@ public sealed class PlayerSendJumpEventSystem : IEcsRunSystem
 
         var jumpEventPool = system.GetWorld().GetPool<JumpEvent>();
 
-
-
         if (!Input.GetKey(KeyCode.Space)) return;
         foreach (var entity in playerFilter)
             jumpEventPool.Add(entity);

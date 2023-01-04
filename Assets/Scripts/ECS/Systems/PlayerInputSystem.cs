@@ -1,21 +1,20 @@
 ﻿using Leopotam.EcsLite;
 using UnityEngine;
+/// <summary>
+/// read player position
+/// </summary>
 public sealed class PlayerInputSystem : IEcsRunSystem
 {
-    private EcsFilter _directionFilter = null;
-    private EcsWorld _world = null;
-
     private float moveX;
     private float moveZ;
     public void Run(EcsSystems systems)
     {
-        _world = systems.GetWorld();
-        _directionFilter = _world.Filter<DirectionComponent>().End();
+        var filter = systems.GetWorld().Filter<DirectionComponent>().End();
 
         SetDirection();
-        var directions = _world.GetPool<DirectionComponent>();
+        var directions = systems.GetWorld().GetPool<DirectionComponent>();
 
-        foreach (int entity in _directionFilter)
+        foreach (int entity in filter)
         {
             ref var directionComponent = ref directions.Get(entity);
             ref var direction = ref directionComponent.direction;

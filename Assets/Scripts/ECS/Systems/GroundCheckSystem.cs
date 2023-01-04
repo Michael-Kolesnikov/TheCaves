@@ -1,6 +1,9 @@
 using Leopotam.EcsLite;
 using UnityEngine;
 
+/// <summary>
+/// Surface check system
+/// </summary>
 public sealed class GroundCheckSystem : IEcsRunSystem
 {
     public void Run(EcsSystems system)

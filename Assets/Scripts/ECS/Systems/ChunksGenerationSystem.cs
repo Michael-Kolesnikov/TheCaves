@@ -4,19 +4,19 @@ using System.Collections.Generic;
 
 public sealed class ChunksGenerationSystem : IEcsRunSystem,IEcsInitSystem
 {
-    GameObject _chunkStorage;
-    List<Chunk> terrainChunksVisibleLastUpdate = new List<Chunk>();
-    Vector2 currentVisibleChunkCoord;
+    private GameObject _chunkStorage;
+    private List<Chunk> _terrainChunksVisibleLastUpdate = new List<Chunk>();
+    private Vector2 _currentVisibleChunkCoord;
     private int _chunksVisibleInViewDistance;
 
-    float[,,] terrainMap;
-    
-    List<Vector3> vertices = new();
-    List<int> triangles = new();
+    private float[,,] _terrainMap;
 
-    float noiseScale = 0.09f;
-    float terrainSurface = 0.19f;
-    float threshold = 0.2f;
+    private List<Vector3> _vertices = new();
+    private List<int> _triangles = new();
+
+    private float _noiseScale = 0.09f;
+    private float _terrainSurface = 0.19f;
+    private float _threshold = 0.2f;
     public void Init(EcsSystems system)
     {
         var filter = system.GetWorld().Filter<PlayerVisibleChunksComponent>().End();
@@ -31,7 +31,7 @@ public sealed class ChunksGenerationSystem : IEcsRunSystem,IEcsInitSystem
     }
     public void Run(EcsSystems system)
     {
-        var filter = system.GetWorld().Filter<PlayerTag>().Inc<PlayerVisibleChunksComponent>().End();
+        var filter = system.GetWorld().Filter<PlayerTag>().Inc<MovableComponent>().Inc<PlayerVisibleChunksComponent>().End();
         foreach(var entity in filter)
         {
             ref var movable = ref system.GetWorld().GetPool<MovableComponent>().Get(entity);
@@ -43,25 +43,25 @@ public sealed class ChunksGenerationSystem : IEcsRunSystem,IEcsInitSystem
 
             _chunksVisibleInViewDistance = Mathf.RoundToInt(playerVisibleChunks.viewDistant / Chunk.CHUNK_WIDTH);
 
-            for (int i = 0; i < terrainChunksVisibleLastUpdate.Count; i++)
+            for (int i = 0; i < _terrainChunksVisibleLastUpdate.Count; i++)
             {
-                terrainChunksVisibleLastUpdate[i].gameObject.SetActive(false);
+                _terrainChunksVisibleLastUpdate[i].gameObject.SetActive(false);
             }
-            terrainChunksVisibleLastUpdate.Clear();
+            _terrainChunksVisibleLastUpdate.Clear();
 
             for (var offsetX = -_chunksVisibleInViewDistance; offsetX <= _chunksVisibleInViewDistance; offsetX++)
             {
                 for (var offsetZ = -_chunksVisibleInViewDistance; offsetZ <= _chunksVisibleInViewDistance; offsetZ++)
                 {
-                    currentVisibleChunkCoord = new(currentChunkCoordX + offsetX, currentChunkCoordZ + offsetZ);
+                    _currentVisibleChunkCoord = new(currentChunkCoordX + offsetX, currentChunkCoordZ + offsetZ);
 
-                    if(playerVisibleChunks.chunksDictionary.ContainsKey(currentVisibleChunkCoord))
+                    if(playerVisibleChunks.chunksDictionary.ContainsKey(_currentVisibleChunkCoord))
                     {
-                        float viewerDstFromNearestEdge = Mathf.Sqrt(playerVisibleChunks.chunksDictionary[currentVisibleChunkCoord].bounds.SqrDistance(new Vector3(playerPosition.x,0, playerPosition.z)));
+                        float viewerDstFromNearestEdge = Mathf.Sqrt(playerVisibleChunks.chunksDictionary[_currentVisibleChunkCoord].bounds.SqrDistance(new Vector3(playerPosition.x,0, playerPosition.z)));
                         bool visible = viewerDstFromNearestEdge <= playerVisibleChunks.viewDistant;
-                        playerVisibleChunks.chunksDictionary[currentVisibleChunkCoord].gameObject.SetActive(visible);
-                        if (playerVisibleChunks.chunksDictionary[currentVisibleChunkCoord].gameObject.activeSelf)
-                            terrainChunksVisibleLastUpdate.Add(playerVisibleChunks.chunksDictionary[currentVisibleChunkCoord]);
+                        playerVisibleChunks.chunksDictionary[_currentVisibleChunkCoord].gameObject.SetActive(visible);
+                        if (playerVisibleChunks.chunksDictionary[_currentVisibleChunkCoord].gameObject.activeSelf)
+                            _terrainChunksVisibleLastUpdate.Add(playerVisibleChunks.chunksDictionary[_currentVisibleChunkCoord]);
                     }
                     else
                     {
@@ -84,7 +84,7 @@ public sealed class ChunksGenerationSystem : IEcsRunSystem,IEcsInitSystem
                         mesh.RecalculateNormals();
                         var col = chunk.GetComponent<MeshCollider>();
                         col.sharedMesh = mesh;
-                        playerVisibleChunks.chunksDictionary.Add(currentVisibleChunkCoord, chunk.GetComponent<Chunk>());
+                        playerVisibleChunks.chunksDictionary.Add(_currentVisibleChunkCoord, chunk.GetComponent<Chunk>());
                     }
                 }
             }
@@ -95,8 +95,8 @@ public sealed class ChunksGenerationSystem : IEcsRunSystem,IEcsInitSystem
     
     private void BuildMesh(GameObject chunk)
     {
-        vertices.Clear();
-        triangles.Clear(); 
+        _vertices.Clear();
+        _triangles.Clear(); 
         CreateTerrainMap();
         for (int x = 0; x < Chunk.CHUNK_WIDTH; x++)
         {
@@ -104,23 +104,23 @@ public sealed class ChunksGenerationSystem : IEcsRunSystem,IEcsInitSystem
             {
                 for (int z = 0; z < Chunk.CHUNK_WIDTH; z++)
                 {
-                    var cube = MarchingCubes.GenerateCube(terrainMap,x,y,z);
+                    var cube = MarchingCubes.GenerateCube(_terrainMap, x,y,z);
                     MarchingCubes.MarchCube(
-                        vertices,
-                        triangles,
-                        new Vector3(x + currentVisibleChunkCoord.x * Chunk.CHUNK_WIDTH - Chunk.CHUNK_WIDTH / 2, y, z + currentVisibleChunkCoord.y * Chunk.CHUNK_WIDTH - Chunk.CHUNK_WIDTH / 2),
-                        terrainMap,
+                        _vertices,
+                        _triangles,
+                        new Vector3(x + _currentVisibleChunkCoord.x * Chunk.CHUNK_WIDTH - Chunk.CHUNK_WIDTH / 2, y, z + _currentVisibleChunkCoord.y * Chunk.CHUNK_WIDTH - Chunk.CHUNK_WIDTH / 2),
+                        _terrainMap,
                         cube,
-                        terrainSurface,
-                        threshold);
+                        _terrainSurface,
+                        _threshold);
                 }
             }
         }
 
         Mesh mesh = new Mesh();
         mesh.indexFormat = UnityEngine.Rendering.IndexFormat.UInt32;
-        mesh.vertices = vertices.ToArray();
-        mesh.triangles = triangles.ToArray();
+        mesh.vertices = _vertices.ToArray();
+        mesh.triangles = _triangles.ToArray();
         mesh.RecalculateNormals();
         mesh.RecalculateBounds();
 
@@ -128,7 +128,7 @@ public sealed class ChunksGenerationSystem : IEcsRunSystem,IEcsInitSystem
     }
     private void CreateTerrainMap()
     {
-        terrainMap = new float[Chunk.CHUNK_WIDTH + 1, Chunk.CHUNK_HEIGHT + 1, Chunk.CHUNK_WIDTH + 1];
+        _terrainMap = new float[Chunk.CHUNK_WIDTH + 1, Chunk.CHUNK_HEIGHT + 1, Chunk.CHUNK_WIDTH + 1];
         for (int x = 0; x < Chunk.CHUNK_WIDTH + 1; x++)
         {
             for (int z = 0; z < Chunk.CHUNK_WIDTH + 1; z++)
@@ -136,8 +136,8 @@ public sealed class ChunksGenerationSystem : IEcsRunSystem,IEcsInitSystem
                 for (int y = 0; y < Chunk.CHUNK_HEIGHT + 1; y++)
                 {
 
-                    float thisHeight = PERLIN.GetPerlin((x + Chunk.CHUNK_WIDTH * currentVisibleChunkCoord.x) * noiseScale, (y) * noiseScale, (z + Chunk.CHUNK_WIDTH * currentVisibleChunkCoord.y) * noiseScale);
-                    terrainMap[x, y, z] = thisHeight;
+                    float thisHeight = PERLIN.GetPerlin((x + Chunk.CHUNK_WIDTH * _currentVisibleChunkCoord.x) * _noiseScale, y * _noiseScale, (z + Chunk.CHUNK_WIDTH * _currentVisibleChunkCoord.y) * _noiseScale);
+                    _terrainMap[x, y, z] = thisHeight;
                 }
             }
         }
