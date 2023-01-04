@@ -1,7 +1,7 @@
 # The-Caves
 ### How to open
 Add repository folder to Unity Hub projects for Windows.
-![image](https://user-images.githubusercontent.com/92929937/210604848-7cdeea5e-6aa5-42bc-a625-07c44d3901f0.png)
+![image](https://user-images.githubusercontent.com/92929937/210605064-019b571c-774b-4044-8121-ce20214483c8.png)
 Open project using Unity version 2021.3.3f1
 
 #####
