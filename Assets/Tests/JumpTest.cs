@@ -11,6 +11,6 @@ public class JumpTest
     {
         int a = 1;
         a += a;
-        Assert.AreEqual(a, 1);
+        Assert.AreEqual(a, 2);
     }
 }
