@@ -19,7 +19,6 @@ public sealed class PlayerJumpSystem : IEcsRunSystem
             ref var gravity = ref movable.gravity;
             ref var velocity = ref movable.velocity;
             ref var jumpForce = ref jump.force;
-
             if (!groundCheck.isGrounded) continue;
             velocity.y = Mathf.Sqrt(jumpForce * gravity);
         }

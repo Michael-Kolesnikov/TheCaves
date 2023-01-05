@@ -17,7 +17,7 @@ public sealed class GravitySystem : IEcsRunSystem
             ref var gravity = ref movable.gravity;
             ref var velocity = ref movable.velocity;
 
-            velocity.y += gravity * Time.deltaTime;
+            velocity.y += -gravity * Time.deltaTime;
         }
     }
 }

@@ -22,5 +22,4 @@ public sealed class PlayerUpdateHUDValuesSystem : IEcsRunSystem
             healthSlider.healthSlider.value = health.currentHealthPoint;
         }
     }
-
 }
