@@ -5,33 +5,29 @@ using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
 
-public class CursorVisibleTest
+public class CreateInventoryIsNotNullTest
 {
     EcsSystems _systems;
     EcsWorld _world;
     EcsPool<PlayerInventoryComponent> _inventoryPool;
     EcsPool<PlayerTag> _playerTagPool;
     int _playerEntity;
-    
+
     [Test]
-    public void CursorVisibleTestSimplePasses()
+    public void CreateInventoryIsNotNullTestSimplePasses()
     {
         CreateNewWorldWithSystem();
         ref var playerInventory = ref _inventoryPool.Get(_playerEntity);
-        playerInventory.isInventoryOppened = true;
-        _systems.Run();
-
-        Assert.IsTrue(Cursor.visible);
-    }
-    [Test]
-    public void CursorInvisibleTestSimplePasses()
-    {
-        CreateNewWorldWithSystem();
-        ref var playerInventory = ref _inventoryPool.Get(_playerEntity);
-        playerInventory.isInventoryOppened = false;
-        _systems.Run();
-
-        Assert.IsTrue(!Cursor.visible);
+        var playerInventoryUIPanel = new GameObject();
+        var childCanvas = new GameObject();
+        childCanvas.transform.SetParent(playerInventoryUIPanel.transform);
+        for (var i = 0; i < 10; i++)
+        {
+            new GameObject().transform.SetParent(childCanvas.transform);
+        }
+        playerInventory.playerInventoryUIPanel = playerInventoryUIPanel.transform;
+        _systems.Init();
+        Assert.IsNotNull(playerInventory.inventory);
     }
     public void CreateNewWorldWithSystem()
     {
@@ -42,6 +38,6 @@ public class CursorVisibleTest
         _playerTagPool = _world.GetPool<PlayerTag>();
         _inventoryPool.Add(_playerEntity);
         _playerTagPool.Add(_playerEntity);
-        _systems.Add(new CursorLockSystem()).Init();
+        _systems.Add(new PlayerInitInventorySystem());
     }
 }
