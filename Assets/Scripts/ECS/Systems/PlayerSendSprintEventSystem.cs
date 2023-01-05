@@ -18,7 +18,6 @@ public sealed class PlayerSendSprintEventSystem : IEcsRunSystem, IEcsInitSystem
     public void Run(EcsSystems system)
     {
         var playerFilter = system.GetWorld().Filter<PlayerTag>().Inc<StaminaComponent>().End();
-
         var sprintEventPool = system.GetWorld().GetPool<SprintEvent>();
         var sprintPool = system.GetWorld().GetPool<SprintComponent>();
 
@@ -37,7 +36,6 @@ public sealed class PlayerSendSprintEventSystem : IEcsRunSystem, IEcsInitSystem
             ref var sprint = ref sprintPool.Get(entity);
             ref var stamina = ref system.GetWorld().GetPool<StaminaComponent>().Get(entity);
             sprint.isRunning = stamina.currentStaminaValue > 0;
-
         }
     }
 }

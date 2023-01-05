@@ -40,7 +40,6 @@ public sealed class EcsGameStartUp : MonoBehaviour
             .Add(new PlayerRestSystem())
             .Add(new PlayerUpdateHUDValuesSystem())
             .Add(new ChunksGenerationSystem())
-            //.Add(new PlayerDigSystem()) bad works
             .DelHere<JumpEvent>()
             .DelHere<SprintEvent>()
             .Init();

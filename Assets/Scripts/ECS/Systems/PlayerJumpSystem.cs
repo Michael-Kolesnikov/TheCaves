@@ -6,7 +6,6 @@ public sealed class PlayerJumpSystem : IEcsRunSystem
     public void Run(EcsSystems system)
     {
         var jumpFilter = system.GetWorld().Filter<PlayerTag>().Inc<JumpEvent>().Inc<JumpComponent>().Inc<GroundCheckSphereComponent>().Inc<MovableComponent>().End();
-
         var movablePool = system.GetWorld().GetPool<MovableComponent>();
         var groundCheckPool = system.GetWorld().GetPool<GroundCheckSphereComponent>();
         var jumpPool = system.GetWorld().GetPool<JumpComponent>();
@@ -23,7 +22,6 @@ public sealed class PlayerJumpSystem : IEcsRunSystem
 
             if (!groundCheck.isGrounded) continue;
             velocity.y = Mathf.Sqrt(jumpForce * gravity);
-
         }
     }
 }

@@ -1,5 +1,6 @@
 using Leopotam.EcsLite;
 using UnityEngine;
+
 /// <summary>
 /// System for blocking and changing the visibility of the cursor depending on the state of the player's inventory
 /// </summary>

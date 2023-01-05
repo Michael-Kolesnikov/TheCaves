@@ -1,20 +1,12 @@
 using Leopotam.EcsLite;
-
-/* Необъединенное слияние из проекта "Scripts.Player"
-До:
-using System.Linq;
-using UnityEngine;
-using System.Collections.Generic;
-После:
-using System.Collections.Generic;
-using System.Linq;
-using UnityEngine;
-*/
 using UnityEngine;
 
+/// <summary>
+/// На данный момент не используется, требуется переработка
+/// </summary>
 public sealed class PlayerDigSystem : IEcsRunSystem
 {
-    private Vector3[] modifVertices;
+    private Vector3[] _modifVertices;
     public void Run(EcsSystems system)
     {
         var filter = system.GetWorld().Filter<PlayerTag>().End();
@@ -33,24 +25,20 @@ public sealed class PlayerDigSystem : IEcsRunSystem
                     {
                         var mf = hit.collider.gameObject.GetComponent<MeshFilter>();
                         var chunkMesh = mf.mesh;
-                        modifVertices = chunkMesh.vertices;
+                        _modifVertices = chunkMesh.vertices;
 
-                        for (var i = 0; i < modifVertices.Length; i++)
+                        for (var i = 0; i < _modifVertices.Length; i++)
                         {
-                            Vector3 distance = modifVertices[i] - hit.point;
+                            Vector3 distance = _modifVertices[i] - hit.point;
                             if (distance.sqrMagnitude < radius)
                             {
-                                modifVertices[i] = modifVertices[i] + new Vector3(1, 0, 1);
+                                _modifVertices[i] = _modifVertices[i] + new Vector3(1, 0, 1);
                             }
                         }
-                        mf.mesh.vertices = modifVertices;
+                        mf.mesh.vertices = _modifVertices;
                         hit.collider.gameObject.GetComponent<MeshCollider>().sharedMesh = mf.mesh;
                         mf.mesh.RecalculateNormals();
                         mf.mesh.RecalculateBounds();
-
-
-
-
                     }
                 }
             }

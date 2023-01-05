@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PERLIN
+public class PerlinNoise
 {
     public static float GetPerlin(float x, float y, float z)
     {

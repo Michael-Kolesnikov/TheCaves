@@ -5,7 +5,7 @@ using UnityEngine;
 public sealed class ChunksGenerationSystem : IEcsRunSystem, IEcsInitSystem
 {
     private GameObject _chunkStorage;
-    private List<Chunk> _terrainChunksVisibleLastUpdate = new List<Chunk>();
+    private List<Chunk> _terrainChunksVisibleLastUpdate = new();
     private Vector2 _currentVisibleChunkCoord;
     private int _chunksVisibleInViewDistance;
 
@@ -14,9 +14,9 @@ public sealed class ChunksGenerationSystem : IEcsRunSystem, IEcsInitSystem
     private List<Vector3> _vertices = new();
     private List<int> _triangles = new();
 
-    private float _noiseScale = 0.09f;
-    private float _terrainSurface = 0.19f;
-    private float _threshold = 0.2f;
+    private readonly float _noiseScale = 0.09f;
+    private readonly float _terrainSurface = 0.19f;
+    private readonly float _threshold = 0.2f;
     public void Init(EcsSystems system)
     {
         var filter = system.GetWorld().Filter<PlayerVisibleChunksComponent>().End();
@@ -136,7 +136,7 @@ public sealed class ChunksGenerationSystem : IEcsRunSystem, IEcsInitSystem
                 for (int y = 0; y < Chunk.CHUNK_HEIGHT + 1; y++)
                 {
 
-                    float thisHeight = PERLIN.GetPerlin((x + Chunk.CHUNK_WIDTH * _currentVisibleChunkCoord.x) * _noiseScale, y * _noiseScale, (z + Chunk.CHUNK_WIDTH * _currentVisibleChunkCoord.y) * _noiseScale);
+                    float thisHeight = PerlinNoise.GetPerlin((x + Chunk.CHUNK_WIDTH * _currentVisibleChunkCoord.x) * _noiseScale, y * _noiseScale, (z + Chunk.CHUNK_WIDTH * _currentVisibleChunkCoord.y) * _noiseScale);
                     _terrainMap[x, y, z] = thisHeight;
                 }
             }

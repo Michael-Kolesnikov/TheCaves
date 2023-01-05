@@ -1,5 +1,6 @@
 using Leopotam.EcsLite;
 using UnityEngine;
+
 public sealed class PlayerOpenInventorySystem : IEcsRunSystem
 {
     public void Run(EcsSystems system)
@@ -18,7 +19,6 @@ public sealed class PlayerOpenInventorySystem : IEcsRunSystem
                 ref var mouseLook = ref system.GetWorld().GetPool<MouseLookDirectionComponent>().Get(entity);
                 movable.canMove = !movable.canMove;
                 mouseLook.canMove = !mouseLook.canMove;
-                //SetActiveHudElements(state);
             }
         }
     }

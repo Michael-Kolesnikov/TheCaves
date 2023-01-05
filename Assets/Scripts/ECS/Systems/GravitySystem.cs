@@ -14,7 +14,6 @@ public sealed class GravitySystem : IEcsRunSystem
         foreach (var entity in filter)
         {
             ref var movable = ref movablePool.Get(entity);
-
             ref var gravity = ref movable.gravity;
             ref var velocity = ref movable.velocity;
 

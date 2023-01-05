@@ -9,7 +9,6 @@ sealed class PlayerMovementSystem : IEcsRunSystem
     public void Run(EcsSystems system)
     {
         var filter = system.GetWorld().Filter<PlayerTag>().End();
-
         var movablePool = system.GetWorld().GetPool<MovableComponent>();
         var modelPool = system.GetWorld().GetPool<ModelComponent>();
         var directionPool = system.GetWorld().GetPool<DirectionComponent>();
@@ -36,11 +35,8 @@ sealed class PlayerMovementSystem : IEcsRunSystem
 
             var velocity = movableComponent.velocity;
 
-            characterController.Move(accurateDirection * speed * Time.deltaTime);
+            characterController.Move(speed * Time.deltaTime * accurateDirection);
             characterController.Move(velocity * Time.deltaTime);
-
-
-
         }
     }
 }
