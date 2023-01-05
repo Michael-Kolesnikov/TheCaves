@@ -1,5 +1,4 @@
 using Leopotam.EcsLite;
-using UnityEngine;
 
 /// <summary>
 /// system for updating values in the user interface
@@ -10,7 +9,7 @@ public sealed class PlayerUpdateHUDValuesSystem : IEcsRunSystem
     {
         var filter = system.GetWorld().Filter<PlayerTag>().Inc<PlayerStaminaUIComponent>().Inc<PlayerHealthUIComponent>().Inc<HealthComponent>().Inc<StaminaComponent>().End();
 
-        foreach(var entity in filter)
+        foreach (var entity in filter)
         {
             // change stamina
             ref var stamina = ref system.GetWorld().GetPool<StaminaComponent>().Get(entity);

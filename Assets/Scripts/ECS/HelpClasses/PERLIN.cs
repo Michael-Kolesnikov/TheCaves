@@ -17,5 +17,5 @@ public class PERLIN
 
         return (ab + bc + ac + ba + cb + ca) / 6f;
     }
-    
+
 }

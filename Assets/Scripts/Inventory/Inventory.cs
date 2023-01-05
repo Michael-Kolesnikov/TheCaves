@@ -1,7 +1,21 @@
+
+/* Необъединенное слияние из проекта "Scripts.Player"
+До:
 using System.Collections;
+После:
+using System;
+using System.Collections;
+*/
+using System;
 using System.Collections.Generic;
+/* Необъединенное слияние из проекта "Scripts.Player"
+До:
 using UnityEngine;
 using System;
+После:
+using UnityEngine;
+*/
+
 
 public class Inventory
 {
@@ -46,10 +60,10 @@ public class Inventory
             var cloneSlot = slotTo.Clone();
             slotTo.ReplaceItem(slotFrom.item, slotFrom.amount);
             slotFrom.ReplaceItem(cloneSlot.item, cloneSlot.amount);
-            
+
         }
         OnInventoryStateChangeEvent?.Invoke();
-        
+
     }
     public bool TryToAddItem(InventoryItem item)
     {

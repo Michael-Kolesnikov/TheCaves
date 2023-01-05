@@ -1,7 +1,6 @@
-using System;
 using UnityEngine;
 
-public class Item : MonoBehaviour 
+public class Item : MonoBehaviour
 {
     public ItemScriptableObject itemScriptableObject;
     public int maxItemsInInventorySlot => itemScriptableObject.maxAmountInStack;
@@ -15,4 +14,3 @@ public class Item : MonoBehaviour
         return clone;
     }
 }
-        

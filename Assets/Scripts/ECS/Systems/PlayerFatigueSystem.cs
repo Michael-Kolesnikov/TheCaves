@@ -15,8 +15,8 @@ public sealed class FatigueSystem : IEcsRunSystem
             ref var stamina = ref system.GetWorld().GetPool<StaminaComponent>().Get(entity);
             if (sprint.isRunning)
             {
-                stamina.currentStaminaValue = Mathf.Max(0,stamina.currentStaminaValue - sprint.decreaseStaminaFactor * Time.deltaTime);
+                stamina.currentStaminaValue = Mathf.Max(0, stamina.currentStaminaValue - sprint.decreaseStaminaFactor * Time.deltaTime);
             }
-        }   
+        }
     }
 }

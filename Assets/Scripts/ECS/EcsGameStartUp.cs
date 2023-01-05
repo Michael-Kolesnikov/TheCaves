@@ -1,7 +1,7 @@
-using UnityEngine;
 using Leopotam.EcsLite;
-using Voody.UniLeo.Lite;
 using Leopotam.EcsLite.ExtendedSystems;
+using UnityEngine;
+using Voody.UniLeo.Lite;
 
 public sealed class EcsGameStartUp : MonoBehaviour
 {
@@ -14,7 +14,6 @@ public sealed class EcsGameStartUp : MonoBehaviour
     {
         _world = new EcsWorld();
         _systems = new EcsSystems(_world);
-
         _systems.ConvertScene();
         AddSystems();
     }
@@ -46,7 +45,7 @@ public sealed class EcsGameStartUp : MonoBehaviour
             .DelHere<SprintEvent>()
             .Init();
         Debug.Log("systems added");
-    }   
+    }
     private void OnDestroy()
     {
         if (_systems == null) return;

@@ -1,0 +1,19 @@
+{
+    "name": "Scripts",
+    "rootNamespace": "",
+    "references": [
+        "Leopotam.EcsLite",
+        "Leopotam",
+        "Leopotam.EcsLite.ExtendedSystems",
+        "NSubstitute"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

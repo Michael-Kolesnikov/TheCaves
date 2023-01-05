@@ -1,16 +1,25 @@
 using Leopotam.EcsLite;
+
+/* Необъединенное слияние из проекта "Scripts.Player"
+До:
 using System.Linq;
 using UnityEngine;
 using System.Collections.Generic;
+После:
+using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
+*/
+using UnityEngine;
 
 public sealed class PlayerDigSystem : IEcsRunSystem
 {
-    private Vector3[] modifVertices; 
+    private Vector3[] modifVertices;
     public void Run(EcsSystems system)
     {
         var filter = system.GetWorld().Filter<PlayerTag>().End();
 
-        foreach(var entity in filter)
+        foreach (var entity in filter)
         {
             float radius = 3f;
 
@@ -18,7 +27,7 @@ public sealed class PlayerDigSystem : IEcsRunSystem
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out hit, 100))
             {
-                if(Input.GetMouseButton(0))
+                if (Input.GetMouseButton(0))
                 {
                     if (hit.collider.gameObject.GetComponent<Chunk>() != null)
                     {

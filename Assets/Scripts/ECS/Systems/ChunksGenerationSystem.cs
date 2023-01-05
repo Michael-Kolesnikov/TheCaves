@@ -1,8 +1,8 @@
-using UnityEngine;
 using Leopotam.EcsLite;
 using System.Collections.Generic;
+using UnityEngine;
 
-public sealed class ChunksGenerationSystem : IEcsRunSystem,IEcsInitSystem
+public sealed class ChunksGenerationSystem : IEcsRunSystem, IEcsInitSystem
 {
     private GameObject _chunkStorage;
     private List<Chunk> _terrainChunksVisibleLastUpdate = new List<Chunk>();
@@ -20,7 +20,7 @@ public sealed class ChunksGenerationSystem : IEcsRunSystem,IEcsInitSystem
     public void Init(EcsSystems system)
     {
         var filter = system.GetWorld().Filter<PlayerVisibleChunksComponent>().End();
-        foreach(var entity in filter)
+        foreach (var entity in filter)
         {
             ref var playerVisibleChunks = ref system.GetWorld().GetPool<PlayerVisibleChunksComponent>().Get(entity);
             playerVisibleChunks.visibleChunks = new();
@@ -32,7 +32,7 @@ public sealed class ChunksGenerationSystem : IEcsRunSystem,IEcsInitSystem
     public void Run(EcsSystems system)
     {
         var filter = system.GetWorld().Filter<PlayerTag>().Inc<MovableComponent>().Inc<PlayerVisibleChunksComponent>().End();
-        foreach(var entity in filter)
+        foreach (var entity in filter)
         {
             ref var movable = ref system.GetWorld().GetPool<MovableComponent>().Get(entity);
             ref var playerVisibleChunks = ref system.GetWorld().GetPool<PlayerVisibleChunksComponent>().Get(entity);
@@ -55,9 +55,9 @@ public sealed class ChunksGenerationSystem : IEcsRunSystem,IEcsInitSystem
                 {
                     _currentVisibleChunkCoord = new(currentChunkCoordX + offsetX, currentChunkCoordZ + offsetZ);
 
-                    if(playerVisibleChunks.chunksDictionary.ContainsKey(_currentVisibleChunkCoord))
+                    if (playerVisibleChunks.chunksDictionary.ContainsKey(_currentVisibleChunkCoord))
                     {
-                        float viewerDstFromNearestEdge = Mathf.Sqrt(playerVisibleChunks.chunksDictionary[_currentVisibleChunkCoord].bounds.SqrDistance(new Vector3(playerPosition.x,0, playerPosition.z)));
+                        float viewerDstFromNearestEdge = Mathf.Sqrt(playerVisibleChunks.chunksDictionary[_currentVisibleChunkCoord].bounds.SqrDistance(new Vector3(playerPosition.x, 0, playerPosition.z)));
                         bool visible = viewerDstFromNearestEdge <= playerVisibleChunks.viewDistant;
                         playerVisibleChunks.chunksDictionary[_currentVisibleChunkCoord].gameObject.SetActive(visible);
                         if (playerVisibleChunks.chunksDictionary[_currentVisibleChunkCoord].gameObject.activeSelf)
@@ -68,7 +68,7 @@ public sealed class ChunksGenerationSystem : IEcsRunSystem,IEcsInitSystem
 
                         GameObject chunk = new GameObject();
                         chunk.AddComponent<Chunk>();
-                        chunk.GetComponent<Chunk>().bounds = new Bounds(new Vector3((currentChunkCoordX + offsetX) * Chunk.CHUNK_WIDTH,0, (currentChunkCoordZ + offsetZ)* Chunk.CHUNK_WIDTH), new Vector3(Chunk.CHUNK_WIDTH,0, Chunk.CHUNK_WIDTH));
+                        chunk.GetComponent<Chunk>().bounds = new Bounds(new Vector3((currentChunkCoordX + offsetX) * Chunk.CHUNK_WIDTH, 0, (currentChunkCoordZ + offsetZ) * Chunk.CHUNK_WIDTH), new Vector3(Chunk.CHUNK_WIDTH, 0, Chunk.CHUNK_WIDTH));
                         chunk.transform.parent = _chunkStorage.transform;
                         chunk.AddComponent<MeshFilter>();
                         chunk.AddComponent<MeshCollider>();
@@ -92,11 +92,11 @@ public sealed class ChunksGenerationSystem : IEcsRunSystem,IEcsInitSystem
             //Debug.Log($"В словарике загружено {playerVisibleChunks.chunksDictionary.Count} чанков");
         }
     }
-    
+
     private void BuildMesh(GameObject chunk)
     {
         _vertices.Clear();
-        _triangles.Clear(); 
+        _triangles.Clear();
         CreateTerrainMap();
         for (int x = 0; x < Chunk.CHUNK_WIDTH; x++)
         {
@@ -104,7 +104,7 @@ public sealed class ChunksGenerationSystem : IEcsRunSystem,IEcsInitSystem
             {
                 for (int z = 0; z < Chunk.CHUNK_WIDTH; z++)
                 {
-                    var cube = MarchingCubes.GenerateCube(_terrainMap, x,y,z);
+                    var cube = MarchingCubes.GenerateCube(_terrainMap, x, y, z);
                     MarchingCubes.MarchCube(
                         _vertices,
                         _triangles,

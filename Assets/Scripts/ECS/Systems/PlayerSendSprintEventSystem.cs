@@ -1,12 +1,12 @@
-using UnityEngine;
 using Leopotam.EcsLite;
+using UnityEngine;
 public sealed class PlayerSendSprintEventSystem : IEcsRunSystem, IEcsInitSystem
 {
     public void Init(EcsSystems system)
     {
         var playerFilter = system.GetWorld().Filter<PlayerTag>().End();
         var sprintPool = system.GetWorld().GetPool<SprintComponent>();
-        foreach(var entity in playerFilter)
+        foreach (var entity in playerFilter)
         {
             sprintPool.Add(entity);
             ref var sprint = ref sprintPool.Get(entity);
@@ -37,7 +37,7 @@ public sealed class PlayerSendSprintEventSystem : IEcsRunSystem, IEcsInitSystem
             ref var sprint = ref sprintPool.Get(entity);
             ref var stamina = ref system.GetWorld().GetPool<StaminaComponent>().Get(entity);
             sprint.isRunning = stamina.currentStaminaValue > 0;
-            
+
         }
     }
 }

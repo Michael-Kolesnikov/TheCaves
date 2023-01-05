@@ -11,7 +11,7 @@ public sealed class GravitySystem : IEcsRunSystem
         var filter = system.GetWorld().Filter<MovableComponent>().End();
         var movablePool = system.GetWorld().GetPool<MovableComponent>();
 
-        foreach(var entity in filter)
+        foreach (var entity in filter)
         {
             ref var movable = ref movablePool.Get(entity);
 

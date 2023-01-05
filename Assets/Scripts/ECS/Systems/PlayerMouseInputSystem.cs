@@ -11,13 +11,13 @@ public sealed class PlayerMouseInputSystem : IEcsRunSystem
     private float xRotation = 0f;
     public void Run(EcsSystems system)
     {
-        var filter =  system.GetWorld().Filter<MouseLookDirectionComponent>().Inc<PlayerTag>().Inc<ModelComponent>().End();
+        var filter = system.GetWorld().Filter<MouseLookDirectionComponent>().Inc<PlayerTag>().Inc<ModelComponent>().End();
         var mouseLookDirectionPool = system.GetWorld().GetPool<MouseLookDirectionComponent>();
         var modelPool = system.GetWorld().GetPool<ModelComponent>();
 
         SetDirection();
 
-        foreach(var entity in filter)
+        foreach (var entity in filter)
         {
             ref var mouseLookDirection = ref mouseLookDirectionPool.Get(entity);
             if (!mouseLookDirection.canMove) continue;

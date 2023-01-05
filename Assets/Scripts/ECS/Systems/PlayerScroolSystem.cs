@@ -6,7 +6,7 @@ public sealed class PlayerScroolSystem : IEcsRunSystem
     {
         var playerTagPool = system.GetWorld().Filter<PlayerTag>().Inc<PlayerHotBarComponent>().End();
         var playerHotBarPool = system.GetWorld().GetPool<PlayerHotBarComponent>();
-        foreach(var entity in playerTagPool)
+        foreach (var entity in playerTagPool)
         {
             ref var hotBar = ref playerHotBarPool.Get(entity);
             ref var hotBarCanvas = ref hotBar.hudBarCanvas;
@@ -24,11 +24,11 @@ public sealed class PlayerScroolSystem : IEcsRunSystem
             //constantly scroll through
             if (activeSlotIndex >= hotbarSlotsCount)
                 activeSlotIndex = 0;
-            else if(activeSlotIndex < 0)
+            else if (activeSlotIndex < 0)
                 activeSlotIndex = hotbarSlotsCount - 1;
 
             //hotbarslot.GetChild(0) must be border, which show you what slot are active
-            for(var i = 0; i< hotbarSlotsCount; i++)
+            for (var i = 0; i < hotbarSlotsCount; i++)
                 hotBarCanvas.GetChild(i).GetChild(0).gameObject.SetActive(false);
 
             //Set active choosen slot border 

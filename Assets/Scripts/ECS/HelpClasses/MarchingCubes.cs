@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -300,10 +299,10 @@ public static class MarchingCubes
         }
         return cube;
     }
-    public static void MarchCube(List<Vector3> vertices, List<int> triangles,Vector3 position,float[,,] surfaceMap, float[] cube, float terrainSurface, float threshold)
+    public static void MarchCube(List<Vector3> vertices, List<int> triangles, Vector3 position, float[,,] surfaceMap, float[] cube, float terrainSurface, float threshold)
     {
 
-        int configIndex = GetCubeConfiguration(cube,terrainSurface,threshold);
+        int configIndex = GetCubeConfiguration(cube, terrainSurface, threshold);
 
         if (configIndex == 0 || configIndex == 255)
             return;

@@ -1,6 +1,6 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
 
 [Serializable]
 public struct PlayerVisibleChunksComponent
@@ -9,5 +9,5 @@ public struct PlayerVisibleChunksComponent
     [HideInInspector]
     public List<Chunk> visibleChunks;
     [HideInInspector]
-    public Dictionary<Vector2,Chunk> chunksDictionary;
+    public Dictionary<Vector2, Chunk> chunksDictionary;
 }
