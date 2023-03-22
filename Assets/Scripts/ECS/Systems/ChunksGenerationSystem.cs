@@ -1,11 +1,12 @@
-using Leopotam.EcsLite;
+п»їusing Leopotam.EcsLite;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public sealed class ChunksGenerationSystem : IEcsRunSystem, IEcsInitSystem
 {
     private GameObject _chunkStorage;
-    private List<Chunk> _terrainChunksVisibleLastUpdate = new();
+    private List<Chunk2> _terrainChunksVisibleLastUpdate = new();
     private Vector2 _currentVisibleChunkCoord;
     private int _chunksVisibleInViewDistance;
 
@@ -38,10 +39,10 @@ public sealed class ChunksGenerationSystem : IEcsRunSystem, IEcsInitSystem
             ref var playerVisibleChunks = ref system.GetWorld().GetPool<PlayerVisibleChunksComponent>().Get(entity);
             var playerPosition = movable.characterController.transform.position;
 
-            int currentChunkCoordX = Mathf.RoundToInt(playerPosition.x / Chunk.CHUNK_WIDTH);
-            int currentChunkCoordZ = Mathf.RoundToInt(playerPosition.z / Chunk.CHUNK_WIDTH);
+            int currentChunkCoordX = Mathf.RoundToInt(playerPosition.x / Chunk2.CHUNK_WIDTH);
+            int currentChunkCoordZ = Mathf.RoundToInt(playerPosition.z / Chunk2.CHUNK_WIDTH);
 
-            _chunksVisibleInViewDistance = Mathf.RoundToInt(playerVisibleChunks.viewDistant / Chunk.CHUNK_WIDTH);
+            _chunksVisibleInViewDistance = Mathf.RoundToInt(playerVisibleChunks.viewDistant / Chunk2.CHUNK_WIDTH);
 
             for (int i = 0; i < _terrainChunksVisibleLastUpdate.Count; i++)
             {
@@ -67,8 +68,8 @@ public sealed class ChunksGenerationSystem : IEcsRunSystem, IEcsInitSystem
                     {
 
                         GameObject chunk = new GameObject();
-                        chunk.AddComponent<Chunk>();
-                        chunk.GetComponent<Chunk>().bounds = new Bounds(new Vector3((currentChunkCoordX + offsetX) * Chunk.CHUNK_WIDTH, 0, (currentChunkCoordZ + offsetZ) * Chunk.CHUNK_WIDTH), new Vector3(Chunk.CHUNK_WIDTH, 0, Chunk.CHUNK_WIDTH));
+                        chunk.AddComponent<Chunk2>();
+                        chunk.GetComponent<Chunk2>().bounds = new Bounds(new Vector3((currentChunkCoordX + offsetX) * Chunk2.CHUNK_WIDTH, 0, (currentChunkCoordZ + offsetZ) * Chunk2.CHUNK_WIDTH), new Vector3(Chunk2.CHUNK_WIDTH, 0, Chunk2.CHUNK_WIDTH));
                         chunk.transform.parent = _chunkStorage.transform;
                         chunk.AddComponent<MeshFilter>();
                         chunk.AddComponent<MeshCollider>();
@@ -84,12 +85,12 @@ public sealed class ChunksGenerationSystem : IEcsRunSystem, IEcsInitSystem
                         mesh.RecalculateNormals();
                         var col = chunk.GetComponent<MeshCollider>();
                         col.sharedMesh = mesh;
-                        playerVisibleChunks.chunksDictionary.Add(_currentVisibleChunkCoord, chunk.GetComponent<Chunk>());
+                        playerVisibleChunks.chunksDictionary.Add(_currentVisibleChunkCoord, chunk.GetComponent<Chunk2>());
                     }
                 }
             }
-            //Debug.Log($"Текущие координаты игрока : {playerPosition.x}, {playerPosition.z} Текущий чанк - {currentChunkCoordX}, {currentChunkCoordZ}");
-            //Debug.Log($"В словарике загружено {playerVisibleChunks.chunksDictionary.Count} чанков");
+            //Debug.Log($"Г’ГҐГЄГіГ№ГЁГҐ ГЄГ®Г®Г°Г¤ГЁГ­Г ГІГ» ГЁГЈГ°Г®ГЄГ  : {playerPosition.x}, {playerPosition.z} Г’ГҐГЄГіГ№ГЁГ© Г·Г Г­ГЄ - {currentChunkCoordX}, {currentChunkCoordZ}");
+            //Debug.Log($"Г‚ Г±Г«Г®ГўГ Г°ГЁГЄГҐ Г§Г ГЈГ°ГіГ¦ГҐГ­Г® {playerVisibleChunks.chunksDictionary.Count} Г·Г Г­ГЄГ®Гў");
         }
     }
 
@@ -98,17 +99,17 @@ public sealed class ChunksGenerationSystem : IEcsRunSystem, IEcsInitSystem
         _vertices.Clear();
         _triangles.Clear();
         CreateTerrainMap();
-        for (int x = 0; x < Chunk.CHUNK_WIDTH; x++)
+        for (int x = 0; x < Chunk2.CHUNK_WIDTH; x++)
         {
-            for (int y = 0; y < Chunk.CHUNK_HEIGHT; y++)
+            for (int y = 0; y < Chunk2.CHUNK_HEIGHT; y++)
             {
-                for (int z = 0; z < Chunk.CHUNK_WIDTH; z++)
+                for (int z = 0; z < Chunk2.CHUNK_WIDTH; z++)
                 {
                     var cube = MarchingCubes.GenerateCube(_terrainMap, x, y, z);
                     MarchingCubes.MarchCube(
                         _vertices,
                         _triangles,
-                        new Vector3(x + _currentVisibleChunkCoord.x * Chunk.CHUNK_WIDTH - Chunk.CHUNK_WIDTH / 2, y, z + _currentVisibleChunkCoord.y * Chunk.CHUNK_WIDTH - Chunk.CHUNK_WIDTH / 2),
+                        new Vector3(x + _currentVisibleChunkCoord.x * Chunk2.CHUNK_WIDTH - Chunk2.CHUNK_WIDTH / 2, y, z + _currentVisibleChunkCoord.y * Chunk2.CHUNK_WIDTH - Chunk2.CHUNK_WIDTH / 2),
                         _terrainMap,
                         cube,
                         _terrainSurface,
@@ -128,15 +129,15 @@ public sealed class ChunksGenerationSystem : IEcsRunSystem, IEcsInitSystem
     }
     private void CreateTerrainMap()
     {
-        _terrainMap = new float[Chunk.CHUNK_WIDTH + 1, Chunk.CHUNK_HEIGHT + 1, Chunk.CHUNK_WIDTH + 1];
-        for (int x = 0; x < Chunk.CHUNK_WIDTH + 1; x++)
+        _terrainMap = new float[Chunk2.CHUNK_WIDTH + 1, Chunk2.CHUNK_HEIGHT + 1, Chunk2.CHUNK_WIDTH + 1];
+        for (int x = 0; x < Chunk2.CHUNK_WIDTH + 1; x++)
         {
-            for (int z = 0; z < Chunk.CHUNK_WIDTH + 1; z++)
+            for (int z = 0; z < Chunk2.CHUNK_WIDTH + 1; z++)
             {
-                for (int y = 0; y < Chunk.CHUNK_HEIGHT + 1; y++)
+                for (int y = 0; y < Chunk2.CHUNK_HEIGHT + 1; y++)
                 {
 
-                    float thisHeight = PerlinNoise.GetPerlin((x + Chunk.CHUNK_WIDTH * _currentVisibleChunkCoord.x) * _noiseScale, y * _noiseScale, (z + Chunk.CHUNK_WIDTH * _currentVisibleChunkCoord.y) * _noiseScale);
+                    float thisHeight = PerlinNoise.GetPerlin((x + Chunk2.CHUNK_WIDTH * _currentVisibleChunkCoord.x) * _noiseScale, y * _noiseScale, (z + Chunk2.CHUNK_WIDTH * _currentVisibleChunkCoord.y) * _noiseScale);
                     _terrainMap[x, y, z] = thisHeight;
                 }
             }

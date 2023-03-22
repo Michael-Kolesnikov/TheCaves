@@ -1,26 +1,10 @@
-
-/* Необъединенное слияние из проекта "Scripts.Player"
-До:
-using System.Collections;
-После:
-using System;
-using System.Collections;
-*/
 using System;
 using System.Collections.Generic;
-/* Необъединенное слияние из проекта "Scripts.Player"
-До:
-using UnityEngine;
-using System;
-После:
-using UnityEngine;
-*/
-
 
 public class Inventory
 {
     public event Action OnInventoryStateChangeEvent;
-
+    public UIInventory UIInventory;
     public List<InventorySlot> slots;
     public int capacity { get; set; }
     public Inventory(int capacity)
@@ -86,7 +70,7 @@ public class Inventory
         else
             slot.amount += amountToAdd;
         OnInventoryStateChangeEvent?.Invoke();
-        if (amountLeft <= 0)
+        if (amountLeft <= 0)    
             return true;
 
         item.amount = amountLeft;

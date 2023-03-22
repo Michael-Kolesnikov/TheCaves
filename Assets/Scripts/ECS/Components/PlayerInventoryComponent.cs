@@ -9,4 +9,6 @@ public struct PlayerInventoryComponent
     public Inventory inventory;
     [HideInInspector]
     public bool isInventoryOppened;
+    [HideInInspector]
+    public UIInventory UIInventory;
 }

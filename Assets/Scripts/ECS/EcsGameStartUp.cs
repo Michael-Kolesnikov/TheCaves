@@ -40,11 +40,14 @@ public sealed class EcsGameStartUp : MonoBehaviour
             .Add(new PlayerRestSystem())
             .Add(new PlayerUpdateHUDValuesSystem())
             .Add(new ChunksGenerationSystem())
+            .Add(new LKM())
+            //.Add(new PKM())
+            .Add(new PlayerPickupItem())
             .DelHere<JumpEvent>()
             .DelHere<SprintEvent>()
             .Init();
         Debug.Log("systems added");
-    }
+    }   
     private void OnDestroy()
     {
         if (_systems == null) return;

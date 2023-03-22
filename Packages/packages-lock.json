@@ -14,13 +14,6 @@
       "dependencies": {},
       "hash": "645d4f27b12020630d4f1e252cb27deec04d2659"
     },
-    "com.leopotam.ecslite.unity.ugui": {
-      "version": "https://github.com/Leopotam/ecslite-unity-ugui.git#2022.6.22",
-      "depth": 0,
-      "source": "git",
-      "dependencies": {},
-      "hash": "f742526751e71d14c3ea631cee8ad72a4a7e636d"
-    },
     "com.unity.collab-proxy": {
       "version": "1.17.6",
       "depth": 0,
@@ -88,15 +81,6 @@
         "com.unity.ext.nunit": "1.0.6",
         "com.unity.modules.imgui": "1.0.0",
         "com.unity.modules.jsonserialize": "1.0.0"
-      },
-      "url": "https://packages.unity.com"
-    },
-    "com.unity.textmeshpro": {
-      "version": "3.0.6",
-      "depth": 0,
-      "source": "registry",
-      "dependencies": {
-        "com.unity.ugui": "1.0.0"
       },
       "url": "https://packages.unity.com"
     },

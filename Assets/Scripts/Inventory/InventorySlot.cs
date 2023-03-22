@@ -14,6 +14,7 @@ public class InventorySlot
         this.item = item;
         this.amount = amount;
         capacity = item.maxAmountInStack;
+
     }
     public void ReplaceItem(ItemScriptableObject item, int amount)
     {

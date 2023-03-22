@@ -11,6 +11,8 @@ public class PlayerInitInventorySystem : IEcsInitSystem
             ref var inventoryComponent = ref inventroyPool.Get(entity);
             inventoryComponent.isInventoryOppened = false;
             inventoryComponent.inventory = new Inventory(inventoryComponent.playerInventoryUIPanel.GetChild(0).childCount);
+            inventoryComponent.UIInventory = new UIInventory(inventoryComponent.inventory,inventoryComponent.playerInventoryUIPanel.GetChild(0));
+            inventoryComponent.inventory.UIInventory = inventoryComponent.UIInventory;
         }
     }
 }

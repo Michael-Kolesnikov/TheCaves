@@ -5,10 +5,11 @@ public sealed class PlayerScroolSystem : IEcsRunSystem
 {
     public void Run(EcsSystems system)
     {
-        var playerTagPool = system.GetWorld().Filter<PlayerTag>().Inc<PlayerHotBarComponent>().End();
+        var playerTagPool = system.GetWorld().Filter<PlayerTag>().Inc<PlayerHotBarComponent>().Inc<PlayerInventoryComponent>().End();
         var playerHotBarPool = system.GetWorld().GetPool<PlayerHotBarComponent>();
         foreach (var entity in playerTagPool)
         {
+            if (system.GetWorld().GetPool<PlayerInventoryComponent>().Get(entity).isInventoryOppened) return;
             ref var hotBar = ref playerHotBarPool.Get(entity);
             ref var hotBarCanvas = ref hotBar.hudBarCanvas;
             ref var activeSlotIndex = ref hotBar.activeSlotIndex;

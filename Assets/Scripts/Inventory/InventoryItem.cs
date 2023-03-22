@@ -14,4 +14,9 @@ public class InventoryItem : MonoBehaviour
         clone.amount = amount;
         return clone;
     }
+    public override bool Equals(object other)
+    {
+        if (other is not InventoryItem item) return false;
+        return this.id.Equals(item.id);
+    }
 }

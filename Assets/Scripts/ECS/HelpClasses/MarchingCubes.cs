@@ -289,13 +289,15 @@ public static class MarchingCubes
         {0, 3, 8, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1},
         {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1}
     };
-    public static float[] GenerateCube(float[,,] surfaceMap, int x, int y, int z)
+    public static float[] GenerateCube(float[,,] surfaceMap, int x, int y, int z )
     {
         float[] cube = new float[8];
         for (int i = 0; i < 8; i++)
         {
             Vector3Int corner = new Vector3Int(x, y, z) + _cubeCornerTable[i];
             cube[i] = surfaceMap[corner.x, corner.y, corner.z];
+
+           
         }
         return cube;
     }

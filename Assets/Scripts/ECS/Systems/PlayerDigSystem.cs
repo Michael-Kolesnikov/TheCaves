@@ -21,7 +21,7 @@ public sealed class PlayerDigSystem : IEcsRunSystem
             {
                 if (Input.GetMouseButton(0))
                 {
-                    if (hit.collider.gameObject.GetComponent<Chunk>() != null)
+                    if (hit.collider.gameObject.GetComponent<Chunk2>() != null)
                     {
                         var mf = hit.collider.gameObject.GetComponent<MeshFilter>();
                         var chunkMesh = mf.mesh;
@@ -36,7 +36,6 @@ public sealed class PlayerDigSystem : IEcsRunSystem
                             }
                         }
                         mf.mesh.vertices = _modifVertices;
-                        hit.collider.gameObject.GetComponent<MeshCollider>().sharedMesh = mf.mesh;
                         mf.mesh.RecalculateNormals();
                         mf.mesh.RecalculateBounds();
                     }

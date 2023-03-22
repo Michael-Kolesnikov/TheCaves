@@ -22,5 +22,4 @@ public class ItemScriptableObject : ScriptableObject
     public int id => _id;
     public GameObject prefab => _prefab;
     public Sprite spriteIcon => _spriteIcon;
-
 }
