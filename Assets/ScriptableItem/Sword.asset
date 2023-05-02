@@ -17,7 +17,7 @@ MonoBehaviour:
   itemType: 0
   maxAmountInStack: 0
   amount: 1
-  _id: 11
+  _id: 444
   _prefab: {fileID: 0}
   _spriteIcon: {fileID: 0}
   damage: 0

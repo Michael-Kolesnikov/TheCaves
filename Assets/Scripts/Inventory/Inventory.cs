@@ -3,8 +3,6 @@ using System.Collections.Generic;
 
 public class Inventory
 {
-    public event Action OnInventoryStateChangeEvent;
-    public UIInventory UIInventory;
     public List<InventorySlot> slots;
     public int capacity { get; set; }
     public Inventory(int capacity)
@@ -46,7 +44,7 @@ public class Inventory
             slotFrom.ReplaceItem(cloneSlot.item, cloneSlot.amount);
 
         }
-        OnInventoryStateChangeEvent?.Invoke();
+        GlobalEvenManager.OnInventoryStateChange?.Invoke();
 
     }
     public bool TryToAddItem(InventoryItem item)
@@ -54,10 +52,17 @@ public class Inventory
         var slotWithSameItemButNotEmpty = slots.Find(slot => !slot.isEmpty && !slot.isFull && slot.item.id == item.id);
 
         if (slotWithSameItemButNotEmpty != null)
+        {
             return TryAddItemToSlot(slotWithSameItemButNotEmpty, item);
+
+        }
         var emptySlot = slots.Find(slot => slot.isEmpty);
         if (emptySlot != null)
+        {
             return TryAddItemToSlot(emptySlot, item);
+        
+        }
+        
         return false;
     }
     private bool TryAddItemToSlot(InventorySlot slot, InventoryItem item)
@@ -66,18 +71,53 @@ public class Inventory
         int amountToAdd = enoughSpaceForItemAmount ? item.amount : item.maxItemsInInventorySlot - slot.amount;
         var amountLeft = item.amount - amountToAdd;
         if (slot.isEmpty)
+        {
             slot.SetItem(item.itemScriptableObject, amountToAdd);
+        }
         else
+        {
             slot.amount += amountToAdd;
-        OnInventoryStateChangeEvent?.Invoke();
-        if (amountLeft <= 0)    
+        }
+
+        GlobalEvenManager.OnInventoryStateChange?.Invoke();
+        if (amountLeft <= 0)
+        {
             return true;
+        }
 
         item.amount = amountLeft;
         return TryToAddItem(item);
     }
-    public bool TryToRemove(int amount = 1)
+    public bool TryToRemove(InventoryItem item, int amountToRemove)
     {
-        return false;
+        int amountItemInInventory = 0;
+        slots.ForEach(slot => {
+            if(!slot.isEmpty && slot.item.id == item.id)
+            {
+                amountItemInInventory += slot.amount;
+            }
+        });
+
+        if(amountItemInInventory < amountToRemove)
+        {
+            return false;
+        }
+
+        while(amountToRemove > 0)
+        {
+            var slotWithItem = slots.Find(slot => !slot.isEmpty && slot.item.id == item.id);
+            if(amountToRemove >= slotWithItem.amount)
+            {
+                amountToRemove -= slotWithItem.amount;
+                slotWithItem.Clear();
+            }
+            else
+            {
+                slotWithItem.amount -= amountToRemove;
+                amountToRemove = 0;
+            }
+        }
+        
+        return true;
     }
 }

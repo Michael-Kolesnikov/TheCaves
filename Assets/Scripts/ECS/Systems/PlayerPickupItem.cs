@@ -14,7 +14,6 @@ public class PlayerPickupItem : IEcsRunSystem
                 if (Physics.Raycast(ray, out hit, 100))
                 {
                     InventoryItem pickup = hit.collider.gameObject.GetComponent<InventoryItem>();
-                    if(pickup != null) Debug.Log(pickup.ToString());
                     var inventoryPool = systems.GetWorld().GetPool<PlayerInventoryComponent>().Get(entity);
                     ref var inventory = ref inventoryPool.inventory;
                     var adding =  inventory.TryToAddItem(pickup);

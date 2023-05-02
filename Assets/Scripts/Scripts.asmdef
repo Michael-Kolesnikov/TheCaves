@@ -5,7 +5,10 @@
         "Leopotam.EcsLite",
         "Leopotam",
         "Leopotam.EcsLite.ExtendedSystems",
-        "NSubstitute"
+        "Unity.Collections",
+        "Unity.Burst",
+        "Unity.TextMeshPro",
+        "Unity.Mathematics"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
