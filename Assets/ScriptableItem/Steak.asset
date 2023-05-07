@@ -10,13 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9e875f98f25af9e4da21c50737ee0d58, type: 3}
-  m_Name: MeatCooked
+  m_Name: Steak
   m_EditorClassIdentifier: 
-  itemName: Cooked Meat
+  itemName: Meat
   description: 
   itemType: 0
   maxAmountInStack: 64
   amount: 1
-  _id: 15
-  _prefab: {fileID: 5645797294444034968, guid: bd6f055db3734fa48b4cc72968bf038e, type: 3}
-  _spriteIcon: {fileID: 21300000, guid: 8fdf19246cfe7bd468619e750933cf26, type: 3}
+  _id: 14
+  _prefab: {fileID: 6129677274335124105, guid: 3ff21687370bf60448a8551f899b3993, type: 3}
+  _previewPosition: {x: -0.2, y: 0.5, z: 0}
+  _spriteIcon: {fileID: 21300000, guid: 030e627e3d695614991c640b6cc60e6c, type: 3}

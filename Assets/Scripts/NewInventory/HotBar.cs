@@ -13,6 +13,7 @@ public class HotBar : MonoBehaviour
     public Transform hand;
 
     private int activeSlotIndex = 0;
+    bool isPlaceableItem = false;
     private void Start()
     {
         inventory = character.GetComponent<PickUpItems>().inventory;
@@ -54,6 +55,12 @@ public class HotBar : MonoBehaviour
         {
             ChangeActiveItem();
         }
+
+
+        if (isPlaceableItem)
+        {
+
+        }
     }
     private void UpdateHotbar()
     {
@@ -69,9 +76,15 @@ public class HotBar : MonoBehaviour
             }
             else
             {
+                Debug.Log("Update hotbar");
                 itemImage.enabled = true;
                 itemImage.sprite = inventory.slots[i].item.spriteIcon;
-
+                if (itemImage.GetComponent<InventoryItem>() == null)
+                {
+                    Debug.Log("Instanti invent item component");
+                    itemImage.gameObject.AddComponent<InventoryItem>().itemScriptableObject = inventory.slots[i].item;
+                    itemImage.gameObject.GetComponent<InventoryItem>().amount = inventory.slots[i].amount;
+                }
                 if (inventory.slots[i].amount != 1)
                 {
                     slotItem.transform.GetChild(0).GetChild(0).GetComponent<TMP_Text>().text = inventory.slots[i].amount.ToString();
@@ -83,17 +96,30 @@ public class HotBar : MonoBehaviour
                 }
             }
         }
+        isPlaceableItem = false;
 
     }
     private void ChangeActiveItem()
     {
         if (hand.transform.childCount > 0)
         {
-            Destroy(hand.transform.GetChild(0).gameObject);
+            for(var i = 0; i < hand.childCount; i++)
+            {
+                Destroy(hand.transform.GetChild(i).gameObject);
+            }
         }
-        if (inventory.slots[activeSlotIndex].item != null)
+        var slot = inventory.slots[activeSlotIndex];
+        if (slot.item != null && slot.item.prefab != null)
         {
-            var createdThing = Instantiate(inventory.slots[activeSlotIndex].item.prefab, hand.position, Quaternion.identity, hand);
+            var createdThing = Instantiate(slot.item.prefab, hand.position, Quaternion.identity, hand);
+            createdThing.transform.localEulerAngles = slot.item.prefab.transform.localEulerAngles;
+            createdThing.transform.localPosition = slot.item.previewPosition;
+
+            if (createdThing.GetComponent<InventoryItem>().itemScriptableObject.itemType == ItemType.Construction)
+            {
+                isPlaceableItem = true;
+                Instantiate(((ConstructionItem)createdThing.GetComponent<InventoryItem>().itemScriptableObject).previewPrefab);
+            }
             Destroy(createdThing.GetComponent<InventoryItem>());
             Destroy(createdThing.GetComponent<Rigidbody>());
 

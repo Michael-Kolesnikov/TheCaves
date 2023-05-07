@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 962f36c70ab493049833e44f45b1a1ed, type: 3}
-  m_Name: CampFire
+  m_Name: Campfire
   m_EditorClassIdentifier: 
-  finalCraft: {fileID: 11400000, guid: dae15258773957549ab898458cb79981, type: 2}
+  finalCraft: {fileID: 11400000, guid: f8e0c94382df9d449a2c1d508995dcc7, type: 2}
   finalCraftItemAmount: 1
   craftResources:
   - item: {fileID: 11400000, guid: c98c639c2d51b8f4dacc1fb572b9e758, type: 2}

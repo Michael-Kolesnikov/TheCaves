@@ -9,15 +9,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 629d50b332512924789316504ce0c9a4, type: 3}
+  m_Script: {fileID: 11500000, guid: 9b0fd1dea9a0bae49889f59ce79795f5, type: 3}
   m_Name: Spear
   m_EditorClassIdentifier: 
-  itemName: Stone spear
+  itemName: Spear
   description: 
-  itemType: 1
-  maxAmountInStack: 1
+  itemType: 2
+  maxAmountInStack: 0
   amount: 1
   _id: 8
   _prefab: {fileID: 2463575166472382281, guid: b1acc6d5f106e014c83b6f080885d9ea, type: 3}
+  _previewPosition: {x: 0, y: 0, z: 0}
   _spriteIcon: {fileID: 21300000, guid: 4fdc1e8b592cccd43851e9432ee4496b, type: 3}
+  damage: 5
   durability: 100

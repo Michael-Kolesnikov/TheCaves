@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 962f36c70ab493049833e44f45b1a1ed, type: 3}
   m_Name: Chest
   m_EditorClassIdentifier: 
-  finalCraft: {fileID: 11400000, guid: e25b358c5325adc479dbcceb50c683a6, type: 2}
+  finalCraft: {fileID: 11400000, guid: 0e3073852a2a5c14f82d5434a378c036, type: 2}
   finalCraftItemAmount: 1
   craftResources:
   - item: {fileID: 11400000, guid: 7e90bcce8f05721438fcdd8d12349ecf, type: 2}

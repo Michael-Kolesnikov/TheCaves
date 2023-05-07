@@ -9,14 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9e875f98f25af9e4da21c50737ee0d58, type: 3}
+  m_Script: {fileID: 11500000, guid: 552cf96cb26381342b4ae6c86d18ad39, type: 3}
   m_Name: Chest
   m_EditorClassIdentifier: 
   itemName: Chest
   description: 
-  itemType: 0
+  itemType: 4
   maxAmountInStack: 3
   amount: 1
   _id: 7
-  _prefab: {fileID: 919132149155446097, guid: d59050a4450d981498cb06eb21dbdfc3, type: 3}
+  _prefab: {fileID: 2044484494150931203, guid: d2e2aca7176bb4f409e6c011358ad42c, type: 3}
   _spriteIcon: {fileID: 21300000, guid: c23edfe0183a1bd478ee576c382454e5, type: 3}
+  previewPrefab: {fileID: 5015598177840226955, guid: e88048619665c4f4f8a6521d913b47c2, type: 3}

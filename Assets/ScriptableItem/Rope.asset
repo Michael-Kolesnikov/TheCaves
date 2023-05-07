@@ -19,4 +19,5 @@ MonoBehaviour:
   amount: 1
   _id: 9
   _prefab: {fileID: 6115388230902323502, guid: e1198f192c0f8fb4d9cbca5825857ace, type: 3}
+  _previewPosition: {x: 0, y: 0.3, z: 0}
   _spriteIcon: {fileID: 21300000, guid: 61aab3c7e74f9944fa09a136dfbd39f6, type: 3}

@@ -9,14 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9e875f98f25af9e4da21c50737ee0d58, type: 3}
+  m_Script: {fileID: 11500000, guid: 552cf96cb26381342b4ae6c86d18ad39, type: 3}
   m_Name: Campfire
   m_EditorClassIdentifier: 
   itemName: Campfire
   description: 
-  itemType: 0
+  itemType: 4
   maxAmountInStack: 1
   amount: 1
   _id: 13
   _prefab: {fileID: 4694622026558909616, guid: 9484e6ce21c159e4c8bd143a94948da1, type: 3}
   _spriteIcon: {fileID: 21300000, guid: 39ac9b213fccb3d43ba41e613cb391f2, type: 3}
+  previewPrefab: {fileID: 159717580338930575, guid: 3d8738c92c34dc74190930eba13616e0, type: 3}

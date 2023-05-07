@@ -94,7 +94,6 @@ public class CraftManager : MonoBehaviour
         {
             text += resource.item.itemName + " - " + resource.craftAmount + "\n";
         }
-        Debug.Log(text);
         craftInfoArea.GetChild(0).GetComponent<TMP_Text>().text = text;
     }
     private void CreateItem(CraftItem craft)
@@ -127,7 +126,6 @@ public class CraftManager : MonoBehaviour
                 {
                     inventory.TryToRemove(new InventoryItem(resource.item), resource.craftAmount);
                 }
-                Debug.Log(craft.finalCraft.itemName + " created ;)");
             }
             else
             {

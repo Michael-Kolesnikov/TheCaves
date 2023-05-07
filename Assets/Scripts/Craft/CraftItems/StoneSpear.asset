@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 962f36c70ab493049833e44f45b1a1ed, type: 3}
   m_Name: StoneSpear
   m_EditorClassIdentifier: 
-  finalCraft: {fileID: 11400000, guid: 537640a4e3b0aea4a94958c26c388048, type: 2}
+  finalCraft: {fileID: 11400000, guid: 8184e9a000b4edf4eab23a207418b7c1, type: 2}
   finalCraftItemAmount: 1
   craftResources:
   - item: {fileID: 11400000, guid: c7a3def6d9956c248a5516b054feaf69, type: 2}
