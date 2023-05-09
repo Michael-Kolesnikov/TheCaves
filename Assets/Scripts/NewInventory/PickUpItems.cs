@@ -28,7 +28,6 @@ public class PickUpItems : MonoBehaviour
                         uiInventory.Refresh();
                         Destroy(hit.collider.gameObject);
                     }
-                    Debug.Log(added);
                 }
             }
         }

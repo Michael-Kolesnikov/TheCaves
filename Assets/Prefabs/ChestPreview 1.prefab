@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3743947846720140907}
   - component: {fileID: 239048698995864270}
   - component: {fileID: 6113274634993979138}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Chest_Base
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5679368247367120945}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: ChestPreview 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -109,8 +109,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5015598177840226955}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 10.4686365, y: 205.26, z: 10.140121}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3743947846720140907}
@@ -129,7 +129,7 @@ GameObject:
   - component: {fileID: 974875007397298108}
   - component: {fileID: 1388838091720737730}
   - component: {fileID: 5115223679359869073}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Chest_Top
   m_TagString: Untagged
   m_Icon: {fileID: 0}

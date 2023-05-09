@@ -7,9 +7,6 @@ public class GlobalEvenManager : MonoBehaviour
 {
 
     public static Action OnInventoryStateChange;
-
-    public static void RefreshHotBar()
-    {
-        OnInventoryStateChange?.Invoke();
-    }
+    public static Action OnHotbarItemChange;
+    
 }

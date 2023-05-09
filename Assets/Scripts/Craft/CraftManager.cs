@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.PlayerLoop;
 using UnityEngine.UI;
 
 public class CraftManager : MonoBehaviour
@@ -17,6 +18,7 @@ public class CraftManager : MonoBehaviour
 
     private void Start()
     {
+        GlobalEvenManager.OnInventoryStateChange += updateUIInventory;
         LoadBasicCraft();
     }
 
@@ -132,10 +134,13 @@ public class CraftManager : MonoBehaviour
                 inventory.TryToRemove(new InventoryItem(craft.finalCraft),1);
             }
         }
-        this.transform.GetComponent<PickUpItems>().uiInventory.Refresh();
         GlobalEvenManager.OnInventoryStateChange?.Invoke();
     }
 
+    private void updateUIInventory()
+    {
+        this.transform.GetComponent<PickUpItems>().uiInventory.Refresh();
+    }
     private void DestroyCraftingAreaChildren()
     {
         for (var i = 0; i < craftingArea.childCount; i++)

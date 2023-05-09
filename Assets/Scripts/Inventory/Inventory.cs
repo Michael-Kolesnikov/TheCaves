@@ -117,7 +117,7 @@ public class Inventory
                 amountToRemove = 0;
             }
         }
-        
+        GlobalEvenManager.OnInventoryStateChange?.Invoke();
         return true;
     }
 }

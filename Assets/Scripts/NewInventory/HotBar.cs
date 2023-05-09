@@ -11,19 +11,20 @@ public class HotBar : MonoBehaviour
     public Sprite activeHotBarIcon;
     public Sprite hotbarIcon;
     public Transform hand;
+    public GameObject selectedObject;
+    public bool isObjectSelected;
 
-    private int activeSlotIndex = 0;
-    bool isPlaceableItem = false;
+    public int activeSlotIndex = 0;
     private void Start()
     {
         inventory = character.GetComponent<PickUpItems>().inventory;
         uiInventory = character.GetComponent<PickUpItems>().uiInventory;
-        activeSlot = this.transform.GetChild(activeSlotIndex);
+        activeSlot = transform.GetChild(activeSlotIndex);
         GlobalEvenManager.OnInventoryStateChange += UpdateHotbar;
         GlobalEvenManager.OnInventoryStateChange += ChangeActiveItem;
-        for (var i = 0; i < this.transform.childCount; i++)
+        for (var i = 0; i < transform.childCount; i++)
         {
-            var itemImage = this.transform.GetChild(i).GetChild(0).GetComponent<Image>();
+            var itemImage = transform.GetChild(i).GetChild(0).GetComponent<Image>();
             itemImage.enabled = false;
         }
     }
@@ -33,12 +34,14 @@ public class HotBar : MonoBehaviour
         activeSlot.GetComponent<Image>().sprite = hotbarIcon;
         if (Input.GetAxis("Mouse ScrollWheel") > 0)
         {
+            isObjectSelected = false;
             activeSlotIndex++;
             isChange = true;
         }
         //Mouse ScroolWheel Down
         if (Input.GetAxis("Mouse ScrollWheel") < 0)
         {
+            isObjectSelected = false;
             activeSlotIndex--;
             isChange = true;
         }
@@ -55,15 +58,10 @@ public class HotBar : MonoBehaviour
         {
             ChangeActiveItem();
         }
-
-
-        if (isPlaceableItem)
-        {
-
-        }
     }
     private void UpdateHotbar()
     {
+
         for (var i = 0; i < this.transform.childCount; i++)
         {
             var slotItem = this.transform.GetChild(i);
@@ -72,17 +70,21 @@ public class HotBar : MonoBehaviour
             {
                 itemImage.enabled = false;
                 itemImage.sprite = null;
+                if(itemImage.GetComponent<InventoryItem>()!=null) Debug.Log(itemImage.GetComponent<InventoryItem>().itemScriptableObject.name + " DESTROYED");
                 slotItem.transform.GetChild(0).GetChild(0).GetComponent<TMP_Text>().text = string.Empty;
             }
             else
             {
-                Debug.Log("Update hotbar");
                 itemImage.enabled = true;
                 itemImage.sprite = inventory.slots[i].item.spriteIcon;
                 if (itemImage.GetComponent<InventoryItem>() == null)
                 {
-                    Debug.Log("Instanti invent item component");
                     itemImage.gameObject.AddComponent<InventoryItem>().itemScriptableObject = inventory.slots[i].item;
+                    itemImage.gameObject.GetComponent<InventoryItem>().amount = inventory.slots[i].amount;
+                }
+                else
+                {
+                    itemImage.gameObject.GetComponent<InventoryItem>().itemScriptableObject = inventory.slots[i].item;
                     itemImage.gameObject.GetComponent<InventoryItem>().amount = inventory.slots[i].amount;
                 }
                 if (inventory.slots[i].amount != 1)
@@ -92,18 +94,17 @@ public class HotBar : MonoBehaviour
                 else
                 {
                     slotItem.transform.GetChild(0).GetChild(0).GetComponent<TMP_Text>().text = string.Empty;
-
                 }
             }
         }
-        isPlaceableItem = false;
-
     }
     private void ChangeActiveItem()
     {
+        //GlobalEvenManager.OnHotbarItemChange?.Invoke();
+
         if (hand.transform.childCount > 0)
         {
-            for(var i = 0; i < hand.childCount; i++)
+            for (var i = 0; i < hand.childCount; i++)
             {
                 Destroy(hand.transform.GetChild(i).gameObject);
             }
@@ -115,14 +116,12 @@ public class HotBar : MonoBehaviour
             createdThing.transform.localEulerAngles = slot.item.prefab.transform.localEulerAngles;
             createdThing.transform.localPosition = slot.item.previewPosition;
 
-            if (createdThing.GetComponent<InventoryItem>().itemScriptableObject.itemType == ItemType.Construction)
-            {
-                isPlaceableItem = true;
-                Instantiate(((ConstructionItem)createdThing.GetComponent<InventoryItem>().itemScriptableObject).previewPrefab);
-            }
+            
             Destroy(createdThing.GetComponent<InventoryItem>());
             Destroy(createdThing.GetComponent<Rigidbody>());
 
         }
+        GlobalEvenManager.OnHotbarItemChange?.Invoke();
+
     }
 }

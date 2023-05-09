@@ -16,6 +16,10 @@ public sealed class EcsGameStartUp : MonoBehaviour
         _systems = new EcsSystems(_world);
         _systems.ConvertScene();
         AddSystems();
+
+        CharacterAbilities.canCharacterMove = true;
+        CharacterAbilities.canCameraMove = true;
+        CharacterAbilities.canOpenInventory = true;
     }
     private void Update()
     {
@@ -32,19 +36,16 @@ public sealed class EcsGameStartUp : MonoBehaviour
             .Add(new GravitySystem())
             .Add(new PlayerJumpSystem())
             .Add(new PlayerMovementSystem())
-            //.Add(new PlayerScroolSystem())
             .Add(new PlayerInitInventorySystem())
             .Add(new PlayerOpenInventorySystem())
             .Add(new CursorLockSystem())
             .Add(new FatigueSystem())
             .Add(new PlayerRestSystem())
             .Add(new PlayerUpdateHUDValuesSystem())
-            //.Add(new PlayerPickupItem())
             .DelHere<JumpEvent>()
             .DelHere<SprintEvent>()
             .Init();
-        Debug.Log("systems added");
-    }   
+    }
     private void OnDestroy()
     {
         if (_systems == null) return;

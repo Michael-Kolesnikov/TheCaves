@@ -9,6 +9,10 @@ public class Attack : MonoBehaviour
     }
     void Update()
     {
+        if(!CharacterAbilities.canCharacterMove || !CharacterAbilities.canCameraMove)
+        {
+            return;
+        }
         if (Input.GetMouseButton(0))
         {
             anim.SetBool("attack", true);
