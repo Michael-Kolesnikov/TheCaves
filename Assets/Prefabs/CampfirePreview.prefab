@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 5978287509344330837}
   - component: {fileID: 460423637710568259}
   - component: {fileID: 23665109858234905}
+  - component: {fileID: -1572954683140648650}
+  - component: {fileID: 248382299809466553}
   m_Layer: 0
   m_Name: CampfirePreview
   m_TagString: Untagged
@@ -86,3 +88,32 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &-1572954683140648650
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 159717580338930575}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 391f3dce48d9b46449e99f16a6ccbca8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  green: {fileID: 2100000, guid: f0d2bfcc477168345842d975914cc568, type: 2}
+  red: {fileID: 2100000, guid: ea22432be687bea4f85ea5f785555898, type: 2}
+  isBuildeable: 0
+  colliders: []
+--- !u!65 &248382299809466553
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 159717580338930575}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.0040657045, y: 0.003623831, z: 0.0011217224}
+  m_Center: {x: -0.000009110896, y: -0.000016761767, z: 0.00022719955}

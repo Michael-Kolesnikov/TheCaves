@@ -70,7 +70,7 @@ public class HotBar : MonoBehaviour
             {
                 itemImage.enabled = false;
                 itemImage.sprite = null;
-                if(itemImage.GetComponent<InventoryItem>()!=null) Debug.Log(itemImage.GetComponent<InventoryItem>().itemScriptableObject.name + " DESTROYED");
+                Destroy(itemImage.GetComponent<InventoryItem>());
                 slotItem.transform.GetChild(0).GetChild(0).GetComponent<TMP_Text>().text = string.Empty;
             }
             else

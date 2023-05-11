@@ -15,6 +15,8 @@ public class BuildingSystem : MonoBehaviour
     private float gridSize = 1.0f;
     private float offset = 1.0f;
     private HotBar hotbar;
+
+    public bool isBuildeable;
     private void Start()
     {
         GlobalEvenManager.OnHotbarItemChange += InstantiatePreviewObject;
@@ -42,7 +44,7 @@ public class BuildingSystem : MonoBehaviour
                 }
             }
             ShowPreview();
-            if (Input.GetMouseButtonDown(1) && currentObject != null)
+            if (Input.GetMouseButtonDown(1) && currentObject != null && currentObject.GetComponent<PreviewObject>().isBuildeable)
             {
                 var prefab = hotbar.activeSlot.GetChild(0).GetComponent<InventoryItem>()?.itemScriptableObject.prefab;
                 Instantiate(prefab,currentObject.transform.position,Quaternion.Euler(currentObject.transform.eulerAngles));

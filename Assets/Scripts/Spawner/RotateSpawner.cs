@@ -1,7 +1,8 @@
-using UnityEngine;
+ using UnityEngine;
 
 public class RotateSpawner : MonoBehaviour
 {
+    public Transform spawnObjectPrefab;
     public float floatStrength = 1f; // Сила подъема объекта
     public float rotationSpeed = 10f; // Скорость вращения объекта
 
