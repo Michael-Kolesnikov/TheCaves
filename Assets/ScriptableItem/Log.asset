@@ -19,5 +19,5 @@ MonoBehaviour:
   amount: 1
   _id: 3
   _prefab: {fileID: 7169265166566402670, guid: 1f2269133955cd047b6a9423ffbb99dc, type: 3}
-  _previewPosition: {x: 0, y: 0.5, z: 0}
+  _previewPosition: {x: 0, y: -0.26, z: 0}
   _spriteIcon: {fileID: 21300000, guid: 5216a5afc02235b42811091aac766734, type: 3}

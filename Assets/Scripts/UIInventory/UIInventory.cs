@@ -20,9 +20,7 @@ public class UIInventory : MonoBehaviour
             InventoryPanel.GetChild(i).GetComponent<InvSlot>().uiInventory = this;
             InventoryPanel.GetChild(i).GetComponent<InvSlot>().slot = inventory.slots[i];
             inventorySlotsUI.Add(InventoryPanel.GetChild(i).GetComponent<InvSlot>());
-            
         }
-
     }
 
     public void Refresh()
@@ -61,7 +59,6 @@ public class UIInventory : MonoBehaviour
                 else
                 {
                     inventorySlotsUI[i].transform.GetChild(0).GetChild(0).GetComponent<TMP_Text>().text = string.Empty;
-
                 }
             }
         }

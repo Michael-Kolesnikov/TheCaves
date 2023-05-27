@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: WoodPlank
   m_EditorClassIdentifier: 
   finalCraft: {fileID: 11400000, guid: 7e90bcce8f05721438fcdd8d12349ecf, type: 2}
-  finalCraftItemAmount: 1
+  finalCraftItemAmount: 3
   craftResources:
   - item: {fileID: 11400000, guid: c98c639c2d51b8f4dacc1fb572b9e758, type: 2}
-    craftAmount: 2
+    craftAmount: 1

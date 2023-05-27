@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class BuildingSystem : MonoBehaviour
@@ -47,8 +46,8 @@ public class BuildingSystem : MonoBehaviour
             if (Input.GetMouseButtonDown(1) && currentObject != null && currentObject.GetComponent<PreviewObject>().isBuildeable)
             {
                 var prefab = hotbar.activeSlot.GetChild(0).GetComponent<InventoryItem>()?.itemScriptableObject.prefab;
-                Instantiate(prefab,currentObject.transform.position,Quaternion.Euler(currentObject.transform.eulerAngles));
-                character.GetComponent<PickUpItems>().inventory.TryToRemove(new InventoryItem(hotbar.activeSlot.GetChild(0).GetComponent<InventoryItem>()?.itemScriptableObject),1);
+                Instantiate(prefab, currentObject.transform.position, Quaternion.Euler(currentObject.transform.eulerAngles));
+                character.GetComponent<PickUpItems>().inventory.TryToRemove(new InventoryItem(hotbar.activeSlot.GetChild(0).GetComponent<InventoryItem>()?.itemScriptableObject), 1);
                 InstantiatePreviewObject();
             }
         }
@@ -66,8 +65,8 @@ public class BuildingSystem : MonoBehaviour
                 currentPos = new Vector3(Mathf.Round(currentPos.x), Mathf.Round(currentPos.y), Mathf.Round(currentPos.z));
                 currentPos *= gridSize;
                 currentPos += Vector3.one * offset;
-                currentPos.y += 0.2f;
-                if(currentObject != null)
+                currentPos.y = hit.point.y;
+                if (currentObject != null)
                 {
                     currentObject.transform.position = currentPos;
                 }
@@ -77,7 +76,7 @@ public class BuildingSystem : MonoBehaviour
 
     private void InstantiatePreviewObject()
     {
-        
+
         Destroy(currentObject);
         var inventoryItem = hotbar.transform.GetChild(hotbar.activeSlotIndex).GetChild(0).GetComponent<InventoryItem>();
         if (inventoryItem == null || inventoryItem.itemScriptableObject.itemType != ItemType.Construction)
@@ -85,7 +84,7 @@ public class BuildingSystem : MonoBehaviour
             return;
         }
         var prefab = ((ConstructionItem)hotbar.transform.GetChild(hotbar.activeSlotIndex).GetChild(0).GetComponent<InventoryItem>()?.itemScriptableObject).previewPrefab;
-        currentObject = Instantiate(prefab,currentPos, Quaternion.Euler(prefab.transform.eulerAngles));
+        currentObject = Instantiate(prefab, currentPos, Quaternion.Euler(prefab.transform.eulerAngles));
 
     }
 }

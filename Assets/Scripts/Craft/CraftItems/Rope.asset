@@ -16,4 +16,4 @@ MonoBehaviour:
   finalCraftItemAmount: 1
   craftResources:
   - item: {fileID: 11400000, guid: e8b39c544e1eac040b5fb3549020608a, type: 2}
-    craftAmount: 2
+    craftAmount: 4

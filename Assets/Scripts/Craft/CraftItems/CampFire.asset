@@ -19,3 +19,5 @@ MonoBehaviour:
     craftAmount: 3
   - item: {fileID: 11400000, guid: c7a3def6d9956c248a5516b054feaf69, type: 2}
     craftAmount: 6
+  - item: {fileID: 11400000, guid: 801fdffa73c424a44a91c89fa2004dbe, type: 2}
+    craftAmount: 3

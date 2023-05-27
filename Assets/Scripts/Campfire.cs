@@ -6,11 +6,6 @@ public class Campfire : MonoBehaviour
     public Transform campfirePanel;
     public Transform inventoryPanel;
     private bool isOpened = false;
-    private void Start()
-    {
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
-    }
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.E) && isOpened)

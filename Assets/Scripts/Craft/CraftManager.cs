@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.PlayerLoop;
 using UnityEngine.UI;
 
 public class CraftManager : MonoBehaviour
@@ -92,7 +91,7 @@ public class CraftManager : MonoBehaviour
     {
         var text = "";
         text += craft.finalCraft.itemName + ":\n";
-        foreach(var resource in craft.craftResources)
+        foreach (var resource in craft.craftResources)
         {
             text += resource.item.itemName + " - " + resource.craftAmount + "\n";
         }
@@ -105,33 +104,34 @@ public class CraftManager : MonoBehaviour
         foreach (var resource in craft.craftResources)
         {
             var requestAmount = resource.craftAmount;
-            foreach(var slot in inventory.slots)
+            foreach (var slot in inventory.slots)
             {
-                if(!slot.isEmpty && slot.item.id == resource.item.id)
+                if (!slot.isEmpty && slot.item.id == resource.item.id)
                 {
                     requestAmount -= slot.amount;
                 }
             }
 
-            if(requestAmount > 0)
+            if (requestAmount > 0)
             {
                 isResourcesEnough = false;
                 break;
             }
         }
+
         if (isResourcesEnough)
         {
             var added = inventory.TryToAddItem(new InventoryItem(craft.finalCraft));
             if (added)
             {
-                foreach(var resource in craft.craftResources)
+                foreach (var resource in craft.craftResources)
                 {
                     inventory.TryToRemove(new InventoryItem(resource.item), resource.craftAmount);
                 }
             }
             else
             {
-                inventory.TryToRemove(new InventoryItem(craft.finalCraft),1);
+                inventory.TryToRemove(new InventoryItem(craft.finalCraft), 1);
             }
         }
         GlobalEvenManager.OnInventoryStateChange?.Invoke();

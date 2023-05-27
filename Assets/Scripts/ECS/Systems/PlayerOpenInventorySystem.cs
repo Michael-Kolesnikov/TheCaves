@@ -1,8 +1,13 @@
 using Leopotam.EcsLite;
 using UnityEngine;
 
-public sealed class PlayerOpenInventorySystem : IEcsRunSystem
+public sealed class PlayerOpenInventorySystem : IEcsRunSystem,IEcsInitSystem
 {
+    public void Init(EcsSystems system)
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+    }
     public void Run(EcsSystems system)
     {
         var filter = system.GetWorld().Filter<PlayerTag>().Inc<PlayerInventoryComponent>().Inc<MovableComponent>().Inc<MouseLookDirectionComponent>().End();
