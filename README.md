@@ -10,5 +10,5 @@
 
 #####
 Скриншот из игры
-![screenshotTheCaves](![image](https://github.com/Michael-Kolesnikov/TheCaves/assets/92929937/45be1b0d-4084-4d71-9ea7-356027fd3d4f)
+(![image](https://github.com/Michael-Kolesnikov/TheCaves/assets/92929937/45be1b0d-4084-4d71-9ea7-356027fd3d4f)
 
