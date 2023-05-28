@@ -61,7 +61,6 @@ public class HotBar : MonoBehaviour
     }
     private void UpdateHotbar()
     {
-
         for (var i = 0; i < this.transform.childCount; i++)
         {
             var slotItem = this.transform.GetChild(i);

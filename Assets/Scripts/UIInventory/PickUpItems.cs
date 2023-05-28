@@ -26,6 +26,7 @@ public class PickUpItems : MonoBehaviour
                     if (added)
                     {
                         uiInventory.Refresh();
+                        GlobalEvenManager.OnInventoryStateChange?.Invoke();
                         Destroy(hit.collider.gameObject);
                     }
                 }

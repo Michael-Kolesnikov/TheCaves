@@ -17,7 +17,7 @@ public class CraftManager : MonoBehaviour
 
     private void Start()
     {
-        GlobalEvenManager.OnInventoryStateChange += updateUIInventory;
+        //GlobalEvenManager.OnInventoryStateChange += updateUIInventory;
         LoadBasicCraft();
     }
 
@@ -134,12 +134,13 @@ public class CraftManager : MonoBehaviour
                 inventory.TryToRemove(new InventoryItem(craft.finalCraft), 1);
             }
         }
-        GlobalEvenManager.OnInventoryStateChange?.Invoke();
+        this.transform.GetComponent<PickUpItems>().uiInventory.Refresh();
+        //GlobalEvenManager.OnInventoryStateChange?.Invoke();
     }
 
     private void updateUIInventory()
     {
-        this.transform.GetComponent<PickUpItems>().uiInventory.Refresh();
+        
     }
     private void DestroyCraftingAreaChildren()
     {

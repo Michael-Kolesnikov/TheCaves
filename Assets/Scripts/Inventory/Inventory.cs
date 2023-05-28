@@ -62,7 +62,7 @@ public class Inventory
             return TryAddItemToSlot(emptySlot, item);
         
         }
-        
+
         return false;
     }
     private bool TryAddItemToSlot(InventorySlot slot, InventoryItem item)
@@ -79,7 +79,6 @@ public class Inventory
             slot.amount += amountToAdd;
         }
 
-        GlobalEvenManager.OnInventoryStateChange?.Invoke();
         if (amountLeft <= 0)
         {
             return true;

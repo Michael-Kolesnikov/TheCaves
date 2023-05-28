@@ -25,7 +25,17 @@ public class UIInventory : MonoBehaviour
 
     public void Refresh()
     {
-        for(var i = 0; i < Inventory.capacity; i++)
+        //for(var i = 0; i < inventorySlotsUI.Count; i++)
+        //{
+        //    if (inventorySlotsUI[i].transform.childCount != 0)
+        //    {
+        //        foreach(Transform child in inventorySlotsUI[i].transform)
+        //        {
+        //            Destroy(child.gameObject);
+        //        }
+        //    }
+        //}
+        for (var i = 0; i < Inventory.capacity; i++)
         {
             if (Inventory.slots[i].isEmpty)
             {
@@ -39,6 +49,7 @@ public class UIInventory : MonoBehaviour
             if (inventorySlotsUI[i].transform.childCount == 0)
             {
                 var invItem = Instantiate(invItemPrefab);
+                Debug.Log("instantiate image");
                 if (Inventory.slots[i].amount != 1)
                 {
                     invItem.GetChild(0).GetComponent<TMP_Text>().text = Inventory.slots[i].amount.ToString();
