@@ -72,7 +72,10 @@ public class CraftManager : MonoBehaviour
         item.AddComponent<Image>();
         item.AddComponent<EventTrigger>();
         item.GetComponent<Image>().sprite = craft.finalCraft.spriteIcon;
+
         item.transform.SetParent(this.craftingArea);
+        item.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
+
 
         EventTrigger trigger = item.GetComponent<EventTrigger>();
         EventTrigger.Entry entry = new EventTrigger.Entry();

@@ -12,7 +12,7 @@ public class PauseScript : MonoBehaviour
     public bool isOpened = false;
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Escape))
+        if(Input.GetKeyDown(KeyCode.Escape) && !CharacterAbilities.isInventoryOpened)
         {
             isOpened = !isOpened;
             escapePanel.gameObject.SetActive(isOpened);

@@ -13,7 +13,10 @@ public sealed class PlayerOpenInventorySystem : IEcsRunSystem,IEcsInitSystem
         var filter = system.GetWorld().Filter<PlayerTag>().Inc<PlayerInventoryComponent>().Inc<MovableComponent>().Inc<MouseLookDirectionComponent>().End();
         foreach (var entity in filter)
         {
+
             ref var inventory = ref system.GetWorld().GetPool<PlayerInventoryComponent>().Get(entity);
+            CharacterAbilities.isInventoryOpened = inventory.isInventoryOppened;
+
             if (Input.GetKeyDown(KeyCode.I))
             {
                 if (!CharacterAbilities.canOpenInventory) continue;
