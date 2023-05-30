@@ -9,6 +9,6 @@ public class Falled : MonoBehaviour
         if(this.transform.position.y < -200)
         {
             Destroy(this.gameObject);
-        }
+        }   
     }
 }

@@ -9,13 +9,13 @@ public class BuildingSystem : MonoBehaviour
     public RaycastHit hit;
     public bool isBuild = true;
     public Transform character;
-
     private Vector3 currentPos;
     private float gridSize = 1.0f;
     private float offset = 1.0f;
     private HotBar hotbar;
 
     public bool isBuildeable;
+
     private void Start()
     {
         GlobalEvenManager.OnHotbarItemChange += InstantiatePreviewObject;
@@ -76,7 +76,6 @@ public class BuildingSystem : MonoBehaviour
 
     private void InstantiatePreviewObject()
     {
-
         Destroy(currentObject);
         var inventoryItem = hotbar.transform.GetChild(hotbar.activeSlotIndex).GetChild(0).GetComponent<InventoryItem>();
         if (inventoryItem == null || inventoryItem.itemScriptableObject.itemType != ItemType.Construction)
@@ -85,6 +84,5 @@ public class BuildingSystem : MonoBehaviour
         }
         var prefab = ((ConstructionItem)hotbar.transform.GetChild(hotbar.activeSlotIndex).GetChild(0).GetComponent<InventoryItem>()?.itemScriptableObject).previewPrefab;
         currentObject = Instantiate(prefab, currentPos, Quaternion.Euler(prefab.transform.eulerAngles));
-
     }
 }

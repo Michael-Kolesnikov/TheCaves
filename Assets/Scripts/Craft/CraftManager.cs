@@ -17,7 +17,6 @@ public class CraftManager : MonoBehaviour
 
     private void Start()
     {
-        //GlobalEvenManager.OnInventoryStateChange += updateUIInventory;
         LoadBasicCraft();
     }
 
@@ -100,6 +99,7 @@ public class CraftManager : MonoBehaviour
         }
         craftInfoArea.GetChild(0).GetComponent<TMP_Text>().text = text;
     }
+
     private void CreateItem(CraftItem craft)
     {
         var inventory = this.transform.GetComponent<PickUpItems>().inventory;
@@ -138,13 +138,8 @@ public class CraftManager : MonoBehaviour
             }
         }
         this.transform.GetComponent<PickUpItems>().uiInventory.Refresh();
-        //GlobalEvenManager.OnInventoryStateChange?.Invoke();
     }
 
-    private void updateUIInventory()
-    {
-        
-    }
     private void DestroyCraftingAreaChildren()
     {
         for (var i = 0; i < craftingArea.childCount; i++)

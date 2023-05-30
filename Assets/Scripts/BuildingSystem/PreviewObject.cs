@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,10 +12,12 @@ public class PreviewObject : MonoBehaviour
     {
         ChangeColor();
     }
+
     private void OnTriggerEnter(Collider other)
     {
         colliders.Add(other);
     }
+
     private void OnTriggerExit(Collider other)
     {
         colliders.Remove(other);
@@ -24,7 +25,7 @@ public class PreviewObject : MonoBehaviour
 
     private void ChangeColor()
     {
-        if(colliders.Count != 0)
+        if (colliders.Count != 0)
         {
             isBuildeable = false;
             ChangechildrenColor(red);
@@ -36,9 +37,10 @@ public class PreviewObject : MonoBehaviour
             ChangechildrenColor(green);
         }
     }
+
     private void ChangechildrenColor(Material material)
     {
-        if(this.transform.childCount != 0)
+        if (this.transform.childCount != 0)
         {
             foreach (Transform child in this.transform)
             {
@@ -60,6 +62,5 @@ public class PreviewObject : MonoBehaviour
             }
             this.GetComponent<Renderer>().materials = materials;
         }
-        
     }
 }

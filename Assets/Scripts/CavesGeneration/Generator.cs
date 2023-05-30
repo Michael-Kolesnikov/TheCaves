@@ -5,7 +5,6 @@ public class Generator : MonoBehaviour
 {
     private GameObject _chunkStorage;
     private List<Chunk> _terrainChunksVisibleLastUpdate = new();
-    private List<Chunk> visibleChunks;
     private Dictionary<Vector2, Chunk> chunksDictionary;
     private Vector2 _currentVisibleChunkCoord;
     private int _chunksVisibleInViewDistance;
@@ -23,60 +22,8 @@ public class Generator : MonoBehaviour
     public Transform character;
     private void Start()
     {
-        visibleChunks = new();
         chunksDictionary = new();
         _chunkStorage = new GameObject("Chunk Storage");
-        //var playerPosition = character.transform.position;
-        //int currentChunkCoordX = Mathf.RoundToInt(playerPosition.x / Chunk.CHUNK_WIDTH);
-        //int currentChunkCoordZ = Mathf.RoundToInt(playerPosition.z / Chunk.CHUNK_WIDTH);
-
-        //_chunksVisibleInViewDistance = Mathf.RoundToInt(viewDistant / Chunk.CHUNK_WIDTH);
-
-        //for (int i = 0; i < _terrainChunksVisibleLastUpdate.Count; i++)
-        //{
-        //    _terrainChunksVisibleLastUpdate[i].gameObject.SetActive(false);
-        //}
-        //_terrainChunksVisibleLastUpdate.Clear();
-
-        //for (var offsetX = -15; offsetX <= 15; offsetX++)
-        //{
-        //    for (var offsetZ = -15; offsetZ <= 15; offsetZ++)
-        //    {
-        //        _currentVisibleChunkCoord = new(currentChunkCoordX + offsetX, currentChunkCoordZ + offsetZ);
-
-        //        if (chunksDictionary.ContainsKey(_currentVisibleChunkCoord))
-        //        {
-        //            float viewerDstFromNearestEdge = Mathf.Sqrt(chunksDictionary[_currentVisibleChunkCoord].bounds.SqrDistance(new Vector3(playerPosition.x, 0, playerPosition.z)));
-        //            bool visible = viewerDstFromNearestEdge <= viewDistant;
-        //            chunksDictionary[_currentVisibleChunkCoord].gameObject.SetActive(visible);
-        //            if (chunksDictionary[_currentVisibleChunkCoord].gameObject.activeSelf)
-        //                _terrainChunksVisibleLastUpdate.Add(chunksDictionary[_currentVisibleChunkCoord]);
-        //        }
-        //        else
-        //        {
-
-        //            GameObject chunk = new GameObject();
-        //            chunk.AddComponent<Chunk>();
-        //            chunk.GetComponent<Chunk>().bounds = new Bounds(new Vector3((currentChunkCoordX + offsetX) * Chunk.CHUNK_WIDTH, 0, (currentChunkCoordZ + offsetZ) * Chunk.CHUNK_WIDTH), new Vector3(Chunk.CHUNK_WIDTH, 0, Chunk.CHUNK_WIDTH));
-        //            chunk.transform.parent = _chunkStorage.transform;
-        //            chunk.AddComponent<MeshFilter>();
-        //            chunk.AddComponent<MeshCollider>();
-        //            chunk.AddComponent<MeshRenderer>();
-        //            var mat = Resources.Load("TerrainMaterialCave", typeof(Material)) as Material;
-        //            chunk.GetComponent<MeshRenderer>().material = mat;
-        //            chunk.layer = 6; // Ground
-        //            BuildMesh(chunk);
-
-        //            var mesh = chunk.GetComponent<MeshFilter>().mesh;
-        //            mesh.RecalculateBounds();
-        //            mesh.RecalculateTangents();
-        //            mesh.RecalculateNormals();
-        //            var col = chunk.GetComponent<MeshCollider>();
-        //            col.sharedMesh = mesh;
-        //            chunksDictionary.Add(_currentVisibleChunkCoord, chunk.GetComponent<Chunk>());
-        //        }
-        //    }
-        //}
     }
     private void Update()
     {
@@ -173,9 +120,9 @@ public class Generator : MonoBehaviour
         mesh.triangles = _triangles.ToArray();
         mesh.RecalculateNormals();
         mesh.RecalculateBounds();
-
         chunk.GetComponent<MeshFilter>().mesh = mesh;
     }
+
     private void CreateTerrainMap()
     {
         _terrainMap = new float[Chunk.CHUNK_WIDTH + 1, Chunk.CHUNK_HEIGHT + 1, Chunk.CHUNK_WIDTH + 1];

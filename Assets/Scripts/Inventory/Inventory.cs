@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 
 public class Inventory
@@ -12,6 +11,7 @@ public class Inventory
         for (var i = 0; i < capacity; i++)
             slots.Add(new InventorySlot());
     }
+
     public void TransferFromSlotToSlot(InventorySlot slotFrom, InventorySlot slotTo)
     {
         if (slotFrom.isEmpty)
@@ -47,6 +47,7 @@ public class Inventory
         GlobalEvenManager.OnInventoryStateChange?.Invoke();
 
     }
+
     public bool TryToAddItem(InventoryItem item)
     {
         var slotWithSameItemButNotEmpty = slots.Find(slot => !slot.isEmpty && !slot.isFull && slot.item.id == item.id);
@@ -60,11 +61,12 @@ public class Inventory
         if (emptySlot != null)
         {
             return TryAddItemToSlot(emptySlot, item);
-        
+
         }
 
         return false;
     }
+
     private bool TryAddItemToSlot(InventorySlot slot, InventoryItem item)
     {
         bool enoughSpaceForItemAmount = slot.amount + item.amount <= item.maxItemsInInventorySlot;
@@ -87,25 +89,27 @@ public class Inventory
         item.amount = amountLeft;
         return TryToAddItem(item);
     }
+
     public bool TryToRemove(InventoryItem item, int amountToRemove)
     {
         int amountItemInInventory = 0;
-        slots.ForEach(slot => {
-            if(!slot.isEmpty && slot.item.id == item.id)
+        slots.ForEach(slot =>
+        {
+            if (!slot.isEmpty && slot.item.id == item.id)
             {
                 amountItemInInventory += slot.amount;
             }
         });
 
-        if(amountItemInInventory < amountToRemove)
+        if (amountItemInInventory < amountToRemove)
         {
             return false;
         }
 
-        while(amountToRemove > 0)
+        while (amountToRemove > 0)
         {
             var slotWithItem = slots.Find(slot => !slot.isEmpty && slot.item.id == item.id);
-            if(amountToRemove >= slotWithItem.amount)
+            if (amountToRemove >= slotWithItem.amount)
             {
                 amountToRemove -= slotWithItem.amount;
                 slotWithItem.Clear();

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Squat : MonoBehaviour
@@ -13,13 +11,14 @@ public class Squat : MonoBehaviour
         startPosition = camera.localPosition;
         startHeight = character.GetComponent<CharacterController>().height;
     }
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.LeftControl))
         {
             camera.transform.localPosition = new Vector3(startPosition.x, startPosition.y - 2.3f, startPosition.z);
             character.GetComponent<CharacterController>().height = 1.44f;
-            character.GetComponent<CharacterController>().center = new Vector3(0,-0.67f,0);
+            character.GetComponent<CharacterController>().center = new Vector3(0, -0.67f, 0);
         }
         if (Input.GetKeyUp(KeyCode.LeftControl))
         {
